@@ -1,0 +1,16 @@
+#logo {
+  
+  color: rgb(251, 81, 104);
+  font-family: "Righteous", sans-serif;
+  font-weight: 5;
+  font-style: normal;
+}
+
+#scrollbar-none {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* WebKit Browsers */
+}
