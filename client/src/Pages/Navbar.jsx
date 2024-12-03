@@ -1,11 +1,32 @@
 import React, { useState } from "react";
 import { FaSearch, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import air from "../assets/air.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUmbrellaBeach,faWater, faHotel , faSnowflake ,faCampground ,faShip , faPaintBrush ,faPalette ,faStar} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUmbrellaBeach,
+  faWater,
+  faHotel,
+  faSnowflake,
+  faCampground,
+  faShip,
+  faPalette,
+  faStar,
+  faFire,
+  faHouse,
+  faTowerObservation,
+  faCity,
+  faGolfBallTee,
+  faCaravan,
+  faMountain,
+  faBed,
+} from "@fortawesome/free-solid-svg-icons";
+import DialogWithForm from "../components/ui/Logindrop";
+import DialogWithreForm from "../components/ui/Registerdrop";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [redialogOpen, setreDialogOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -15,7 +36,14 @@ const Navbar = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  
+  const toggleDialog = () => {
+    setDialogOpen(!dialogOpen);
+  };
+  const tooggleDialog = () => {
+    setreDialogOpen(!redialogOpen);
+  };
+
+
   return (
     <nav className="relative">
       <div className="bg-white border-b border-gray-200 dark:bg-gray-900">
@@ -30,22 +58,19 @@ const Navbar = () => {
             </span>
           </a>
 
-          
-          <div className="flex  justify-center space-x-7 p-2  pl-7 items-center border rounded-full shadow-sm ">
+          <div className="flex justify-center space-x-7 p-2 pl-7 items-center border rounded-full shadow-sm">
             <div className="text-center">
-              <span className="text-gray-600 font-semibold">Any where</span> 
+              <span className="text-gray-600 font-semibold">Anywhere</span>
             </div>
-         
-
-            <div className=" text-center">
-              <span className="text-gray-600 font-semibold border-l-2 border-r-2 pl-3 pr-3">Any week</span>
-              
+            <div className="text-center">
+              <span className="text-gray-600 font-semibold border-l-2 border-r-2 pl-3 pr-3">
+                Any week
+              </span>
             </div>
             <div className="text-center">
               <span className="text-gray-600 font-semibold">Add guest</span>
-              
             </div>
-            <div className=" text-center border rounded-full bg-rose-500 p-2">
+            <div className="text-center border rounded-full bg-rose-500 p-2">
               <FaSearch size={17} className="text-white" />
             </div>
           </div>
@@ -67,26 +92,28 @@ const Navbar = () => {
                 />
               </div>
               {dropdownOpen && (
-                <div className="absolute right-[140px] mt-[165px] bg-white border rounded-lg shadow-md z-10 w-40">
+                <div className="absolute right-[145px] mt-[175px] bg-white border rounded-lg shadow-md z-10 w-40">
                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li>
-                      <a className="block px-4 font-bold py-2  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      <button
+                        onClick={toggleDialog}
+                        className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                      >
                         Login
-                      </a>
+                      </button>
                     </li>
                     <li>
-                      <a
-                        href="#"
-                        className="block px-4 font-bold  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      <button
+                        onClick={tooggleDialog}
+                        className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
                       >
                         Sign up
-                      </a>
+                      </button>
                     </li>
                     <div className="border-b-2"></div>
                     <li>
                       <a
-                        className="block px-4 font-bold  py-2 
-                        hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         Help Center
                       </a>
@@ -99,42 +126,32 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div
-        className="w-full flex overflow-x-scroll snap-x snap-mandatory bg-white scrollbar shadow-sm"
-        id="scrollbar-none"
-      >
+      <div className="w-full flex overflow-x-scroll snap-x snap-mandatory bg-white scrollbar shadow-sm" id="scrollbar-none">
         {[
-          <FontAwesomeIcon icon={faUmbrellaBeach} />,
-          <FontAwesomeIcon icon={faWater} />,
-          <FontAwesomeIcon icon={ faHotel } />,
-          <FontAwesomeIcon icon={faSnowflake} />,
-          <FontAwesomeIcon icon={faCampground } />,
-          <FontAwesomeIcon icon={faShip } />,
-          <FontAwesomeIcon icon={ faPalette  } />,
-          <FontAwesomeIcon icon={faStar } />,
-          <FaTimes />,
-          <FaBars />,
-          <FaUserCircle />,
-          <FaSearch />,
-          <FaTimes />,
-          <FaBars />,
-          <FaUserCircle />,
-          <FaSearch />,
-          <FaTimes />,
-          <FaBars />,
-          <FaUserCircle />,
-          <FaSearch />,
-          <FaTimes />,
-          <FaBars />,
-          <FaUserCircle />,
-          <FaSearch />,
+          { icon: <FontAwesomeIcon icon={faStar} />, name: "New" },
+          { icon: <FontAwesomeIcon icon={faFire} />, name: "Trending" },
+          { icon: <FontAwesomeIcon icon={faBed} />, name: "Rooms" },
+          { icon: <FontAwesomeIcon icon={faUmbrellaBeach} />, name: "Beach" },
+          { icon: <FontAwesomeIcon icon={faMountain} />, name: "Mountains" },
+          { icon: <FontAwesomeIcon icon={faSnowflake} />, name: "Snowfall" },
+          { icon: <FontAwesomeIcon icon={faWater} />, name: "Pools" },
+          { icon: <FontAwesomeIcon icon={faShip} />, name: "Boating" },
+          { icon: <FontAwesomeIcon icon={faHotel} />, name: "Hotels" },
+          { icon: <FontAwesomeIcon icon={faCaravan} />, name: "Camping" },
+          { icon: <FontAwesomeIcon icon={faCampground} />, name: "Campset" },
+          { icon: <FontAwesomeIcon icon={faHouse} />, name: "Huts" },
+          { icon: <FontAwesomeIcon icon={faTowerObservation} />, name: "Towers" },
+          { icon: <FontAwesomeIcon icon={faCity} />, name: "Cities" },
+          { icon: <FontAwesomeIcon icon={faGolfBallTee} />, name: "Golfplay" },
+          { icon: <FontAwesomeIcon icon={faPalette} />, name: "Creative" },
         ].map((text, index) => (
           <div
             key={index}
             className="snap-center flex-shrink-0 h-20 flex items-center justify-center"
           >
-            <div className={`h-full w-20 flex justify-center items-center`}>
-              <p className="text-gray-800">{text}</p>
+            <div className="h-full w-28 flex flex-col justify-center items-center text-gray-500 hover:text-black cursor-pointer">
+              <p className="mb-1">{text.icon}</p>
+              <p className="font-semibold text-xs">{text.name}</p>
             </div>
           </div>
         ))}
@@ -152,6 +169,10 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
+      
+      <DialogWithForm open={dialogOpen} onClose={toggleDialog} />
+      <DialogWithreForm open={redialogOpen} onClose={tooggleDialog}/>
     </nav>
   );
 };
