@@ -11,7 +11,8 @@ import {
   Input,
 } from "@material-tailwind/react";
 
-export default function DialogWithForm({ open, onToggle }) {
+ function DialogWithForm({ open, onToggle }) {
+  
   return (
     <Dialog
       size="xs"
@@ -19,9 +20,9 @@ export default function DialogWithForm({ open, onToggle }) {
       handler={onToggle}
       className="bg-inherit shadow-none mt-24 "
     >
-      <Card className="mx-auto w-full max-w-[30rem] p-1 border rounded-xl">
+      <Card className="mx-auto w-full max-w-[30rem] p-4 border rounded-xl">
         <CardBody className="flex flex-col gap-3">
-          <Typography variant="h4" color="blue-gray ">
+          <Typography variant="h4" color="gray">
             Sign In
           </Typography>
           <Typography
@@ -44,9 +45,9 @@ export default function DialogWithForm({ open, onToggle }) {
           <Button variant="outlined" onClick={onToggle} className="w-full h-10 mb-2">
             Sign In
           </Button>
-          <Typography  variant="h6">
+          {/*<Typography  variant="h6">
             -------------------------------or--------------------------------
-          </Typography>
+          </Typography>*/}
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               const decoded = jwtDecode(credentialResponse?.credential)
@@ -62,3 +63,4 @@ export default function DialogWithForm({ open, onToggle }) {
     </Dialog>
   );
 }
+export default DialogWithForm

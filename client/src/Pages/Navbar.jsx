@@ -37,10 +37,13 @@ const Navbar = () => {
   };
 
   const toggleDialog = () => {
-    setDialogOpen(!dialogOpen);
+    setDialogOpen(!dialogOpen)
+    setDropdownOpen(false);
   };
+
   const tooggleDialog = () => {
-    setreDialogOpen(!redialogOpen);
+    setreDialogOpen(!redialogOpen)
+    setDropdownOpen(false);
   };
 
 
@@ -171,8 +174,8 @@ const Navbar = () => {
       )}
 
       
-      <DialogWithForm open={dialogOpen} onClose={toggleDialog} />
-      <DialogWithreForm open={redialogOpen} onClose={tooggleDialog}/>
+      <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
+      <DialogWithreForm open={redialogOpen} onToggle={tooggleDialog}/>
     </nav>
   );
 };

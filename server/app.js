@@ -1,8 +1,13 @@
 require("dotenv").config();
 const Express = require("express");
 const mongoose = require("mongoose");
-
+const userRoute=require("./Routes/userRoute")
 const app = Express();
+
+
+app.use(Express.json())
+app.use("/user",userRoute)
+
 
 mongoose
   .connect(process.env.MONGO_URI)
