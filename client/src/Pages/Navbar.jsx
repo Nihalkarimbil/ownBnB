@@ -51,7 +51,7 @@ const Navbar = () => {
     <nav className="relative">
       <div className="bg-white border-b border-gray-200 dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-          <a className="flex items-center space-x-3 rtl:space-x-reverse">
+          <div className="flex items-center space-x-3 rtl:space-x-reverse hover:cursor-pointer">
             <img src={air} className="h-9" alt="Logo" />
             <span
               className="self-center text-3xl font-semibold whitespace-nowrap"
@@ -59,11 +59,11 @@ const Navbar = () => {
             >
               ownbnb
             </span>
-          </a>
+          </div>
 
-          <div className="flex justify-center space-x-7 p-2 pl-7 items-center border rounded-full shadow-sm">
+          <div className="flex justify-center space-x-7 p-2 pl-7 items-center border rounded-full shadow-sm hover:cursor-pointer">
             <div className="text-center">
-              <span className="text-gray-600 font-semibold">Anywhere</span>
+              <span className="text-gray-600 font-semibold ">Anywhere</span>
             </div>
             <div className="text-center">
               <span className="text-gray-600 font-semibold border-l-2 border-r-2 pl-3 pr-3">
@@ -95,7 +95,7 @@ const Navbar = () => {
                 />
               </div>
               {dropdownOpen && (
-                <div className="absolute right-[145px] mt-[175px] bg-white border rounded-lg shadow-md z-10 w-40">
+                <div className="absolute lg:right-[145px]  sm:right-[14px] mt-[175px] lg:right[12px] bg-white border rounded-lg shadow-md z-10 w-40">
                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li>
                       <button
@@ -161,12 +161,12 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute top-0 right-0 w-3/4 bg-white border-t-2 border-gray-300 md:hidden">
-          <div className="flex flex-col items-center py-4 space-y-4">
-            <button className="w-full py-2 text-center text-lg font-semibold text-gray-700">
+        <div className="absolute top-1 right-1 w-36 bg-white shadow-lg border rounded-lg border-gray-300 md:hidden">
+          <div className="flex flex-col items-center py-4 ">
+            <button className="w-full  text-center text-md font-semibold border-b-2 text-gray-700" onClick={toggleDialog}>
               Login
             </button>
-            <button className="w-full py-2 text-center text-lg font-semibold text-gray-700">
+            <button className="w-full  text-center text-md font-semibold text-gray-700" onClick={tooggleDialog}>
               Sign Up
             </button>
           </div>

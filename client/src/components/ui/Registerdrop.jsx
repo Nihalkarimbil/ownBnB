@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useFormik } from "formik"; 
-import { schema } from "../../Schema/validation"; 
+import { schema } from "../../Schema/regvalidation"; 
 
 import {
   Button,Dialog,Card,CardBody,CardFooter,Typography,Input,
@@ -30,6 +30,7 @@ function DialogWithReForm({ open, onToggle }) {
     onSubmit: (values) => {
       console.log( values);
       resetForm();
+      onToggle(); 
     },
   });
 
@@ -117,6 +118,7 @@ function DialogWithReForm({ open, onToggle }) {
             onSuccess={(credentialResponse) => {
               const decoded = jwtDecode(credentialResponse?.credential);
               console.log("Google user decoded:", decoded);
+              onToggle()
             }}
             onError={() => {
               console.log("Google Login Failed");

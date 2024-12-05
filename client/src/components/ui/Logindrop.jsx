@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode"
+import { jwtDecode } from "jwt-decode";
+import { useFormik } from "formik";
 import {
   Button,
   Dialog,
@@ -10,9 +11,26 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
+import { schema } from "../../Schema/logvalidation";
 
- function DialogWithForm({ open, onToggle }) {
-  
+const initialValues = {
+  email: "",
+  password: "",
+};
+
+function DialogWithForm({ open, onToggle }) {
+  const { touched, handleSubmit, handleChange, errors, values, handleBlur ,resetForm } =
+    useFormik({
+      initialValues,
+      validationSchema: schema,
+
+      onSubmit: (values) => {
+        console.log(values);
+        resetForm();
+        onToggle();
+      },
+    });
+
   return (
     <Dialog
       size="xs"
@@ -21,46 +39,71 @@ import {
       className="bg-inherit shadow-none mt-24 "
     >
       <Card className="mx-auto w-full max-w-[30rem] p-4 border rounded-xl">
-        <CardBody className="flex flex-col gap-3">
-          <Typography variant="h4" color="gray">
-            Sign In
-          </Typography>
-          <Typography
-            className="font-normal"
-            variant="paragraph"
-            color="gray"
-          >
-            Enter your email and password to Sign In.
-          </Typography>
-          <Typography className="-mb-2 pt-2" variant="h6">
-            Your Email
-          </Typography>
-          <Input placeholder="email" size="lg" className="p-3 rounded-lg" />
-          <Typography className="-mb-2" variant="h6">
-            Your Password
-          </Typography>
-          <Input placeholder="password" size="lg"className="p-3 rounded-lg" />
-        </CardBody>
+        <form onSubmit={handleSubmit}>
+          <CardBody className="flex flex-col gap-3">
+            <Typography variant="h4" color="gray">
+              Sign In
+            </Typography>
+            <Typography
+              className="font-normal"
+              variant="paragraph"
+              color="gray"
+            >
+              Enter your email and password to Sign In.
+            </Typography>
+            <Typography className="-mb-2 pt-2" variant="h6">
+              Your Email
+            </Typography>
+            <Input
+              placeholder="email"
+              name="email"
+              size="lg"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+              className="p-3 rounded-lg"
+            />
+            {touched.email&&errors.email&&(<p className="text-red-500 text-sm">{errors.email}</p>)}
+            <Typography className="-mb-2" variant="h6">
+              Your Password
+            </Typography>
+            <Input
+              placeholder="password"
+              name="password"
+              size="lg"
+              className="p-3 rounded-lg"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+            {touched.password&&errors.password&&(<p className="text-red-500 text-sm">{errors.password}</p>)}
+            <Button
+              variant="outlined"
+              type="submit"
+              onClick={()=>console.log("button clicked")}
+              className="w-full h-10 mb-2"
+            >
+              Sign In
+            </Button>
+          </CardBody>
+        </form>
         <CardFooter className="pt-1">
-          <Button variant="outlined" onClick={onToggle} className="w-full h-10 mb-2">
-            Sign In
-          </Button>
           {/*<Typography  variant="h6">
             -------------------------------or--------------------------------
           </Typography>*/}
           <GoogleLogin
             onSuccess={(credentialResponse) => {
-              const decoded = jwtDecode(credentialResponse?.credential)
+              const decoded = jwtDecode(credentialResponse?.credential);
               console.log(decoded);
+              onToggle();
             }}
             onError={() => {
               console.log("Login Failed");
             }}
           />
-         
         </CardFooter>
       </Card>
     </Dialog>
   );
 }
-export default DialogWithForm
+export default DialogWithForm;
