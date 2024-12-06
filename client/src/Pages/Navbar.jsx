@@ -73,9 +73,9 @@ const Navbar = () => {
             <div className="text-center">
               <span className="text-gray-600 font-semibold">Add guest</span>
             </div>
-            <div className="text-center border rounded-full bg-rose-500 p-2">
+            <button className="text-center border rounded-full bg-rose-500 p-2">
               <FaSearch size={17} className="text-white" />
-            </div>
+            </button>
           </div>
 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">

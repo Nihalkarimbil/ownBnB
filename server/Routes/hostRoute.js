@@ -10,7 +10,7 @@ Router
     .post("/addlisting",upload.array("images",5),tryCatch(listingcontroller.addlisting))
     .put("/editlisting/:id",upload.array("images",5),tryCatch(listingcontroller.editlisting))
     .delete("/deletelist/:id",tryCatch(listingcontroller.deleteListing))
-
+    .get("/viewby/:id",tryCatch(listingcontroller.viewlistbyid))
 
 
 module.exports=Router

@@ -5,7 +5,9 @@ const userschema= new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['guest', 'host'], default: 'guest' },
-    profileimage: { type: String, default: '' }
+    profileimage: { type: String, default: '' },
+    admin:{type:Boolean, default: false},
+    blocked:{type:Boolean,default:false}
 
 })
 

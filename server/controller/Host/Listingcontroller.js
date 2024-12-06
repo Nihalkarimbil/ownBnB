@@ -84,9 +84,19 @@ const deleteListing=async(req,res,next)=>{
     res.status(200).json("listing deleted succesfully")
 }
 
+const viewlistbyid = async(req,res,next)=>{
+    const listing = await Listing.findById(req.params.id)
+    if(!listing){
+        return next (new Costomerror('Product with this ID is not found', 404))
+    } 
+
+    res.status(200).json(listing)
+}
+
 module.exports = {
     addlisting,
     editlisting,
     allListing,
-    deleteListing
+    deleteListing,
+    viewlistbyid
 };

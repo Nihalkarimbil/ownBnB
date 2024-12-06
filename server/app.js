@@ -3,12 +3,15 @@ const Express = require("express");
 const mongoose = require("mongoose");
 const userRoute=require("./Routes/userRoute")
 const hostRoute=require("./Routes/hostRoute")
+const errorhandler= require("./Middleware/Errorhandler")
 const app = Express();
 
 
 app.use(Express.json())
 app.use("/user",userRoute)
 app.use("/host",hostRoute)
+
+app.use(errorhandler)
 
 
 mongoose
