@@ -5,9 +5,20 @@ const userRoute=require("./Routes/userRoute")
 const hostRoute=require("./Routes/hostRoute")
 const errorhandler= require("./Middleware/Errorhandler")
 const app = Express();
-
+const cors=require("cors")
 
 app.use(Express.json())
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", 
+    credentials: true, 
+    allowedHeaders: ["Content-Type", "Authorization"], 
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
+
+
 app.use("/user",userRoute)
 app.use("/host",hostRoute)
 

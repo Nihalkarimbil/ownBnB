@@ -13,6 +13,7 @@ Router
     .post("/addwish",tryCatch(wishlistcontroll.addtowishlist))
     .delete("/removewish",tryCatch(wishlistcontroll.removewish))
     .get("/userwish",tryCatch(wishlistcontroll.wishitems))
+    .get("/allList",tryCatch(Listingcontroller.viewall))
 
 
 module.exports=Router

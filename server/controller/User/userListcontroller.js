@@ -23,5 +23,14 @@ const viewlistbyid = async(req,res,next)=>{
 
 }
 
+const viewall= async(req,res,next)=>{
 
-module.exports={viewbycategory,viewlistbyid}
+    const alll= await listing.find().populate("host", "username email") 
+    if(!alll){
+        return next(new customerror("no listings found",404))
+    }
+    res.status(200).json(alll)
+}
+
+
+module.exports={viewbycategory,viewlistbyid,viewall}

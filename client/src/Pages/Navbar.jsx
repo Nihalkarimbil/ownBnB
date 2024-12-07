@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import air from "../assets/air.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -37,15 +38,14 @@ const Navbar = () => {
   };
 
   const toggleDialog = () => {
-    setDialogOpen(!dialogOpen)
+    setDialogOpen(!dialogOpen);
     setDropdownOpen(false);
   };
 
   const tooggleDialog = () => {
-    setreDialogOpen(!redialogOpen)
+    setreDialogOpen(!redialogOpen);
     setDropdownOpen(false);
   };
-
 
   return (
     <nav className="relative">
@@ -115,9 +115,7 @@ const Navbar = () => {
                     </li>
                     <div className="border-b-2"></div>
                     <li>
-                      <a
-                        className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
+                      <a className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         Help Center
                       </a>
                     </li>
@@ -129,31 +127,96 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="w-full flex overflow-x-scroll snap-x snap-mandatory bg-white scrollbar shadow-sm" id="scrollbar-none">
+      <div
+        className="w-full flex overflow-x-scroll snap-x snap-mandatory bg-white scrollbar shadow-sm"
+        id="scrollbar-none"
+      >
         {[
-          { icon: <FontAwesomeIcon icon={faStar} />, name: "New" },
-          { icon: <FontAwesomeIcon icon={faFire} />, name: "Trending" },
-          { icon: <FontAwesomeIcon icon={faBed} />, name: "Rooms" },
-          { icon: <FontAwesomeIcon icon={faUmbrellaBeach} />, name: "Beach" },
-          { icon: <FontAwesomeIcon icon={faMountain} />, name: "Mountains" },
-          { icon: <FontAwesomeIcon icon={faSnowflake} />, name: "Snowfall" },
-          { icon: <FontAwesomeIcon icon={faWater} />, name: "Pools" },
-          { icon: <FontAwesomeIcon icon={faShip} />, name: "Boating" },
-          { icon: <FontAwesomeIcon icon={faHotel} />, name: "Hotels" },
-          { icon: <FontAwesomeIcon icon={faCaravan} />, name: "Camping" },
-          { icon: <FontAwesomeIcon icon={faCampground} />, name: "Campset" },
-          { icon: <FontAwesomeIcon icon={faHouse} />, name: "Huts" },
-          { icon: <FontAwesomeIcon icon={faTowerObservation} />, name: "Towers" },
-          { icon: <FontAwesomeIcon icon={faCity} />, name: "Cities" },
-          { icon: <FontAwesomeIcon icon={faGolfBallTee} />, name: "Golfplay" },
-          { icon: <FontAwesomeIcon icon={faPalette} />, name: "Creative" },
+          { icon: <FontAwesomeIcon icon={faStar} />, name: "New", path: "/" },
+          {
+            icon: <FontAwesomeIcon icon={faFire} />,
+            name: "Trending",
+            path: "/Trending",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faBed} />,
+            name: "Rooms",
+            path: "/Rooms",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faUmbrellaBeach} />,
+            name: "Beach",
+            path: "/Beach",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faMountain} />,
+            name: "Mountains",
+            path: "/Mountains",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faSnowflake} />,
+            name: "Snowfall",
+            path: "/Snowfall",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faWater} />,
+            name: "Pools",
+            path: "/Pools",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faShip} />,
+            name: "Boating",
+            path: "/Boating",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faHotel} />,
+            name: "Hotels",
+            path: "/Hotels",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faCaravan} />,
+            name: "Camping",
+            path: "/Camping",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faCampground} />,
+            name: "Campset",
+            path: "/Campset",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faHouse} />,
+            name: "Huts",
+            path: "/Huts",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faTowerObservation} />,
+            name: "Towers",
+            path: "/Towers",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faCity} />,
+            name: "Cities",
+            path: "/Cities",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faGolfBallTee} />,
+            name: "Golfplay",
+            path: "/Golfplay",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faPalette} />,
+            name: "Creative",
+            path: "/Creative",
+          },
         ].map((text, index) => (
           <div
             key={index}
             className="snap-center flex-shrink-0 h-20 flex items-center justify-center"
           >
             <div className="h-full w-28 flex flex-col justify-center items-center text-gray-500 hover:text-black cursor-pointer">
-              <p className="mb-1">{text.icon}</p>
+              <Link to={text.path} className="mb-1">
+                {text.icon}
+              </Link>
               <p className="font-semibold text-xs">{text.name}</p>
             </div>
           </div>
@@ -163,19 +226,24 @@ const Navbar = () => {
       {isOpen && (
         <div className="absolute top-1 right-1 w-36 bg-white shadow-lg border rounded-lg border-gray-300 md:hidden">
           <div className="flex flex-col items-center py-4 ">
-            <button className="w-full  text-center text-md font-semibold border-b-2 text-gray-700" onClick={toggleDialog}>
+            <button
+              className="w-full  text-center text-md font-semibold border-b-2 text-gray-700"
+              onClick={toggleDialog}
+            >
               Login
             </button>
-            <button className="w-full  text-center text-md font-semibold text-gray-700" onClick={tooggleDialog}>
+            <button
+              className="w-full  text-center text-md font-semibold text-gray-700"
+              onClick={tooggleDialog}
+            >
               Sign Up
             </button>
           </div>
         </div>
       )}
 
-      
       <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
-      <DialogWithreForm open={redialogOpen} onToggle={tooggleDialog}/>
+      <DialogWithreForm open={redialogOpen} onToggle={tooggleDialog} />
     </nav>
   );
 };
