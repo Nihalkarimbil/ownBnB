@@ -1,11 +1,13 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { useFormik } from "formik"; 
-import { schema } from "../../Schema/regvalidation"; 
+import { useFormik } from "formik";
+import { schema } from "../../Schema/regvalidation";
+import { useDispatch } from "react-redux";
+import { registeruser } from "../../Store/slices/Userslice";
 
 import {
-  Button,Dialog,Card,CardBody,CardFooter,Typography,Input,
+  Button, Dialog, Card, CardBody, CardFooter, Typography, Input,
 } from "@material-tailwind/react";
 
 
@@ -16,6 +18,7 @@ const initialValues = {
 };
 
 function DialogWithReForm({ open, onToggle }) {
+  const Dispatch = useDispatch()
   const {
     touched,
     handleSubmit,
@@ -24,17 +27,34 @@ function DialogWithReForm({ open, onToggle }) {
     values,
     handleBlur,
     resetForm } = useFormik({
-    initialValues,
-    validationSchema: schema,
+      initialValues,
+      validationSchema: schema,
 
-    onSubmit: (values) => {
-      console.log( values);
-      resetForm();
-      onToggle(); 
-    },
-  });
+      onSubmit: (values) => {
+        Dispatch(registeruser(values));
+        resetForm();
+        onToggle();
+      },
+    });
 
-  
+  const handlegoogleauth =  (credentialResponse) => {
+    try {
+      const decoded = jwtDecode(credentialResponse?.credential);
+      const googleUser = {
+        username: decoded.name,
+        email: decoded.email,
+        password: decoded.name,
+        profileimage:decoded.picture
+      }
+      Dispatch(registeruser(googleUser))
+      onToggle()
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+
   return (
     <Dialog
       size="xs"
@@ -104,7 +124,8 @@ function DialogWithReForm({ open, onToggle }) {
               variant="outlined"
               className="w-full h-10 mb-2"
               type="submit"
-              onClick={()=>{console.log("button clicked");
+              onClick={() => {
+                console.log("button clicked");
               }}
             >
               Sign up
@@ -115,11 +136,7 @@ function DialogWithReForm({ open, onToggle }) {
 
           <GoogleLogin
             text="Sign up with Google"
-            onSuccess={(credentialResponse) => {
-              const decoded = jwtDecode(credentialResponse?.credential);
-              console.log("Google user decoded:", decoded);
-              onToggle()
-            }}
+            onSuccess={handlegoogleauth}
             onError={() => {
               console.log("Google Login Failed");
             }}

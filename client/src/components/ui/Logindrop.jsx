@@ -2,6 +2,8 @@ import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { userlogin } from "../../Store/slices/Userslice";
 import {
   Button,
   Dialog,
@@ -19,17 +21,34 @@ const initialValues = {
 };
 
 function DialogWithForm({ open, onToggle }) {
+
+  const dispatch=useDispatch()
   const { touched, handleSubmit, handleChange, errors, values, handleBlur ,resetForm } =
     useFormik({
       initialValues,
       validationSchema: schema,
 
       onSubmit: (values) => {
-        console.log(values);
+        dispatch(userlogin(values))
         resetForm();
         onToggle();
       },
     });
+
+    const handlegoogle=(credentialResponse)=>{
+      try {
+        const decoded = jwtDecode(credentialResponse?.credential);
+        const googleUser = {
+          email: decoded.email,
+          password: decoded.name,
+        }
+        dispatch(userlogin(googleUser))
+        onToggle()
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
 
   return (
     <Dialog
@@ -92,11 +111,7 @@ function DialogWithForm({ open, onToggle }) {
             -------------------------------or--------------------------------
           </Typography>*/}
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              const decoded = jwtDecode(credentialResponse?.credential);
-              console.log(decoded);
-              onToggle();
-            }}
+            onSuccess={handlegoogle}
             onError={() => {
               console.log("Login Failed");
             }}

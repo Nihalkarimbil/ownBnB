@@ -4,6 +4,7 @@ import { getlistings } from "../../Store/slices/Dataslice";
 import { FaHeart } from "react-icons/fa";
 import AOS from "aos";
 import { Carousel } from "@material-tailwind/react";
+import Spinner from "../../Spinner";
 
 function New() {
     const dispatch = useDispatch();
@@ -20,12 +21,12 @@ function New() {
         setfilter(data.filter((value) => value.new));
     }, [data]);
 
-    useEffect(() => {
-        AOS.init();
-    }, []);
+
+    AOS.init();
+
 
     if (status === "Loading") {
-        return <p>Loading....</p>;
+        return <Spinner />;
     }
 
     return (

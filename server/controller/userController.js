@@ -10,13 +10,17 @@ const userRegistration =async(req,res,next)=>{
     if(error){
         return next(new costomeror(error))
     }
-    const {username,email,password,role,profileimage}=value
+    const {username,email,password}=value
+    
     const hashpassword= await bcrypt.hash(password,5)
-    const newUser= new User({username,email,password:hashpassword,role,profileimage})
+    const newUser= new User({username,email,password:hashpassword})
     await newUser.save()
-    res.status(200).json({ status: 'succes', message: 'Registerd succesfully', data: newUser })
-}
 
+    const token =JWT.sign({email:email,name:username},process.env.JWT_SECRET,{expiresIn:"1d"})
+   
+    res.status(200).json({ status: 'succes', message: 'Registerd succesfully', data: newUser ,token})
+}
+  
 const userLogin= async(req,res,next)=>{
     const {value,error}=joiuserschema.validate(req.body)
     if(error){
@@ -41,6 +45,7 @@ const userLogin= async(req,res,next)=>{
             email: user.email,
             username: user.username,
             role: user.role,
+            image:user.profileimage
         }
     })
 }
