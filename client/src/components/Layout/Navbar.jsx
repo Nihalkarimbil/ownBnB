@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import air from "../assets/air.png";
+import air from "../../assets/air.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUmbrellaBeach,
@@ -19,11 +19,18 @@ import {
   faGolfBallTee,
   faCaravan,
   faMountain,
-  faBed,
-} from "@fortawesome/free-solid-svg-icons";
-import DialogWithForm from "../components/ui/Logindrop";
-import DialogWithreForm from "../components/ui/Registerdrop";
+  faBed,} from "@fortawesome/free-solid-svg-icons";
+import DialogWithForm from "../ui/Logindrop";
+import DialogWithreForm from "../ui/Registerdrop";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../../Store/slices/Userslice";
+
+
 const Navbar = () => {
+  const { user } = useSelector((state) => state.User)
+  const dispatch = useDispatch()
+  console.log("user", user);
+
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -46,6 +53,9 @@ const Navbar = () => {
     setreDialogOpen(!redialogOpen);
     setDropdownOpen(false);
   };
+  const handlelogout = () => {
+    dispatch(logOut())
+  }
 
   return (
     <nav className="relative">
@@ -54,14 +64,14 @@ const Navbar = () => {
           <div className="flex items-center space-x-3 rtl:space-x-reverse hover:cursor-pointer">
             <img src={air} className="h-9" alt="Logo" />
             <span
-              className="self-center text-3xl font-semibold whitespace-nowrap"
+              className="self-center md:text-3xl font-semibold whitespace-nowrap"
               id="logo"
             >
               ownbnb
             </span>
           </div>
 
-          <div className="flex justify-center space-x-7 p-2 pl-7 items-center border rounded-full shadow-sm hover:cursor-pointer">
+          <div className="flex justify-center md:space-x-7 p-2 pl-7 items-center border rounded-full shadow-sm hover:cursor-pointer">
             <div className="text-center">
               <span className="text-gray-600 font-semibold ">Anywhere</span>
             </div>
@@ -95,33 +105,109 @@ const Navbar = () => {
                 />
               </div>
               {dropdownOpen && (
-                <div className="absolute lg:right-[145px]  sm:right-[14px] mt-[175px] lg:right[12px] bg-white border rounded-lg shadow-md z-10 w-40">
-                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                user ? (
+                  <>
+                    <div className="absolute lg:right-[135px] sm:right-[14px] mt-[320px] lg:right[12px] bg-white border rounded-lg shadow-md z-10 w-40">
+                      <ul className=" py-2 text-sm text-gray-700 dark:text-gray-200">
+                        <li>
+                          <a
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                           
+                          >
+                            Notifications
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Bookings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        
+                          >
+                            Wishlist
+                          </a>
+                        </li>
+                        <div className="border-b-2"></div>
+                        <li>
+                          <a
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                           
+                          >
+                            Your Home
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className="block px-4  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Account
+                          </a>
+                        </li>
+                        <div className="border-b-2"></div>
+                        <li>
+                          <button
+                            onClick={handlelogout}
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                          >
+                            Logout
+                          </button>
+                        </li>
+                       
+                        <li>
+                          <a
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            href="/help"
+                          >
+                            Help Center
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+
+
+                ) : (
+                  <>
+                    <div className="absolute lg:right-[135px] sm:right-[14px] mt-[175px] lg:right[12px] bg-white border rounded-lg shadow-md z-10 w-40">
+                    <ul className=" py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li>
-                      <button
-                        onClick={toggleDialog}
-                        className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Login
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={tooggleDialog}
-                        className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Sign up
-                      </button>
-                    </li>
-                    <div className="border-b-2"></div>
-                    <li>
-                      <a className="block px-4 font-bold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        Help Center
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                          <button
+                            onClick={toggleDialog}
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                          >
+                            Login
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={tooggleDialog}
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                          >
+                            Sign up
+                          </button>
+                        </li>
+                        <div className="border-b-2"></div>
+                        <li>
+                          <a
+                            className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            href="/help"
+                          >
+                            Help Center
+                          </a>
+                        </li>
+                    </ul>
+                    </div>
+                    
+                  </>
+                )
               )}
+              
+
             </div>
           </div>
         </div>
@@ -137,11 +223,6 @@ const Navbar = () => {
             icon: <FontAwesomeIcon icon={faFire} />,
             name: "Trending",
             path: "/Trending",
-          },
-          {
-            icon: <FontAwesomeIcon icon={faBed} />,
-            name: "Rooms",
-            path: "/Rooms",
           },
           {
             icon: <FontAwesomeIcon icon={faUmbrellaBeach} />,
@@ -163,6 +244,7 @@ const Navbar = () => {
             name: "Pools",
             path: "/Pools",
           },
+
           {
             icon: <FontAwesomeIcon icon={faShip} />,
             name: "Boating",
@@ -172,6 +254,11 @@ const Navbar = () => {
             icon: <FontAwesomeIcon icon={faHotel} />,
             name: "Hotels",
             path: "/Hotels",
+          },
+          {
+            icon: <FontAwesomeIcon icon={faBed} />,
+            name: "Rooms",
+            path: "/Rooms",
           },
           {
             icon: <FontAwesomeIcon icon={faCaravan} />,

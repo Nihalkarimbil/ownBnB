@@ -33,8 +33,12 @@ const Userslice = createSlice({
     },
     
     reducers: {
-
-
+        logOut:(state)=>{
+            state.user=null,
+            state.token=null,
+            localStorage.removeItem("activeUser")
+            localStorage.removeItem("userToken")
+        }
     },
     extraReducers: (Builder) => {
         Builder
@@ -73,5 +77,5 @@ const Userslice = createSlice({
 })
 
 
-
+export const {logOut}= Userslice.actions
 export default Userslice.reducer

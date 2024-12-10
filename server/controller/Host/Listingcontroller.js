@@ -1,6 +1,6 @@
 const Listing = require("../../Models/Listing");
 const User = require("../../Models/User");
-const Costomerror = require("../../utils/Costomerror");
+const Costomerror = require("../../Middleware/Costomerror");
 const { joilistingschema } = require("../../Models/validation");
 
 const allListing = async (req, res, next) => {

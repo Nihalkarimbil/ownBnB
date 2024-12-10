@@ -1,6 +1,6 @@
 const User =require("../Models/User")
 const {joiuserschema}=require("../Models/validation")
-const costomeror= require("../utils/Costomerror")
+const costomeror= require("../Middleware/Costomerror")
 const bcrypt=require("bcrypt")
 const JWT= require("jsonwebtoken")
 

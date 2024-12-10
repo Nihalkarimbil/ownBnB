@@ -1,5 +1,5 @@
 const Wishlist = require("../../Models/Wishlist");
-const customerror = require("../../utils/Costomerror");
+const customerror = require("../../Middleware/Costomerror");
 
 const addtowishlist = async (req, res, next) => {
     const { userId, listings } = req.body;

@@ -1,9 +1,9 @@
 const listing=require("../../Models/Listing")
-const customerror= require("../../utils/Costomerror")
+const customerror= require("../../Middleware/Costomerror")
 
 const viewbycategory=async(req,res,next)=>{
 
-    const listcategory= await listing.find({category:req.params.category})
+    const listcategory= await listing.find({category:req.params.category}).populate("host", "username email") 
     if(!listcategory){
         return next(new customerror("no listings for this category",404))
     }
