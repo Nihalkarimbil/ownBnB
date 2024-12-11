@@ -55,11 +55,12 @@ const Navbar = () => {
   };
   const handlelogout = () => {
     dispatch(logOut())
+    setDropdownOpen(!dropdownOpen)
   }
 
   return (
-    <nav className="relative">
-      <div className="bg-white border-b border-gray-200 dark:bg-gray-900">
+    <nav className="relative w-screen">
+      <div className="bg-white border-b border-gray-200 dark:bg-gray-900 w-screen">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
           <div className="flex items-center space-x-3 rtl:space-x-reverse hover:cursor-pointer">
             <img src={air} className="h-9" alt="Logo" />
@@ -89,6 +90,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
+            <Link to={"/host-home"} className="font-semibold text-sm">swich to hosting</Link>
             <button
               className="text-gray-700 dark:text-white md:hidden"
               onClick={toggleMenu}
@@ -108,45 +110,44 @@ const Navbar = () => {
                 user ? (
                   <>
                     <div className="absolute lg:right-[135px] sm:right-[14px] mt-[320px] lg:right[12px] bg-white border rounded-lg shadow-md z-10 w-40">
-                      <ul className=" py-2 text-sm text-gray-700 dark:text-gray-200">
+                      <ul className=" py-2 text-sm text-gray-700 dark:text-gray-200 cursor-pointer">
                         <li>
-                          <a
+                          <Link  onClick={toggleDropdown}
                             className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                            
                           >
                             Notifications
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link  onClick={toggleDropdown}
                             className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Bookings
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link  onClick={toggleDropdown}
                             className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         
                           >
                             Wishlist
-                          </a>
+                          </Link>
                         </li>
                         <div className="border-b-2"></div>
                         <li>
-                          <a
+                          <Link  onClick={toggleDropdown}
                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                           
                           >
                             Your Home
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             className="block px-4  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Account
-                          </a>
+                          </Link>
                         </li>
                         <div className="border-b-2"></div>
                         <li>
@@ -214,7 +215,7 @@ const Navbar = () => {
       </div>
 
       <div
-        className="w-full flex overflow-x-scroll snap-x snap-mandatory bg-white scrollbar shadow-sm"
+        className="w-screen flex overflow-x-scroll snap-x snap-mandatory bg-white scrollbar shadow-sm"
         id="scrollbar-none"
       >
         {[

@@ -16,7 +16,7 @@ const userRegistration =async(req,res,next)=>{
     const newUser= new User({username,email,password:hashpassword})
     await newUser.save()
 
-    const token =JWT.sign({email:email,name:username},process.env.JWT_SECRET,{expiresIn:"1d"})
+    const token =JWT.sign({email:email,name:username,},process.env.JWT_SECRET,{expiresIn:"1d"})
    
     res.status(200).json({ status: 'succes', message: 'Registerd succesfully', data: newUser ,token})
 }

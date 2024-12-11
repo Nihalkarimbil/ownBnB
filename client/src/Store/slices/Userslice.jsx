@@ -19,9 +19,9 @@ export const userlogin = createAsyncThunk("/user/login",async(userData)=>{
         throw new error
     }
 })
-
 const activeUser = JSON.parse(localStorage.getItem('activeUser')) || null
 console.log(activeUser);
+
 
 
 const Userslice = createSlice({

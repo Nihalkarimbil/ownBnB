@@ -31,7 +31,7 @@ function New() {
 
     return (
         <div>
-            <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py- lg:max-w-max lg:px-20">
+            <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py- lg:max-w-max lg:px-20 w-screen">
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {filter.map((product) => (
                         <div
@@ -61,7 +61,7 @@ function New() {
                                 <div className="flex flex-col">
                                     <h3 className="text-sm text-gray-700">{product.title}</h3>
                                     <h3 className="text-sm text-gray-400">
-                                        {product.host.username}
+                                        {product.host?.username}
                                     </h3>
                                     <p className="mt-1 text-lg font-medium text-gray-900">
                                         ${product.price}

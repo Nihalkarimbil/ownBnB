@@ -2,14 +2,18 @@ const Listing = require("../../Models/Listing");
 const User = require("../../Models/User");
 const Costomerror = require("../../Middleware/Costomerror");
 const { joilistingschema } = require("../../Models/validation");
+const mongoose =require("mongoose")
+
 
 const allListing = async (req, res, next) => {
+    console.log(req.user.id);
+    const allListings = await Listing.find({ host:req.user.id });
 
-    const allListings = await Listing.find();
     if (!allListings) {
         return next(new Costomerror("no listings find", 404));
     }
-
+    console.log(allListings);
+    
     res.status(200).json(allListings);
 };
 
