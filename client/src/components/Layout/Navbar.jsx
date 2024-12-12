@@ -90,7 +90,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
-            <Link to={"/host-home"} className="font-semibold text-sm">swich to hosting</Link>
+            {user?(<Link to={"/host-home"} className="font-semibold text-sm ">swich to hosting</Link>):(null)}
             <button
               className="text-gray-700 dark:text-white md:hidden"
               onClick={toggleMenu}

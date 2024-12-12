@@ -12,7 +12,7 @@ const viewbycategory=async(req,res,next)=>{
 
 const viewlistbyid = async(req,res,next)=>{
 
-    const listings = await listing.findById(req.params.id).populate("host", "username email") 
+    const listings = await listing.findById(req.params.id).populate("host", "username email profileimage") 
       
 
     if(!listings){

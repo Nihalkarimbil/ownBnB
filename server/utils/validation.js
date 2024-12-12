@@ -1,5 +1,6 @@
 const joi = require("joi");
 
+
 const joiuserschema = joi.object({
   username: joi.string(),
   password: joi.string(),
@@ -17,7 +18,7 @@ const joilistingschema = joi.object({
   price: joi.string().required(),
   images: joi.array().items(joi.string().required()),
   rating: joi.string(),
-  reviews: joi.string(),
+  Trending:joi.boolean(),
   category:joi.string().required()
 });
 

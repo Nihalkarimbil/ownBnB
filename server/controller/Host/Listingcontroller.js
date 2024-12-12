@@ -1,13 +1,13 @@
 const Listing = require("../../Models/Listing");
 const User = require("../../Models/User");
 const Costomerror = require("../../Middleware/Costomerror");
-const { joilistingschema } = require("../../Models/validation");
-const mongoose =require("mongoose")
+const { joilistingschema } = require("../../utils/validation");
+
 
 
 const allListing = async (req, res, next) => {
     console.log(req.user.id);
-    const allListings = await Listing.find({ host:req.user.id });
+    const allListings = await Listing.find({ host:req.user.id }).populate("host", "username email profileimage") 
 
     if (!allListings) {
         return next(new Costomerror("no listings find", 404));
@@ -58,8 +58,9 @@ const addlisting = async (req, res, next) => {
 };
 
 const editlisting = async (req, res, next) => {
+    const { _id,images,trending, ...productData } = req.body;
 
-    const { error, value } = joilistingschema.validate(req.body);
+    const { error, value } = joilistingschema.validate(productData);
     if (error) {
         console.log(error);
 

@@ -18,8 +18,8 @@ function Trending() {
 
 
     useEffect(() => {
-        setTrending(data.filter((value) => value.trending));
-    }, [data]);
+        setTrending(data?.filter((value) => value?.trending));
+    }, []);
 
 
     AOS.init();

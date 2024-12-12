@@ -13,9 +13,9 @@ function HostNavbar() {
     const navItems = [
         { name: "Dashboard", path: "/host-home" },
         { name: "Listings", path: "/host-listing" },
-        { name: "Reviews", path: "/reviews" },
-        { name: "Earnings", path: "/earnings" },
-        { name: "Reservation", path: "/reservation" },
+        { name: "Reviews", path: "/host-reviews" },
+        { name: "Earnings", path: "/host-earnings" },
+        { name: "Reservation", path: "/host-reservation" },
     ];
 
     return (
