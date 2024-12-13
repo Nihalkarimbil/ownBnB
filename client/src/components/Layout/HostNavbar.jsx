@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import air from "../../assets/air.png";
 import { Button } from "@material-tailwind/react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink,useNavigate } from "react-router-dom";
 
 function HostNavbar() {
     const [selected, setSelected] = useState("Dashboard");
+    const navigate=useNavigate()
 
     const handleSelect = (name) => {
         setSelected(name);
@@ -47,7 +48,7 @@ function HostNavbar() {
             </div>
 
             <div className="flex items-center">
-                <Button className="flex items-center rounded-md bg-gradient-to-r from-rose-400 to-rose-500 py-3 px-4 text-center text-sm text-white transition-all shadow-sm hover:shadow-lg">
+                <Button onClick={()=>navigate("/host-addlist")} className="flex items-center rounded-md bg-gradient-to-r from-rose-400 to-rose-500 py-3 px-4 text-center text-sm text-white transition-all shadow-sm hover:shadow-lg">
                     <i className="fas fa-house-medical mr-2"></i>
                     <h2>Own BnB Setup</h2>
                 </Button>

@@ -20,7 +20,21 @@ function Hostlisting() {
       }
     };
     fetchListings();
-  }, []);
+  }, [List]);
+
+  const handledelete = async (itemid) => {
+    try {
+      const response = await axiosinstance.delete(`/host/deletelist/${itemid}`);
+   
+      if (response.status === 200) {
+        alert("Listing deleted successfully");
+      }
+    } catch (error) {
+      console.error("Error deleting the listing:", error);
+      alert("Failed to delete listing");
+    }
+  };
+
 
   if (List.length === 0) {
     return (
@@ -68,6 +82,7 @@ function Hostlisting() {
               <button
                 className="text-gray-500 hover:text-red-700 transition"
                 aria-label="Delete"
+                onClick={()=>handledelete(item._id)}
               >
                 <i className="fas fa-trash"></i>
               </button>

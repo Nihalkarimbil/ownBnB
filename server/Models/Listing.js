@@ -13,7 +13,7 @@ const Listingschema = new mongoose.Schema({
   rating: { type: String, default: 0 },
   category : {type:String ,required:true},
   trending:{type:Boolean,default:false},
-  new:{type:Boolean,default:true},
+  newitem:{type:Boolean,default:true},
   createdat: { type: Date, default: Date.now },
 });
 

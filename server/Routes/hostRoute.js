@@ -8,10 +8,10 @@ const {hostAuth} =require("../Middleware/Authentication")
 
 Router
     .get("/allListing", hostAuth, tryCatch(listingcontroller.allListing))
-    .post("/addlisting",upload.array("images",5),tryCatch(listingcontroller.addlisting))
+    .post("/addlisting",hostAuth,upload.array("images",5),tryCatch(listingcontroller.addlisting))
     .put("/editlisting/:id",hostAuth,upload.array("images",5),tryCatch(listingcontroller.editlisting))
     .delete("/deletelist/:id",hostAuth,tryCatch(listingcontroller.deleteListing))
     .get("/viewby/:id",hostAuth,tryCatch(listingcontroller.viewlistbyid))
-
+    .delete("/deleteimg/:id",tryCatch(listingcontroller.deleteimage))
 
 module.exports=Router

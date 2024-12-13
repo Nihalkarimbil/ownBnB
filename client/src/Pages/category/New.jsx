@@ -18,7 +18,7 @@ function New() {
     console.log(filter);
 
     useEffect(() => {
-        setfilter(data.filter((value) => value.new));
+        setfilter(data.filter((value) => value.newitem));
     }, [data]);
 
 

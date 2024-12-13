@@ -18,7 +18,8 @@ const joilistingschema = joi.object({
   price: joi.string().required(),
   images: joi.array().items(joi.string().required()),
   rating: joi.string(),
-  Trending:joi.boolean(),
+  trending:joi.boolean(),
+  newitem:joi.boolean(),
   category:joi.string().required()
 });
 

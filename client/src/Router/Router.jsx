@@ -12,6 +12,7 @@ import Navbar from "../components/Layout/Navbar";
 import HostNavbar from "../components/Layout/HostNavbar";
 import Hostlisting from "../Pages/host/Hostlisting";
 import Editlisting from "../Pages/host/Editlisting";
+import Addlisting from "../Pages/host/Addlisting";
 
 function Router() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function Router() {
         <Route path="/host-home" element={<Home />} />
         <Route path="/host-listing" element={<Hostlisting/>}/>
         <Route path="/host-listedit/:id" element={<Editlisting/>}/>
+        <Route path="/host-addlist" element={<Addlisting/>}/>
       </Routes>
     </div>
   );
