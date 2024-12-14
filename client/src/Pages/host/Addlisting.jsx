@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "@material-tailwind/react";
 import axiosinstance from '../../axiosinstance';
+import {useNavigate} from "react-router-dom"
 
 function Addlisting() {
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ function Addlisting() {
         newitem: false,
         images: []
     });
+    const navigate=useNavigate()
 
     const [imagePreviews, setImagePreviews] = useState([]);
 
@@ -210,7 +212,10 @@ function Addlisting() {
                     >
                         Save Listings
                     </Button>
+                    <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={()=> navigate("/host-listing")}>back</Button>
                 </div>
+
+                
             </form>
         </div>
     );

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 import axiosinstance from '../../axiosinstance';
 import { Button } from "@material-tailwind/react"
+
 
 const EditListing = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ const EditListing = () => {
     newitem: false,
     images: []
   });
+
+  const navigate=useNavigate()
 
   useEffect(() => {
     const fetch = async () => {
@@ -249,6 +252,7 @@ const EditListing = () => {
           >
             Save Changes
           </Button>
+          <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={()=> navigate("/host-listing")}>back</Button>
         </div>
       </form>
     </div>
