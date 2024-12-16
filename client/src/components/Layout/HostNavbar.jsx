@@ -31,9 +31,9 @@ function HostNavbar() {
                         key={item.name}
                         to={item.path}
                         onClick={() => handleSelect(item.name)}
-                        className={({ isActive }) =>
+                        className={() =>
                             `font-semibold text-gray-400 hover:text-gray-500 relative pb-2 ${
-                                selected === item.name ? "text-red-600" : ""
+                                selected === item.name ? "text-gray-800" : ""
                             }`
                         }
                     >

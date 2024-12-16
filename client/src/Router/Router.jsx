@@ -13,6 +13,8 @@ import HostNavbar from "../components/Layout/HostNavbar";
 import Hostlisting from "../Pages/host/Hostlisting";
 import Editlisting from "../Pages/host/Editlisting";
 import Addlisting from "../Pages/host/Addlisting";
+
+import Profile from "../Pages/user/Profile";
 import Search from "../Pages/user/Search";
 
 function Router() {
@@ -35,7 +37,8 @@ function Router() {
         <Route path="/host-listing" element={<Hostlisting/>}/>
         <Route path="/host-listedit/:id" element={<Editlisting/>}/>
         <Route path="/host-addlist" element={<Addlisting/>}/>
-        <Route path="serched" element={<Search/>}/>
+        <Route path="/serched" element={<Search/>}/>
+        <Route path="/user-profile" element={<Profile/>}/>
       </Routes>
     </div>
   );

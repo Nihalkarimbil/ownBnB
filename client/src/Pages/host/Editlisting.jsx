@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams ,useNavigate} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axiosinstance from '../../axiosinstance';
 import { Button } from "@material-tailwind/react"
 
@@ -19,16 +19,14 @@ const EditListing = () => {
     images: []
   });
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetch = async () => {
       try {
         const response = await axiosinstance.get(`/host/viewby/${id}`)
-
         setFormData({
           ...response.data,
-
         });
       } catch (error) {
         console.log(error);
@@ -252,11 +250,11 @@ const EditListing = () => {
           >
             Save Changes
           </Button>
-          <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={()=> navigate("/host-listing")}>back</Button>
+          <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={() => navigate("/host-listing")}>back</Button>
         </div>
       </form>
     </div>
-    
+
   );
 };
 

@@ -4,6 +4,7 @@ import axiosinstance from '../../axiosinstance';
 import {useNavigate} from "react-router-dom"
 
 function Addlisting() {
+    const [imagePreviews, setImagePreviews] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -17,8 +18,7 @@ function Addlisting() {
         images: []
     });
     const navigate=useNavigate()
-
-    const [imagePreviews, setImagePreviews] = useState([]);
+    
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;

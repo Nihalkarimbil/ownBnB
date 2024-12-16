@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosinstance from "../../axiosinstance";
+import { useEffect } from "react";
 
 
 export const registeruser = createAsyncThunk("/user/register", async (userdata) => {
@@ -19,7 +20,8 @@ export const userlogin = createAsyncThunk("/user/login",async(userData)=>{
         throw new error
     }
 })
-const activeUser = JSON.parse(localStorage.getItem('activeUser')) || null
+
+const activeUser = JSON.parse(localStorage.getItem('activeUser')) 
 console.log(activeUser);
 
 
