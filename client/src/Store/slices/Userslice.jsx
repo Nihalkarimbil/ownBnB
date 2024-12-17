@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosinstance from "../../axiosinstance";
-import { useEffect } from "react";
+
 
 
 export const registeruser = createAsyncThunk("/user/register", async (userdata) => {

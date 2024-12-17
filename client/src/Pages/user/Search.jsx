@@ -103,7 +103,7 @@ function Search() {
                 <div className="w-full lg:w-1/3 flex justify-center pl-6 pb-6">
                     {position ? (
                         <APIProvider apiKey="AIzaSyBGMH7ByRnz8AAQ93US7CffIL7VnRHdeGY">
-                            <div className="h-[500px] w-full lg:w-[450px] shadow-lg rounded-lg overflow-hidden">
+                            <div className="h-full w-full lg:w-full shadow-lg rounded-lg overflow-hidden">
                                 <Map zoom={9} center={position}>
                                     <Marker position={position} />
                                 </Map>

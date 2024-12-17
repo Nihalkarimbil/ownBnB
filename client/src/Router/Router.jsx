@@ -16,15 +16,24 @@ import Addlisting from "../Pages/host/Addlisting";
 
 import Profile from "../Pages/user/Profile";
 import Search from "../Pages/user/Search";
+import Details from "../Pages/user/Details";
+import Navbar2 from "../components/Layout/Navbar2";
 
 function Router() {
   const location = useLocation();
-  const isHostRoute = location.pathname.startsWith("/host") 
+
+  let NavbarComponent;
+  if (location.pathname.startsWith("/host")) {
+    NavbarComponent = HostNavbar;
+  } else if (location.pathname.startsWith("/details")) {
+    NavbarComponent = Navbar2;
+  } else {
+    NavbarComponent = Navbar;
+  }
 
   return (
     <div>
-      {isHostRoute ? <HostNavbar /> : <Navbar />}
-      
+      <NavbarComponent />
       <Routes>
         <Route path="/" element={<New />} />
         <Route path="/Trending" element={<Trending />} />
@@ -34,11 +43,12 @@ function Router() {
         <Route path="/Pools" element={<Pools />} />
         <Route path="/Boating" element={<Boating />} />
         <Route path="/host-home" element={<Home />} />
-        <Route path="/host-listing" element={<Hostlisting/>}/>
-        <Route path="/host-listedit/:id" element={<Editlisting/>}/>
-        <Route path="/host-addlist" element={<Addlisting/>}/>
-        <Route path="/serched" element={<Search/>}/>
-        <Route path="/user-profile" element={<Profile/>}/>
+        <Route path="/host-listing" element={<Hostlisting />} />
+        <Route path="/host-listedit/:id" element={<Editlisting />} />
+        <Route path="/host-addlist" element={<Addlisting />} />
+        <Route path="/serched" element={<Search />} />
+        <Route path="/user-profile" element={<Profile />} />
+        <Route path="/details/:id" element={<Details />} />
       </Routes>
     </div>
   );
