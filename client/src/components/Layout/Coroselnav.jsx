@@ -56,7 +56,7 @@ function Coroselnav() {
         >
           <div
             className={`h-full w-28 flex flex-col justify-center items-center hover:text-black cursor-pointer ${
-              activeIndex === index ? "font-bold border-b-2 border-black" : "font-normal"
+              activeIndex === index ? "font-bold  border-black" : "font-normal"
             }`}
             onClick={() => setActiveIndex(index)} 
           >

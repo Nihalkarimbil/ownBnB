@@ -13,6 +13,9 @@ function Details() {
     const [checkoutDate, setCheckoutDate] = useState("DD/MM/YY");
     const [callenderType, setCallenderType] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [review, setreview] = useState([])
+    console.log('rrr', review);
+    console.log(item);
 
     useEffect(() => {
         const fetch = async () => {
@@ -25,6 +28,20 @@ function Details() {
         };
         fetch();
     }, [id]);
+
+    useEffect(() => {
+        const fetchreview = async () => {
+            try {
+                const response = await axiosinstance.get(`/user/getreviewby/${item._id}`)
+                setreview(response.data);
+
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
+        fetchreview()
+    }, [item])
 
     const openCalendar = (type) => setCallenderType(type);
     const closeCalendar = () => setCallenderType(null);
@@ -162,6 +179,46 @@ function Details() {
                     </div>
                 </div>
             </div>
+            <div className="mt-8">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Reviews</h2>
+                {review.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {review.map((value, index) => (
+                            <div
+                                key={index}
+                                className="bg-gray-50 p-4 rounded-lg shadow-md hover:shadow-lg transition"
+                            >
+                                <div className="flex items-center mb-3">
+                                    <img
+                                        src={value.user.profileimage}
+                                        alt={value.user.username}
+                                        className="w-10 h-10 rounded-full border-2 border-gray-300"
+                                    />
+                                    <div className="ml-4">
+                                        <p className="text-lg font-medium text-gray-800">
+                                            {value.user.username}
+                                        </p>
+                                        <p className="text-sm text-gray-600">{value.createdAt}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center mb-2">
+                                    {Array.from({ length: value.rating }).map((_, i) => (
+                                        <FaStar key={i} className="text-yellow-500" />
+                                    ))}
+                                    {Array.from({ length: 5 - value.rating }).map((_, i) => (
+                                        <FaStar key={i} className="text-gray-300" />
+                                    ))}
+                                </div>
+                                <p className="text-gray-700 text-justify">{value.comment}</p>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-gray-600">No reviews yet. Be the first to leave a review!</p>
+                )}
+            </div>
+
+
         </div>
     );
 }
