@@ -5,10 +5,14 @@ import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../Spinner";
 import axiosinstance from "../../axiosinstance";
 import { Link } from "react-router-dom";
+import { addtowishlist } from "../../Store/slices/Wishlistslice";
+import { useDispatch } from "react-redux";
 
 function Pools() {
     const [Pool, setPool] = useState([]);
     const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch()
+
 
     useEffect(() => {
         const fech = async () => {
@@ -24,6 +28,10 @@ function Pools() {
         }
         fech()
     }, []);
+
+    const addtowish = (listings) => {
+        dispatch(addtowishlist(listings))
+    }
 
     AOS.init();
 
@@ -73,7 +81,7 @@ function Pools() {
 
 
                                     <div className="flex space-x-2">
-                                        <button className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
+                                        <button onClick={() => addtowish(product._id)} className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
                                             <FaHeart size={17} />
                                         </button>
                                     </div>

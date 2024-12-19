@@ -1,11 +1,9 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit"
 import axiosinstance from "../../axiosinstance"
 
-export const addtowishlist= createAsyncThunk("/user/addtowish",async(wishitem)=>{
+export const addtowishlist= createAsyncThunk("/user/addtowish", async (listings) => {
     try {
-        const respons= await axiosinstance.post("/user/addwish",wishitem)
-        console.log("aaaaaa",respons);
-        
+        const respons= await axiosinstance.post("/user/addwish",{listings})
         return respons.data
     } catch (error) {
         console.log(error);
@@ -15,7 +13,7 @@ export const addtowishlist= createAsyncThunk("/user/addtowish",async(wishitem)=>
 
 export const allwish= createAsyncThunk("/allwish",async()=> {
     try {
-        const resp= await axiosinstance.get("/userwish")
+        const resp= await axiosinstance.get("/user/userwish")
         return resp.data
     } catch (error) {
         console.log(error);
@@ -49,7 +47,10 @@ const Wishlistslice= createSlice({
         })
         .addCase(allwish.fulfilled,(state,action)=>{
             state.status="succes"
-            state.wishlist=action.payload
+            state.wishlist.push(action.payload)
+        })
+        .addCase(allwish.rejected,(state)=>{
+            state.status="rejected"
         })
     }
 })

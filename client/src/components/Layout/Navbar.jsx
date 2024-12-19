@@ -94,7 +94,7 @@ const Navbar = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link onClick={toggleDropdown}
+                          <Link onClick={toggleDropdown} to={"/wishlist"}
                             className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
 
                           >

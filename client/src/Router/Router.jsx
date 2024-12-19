@@ -18,6 +18,7 @@ import Profile from "../Pages/user/Profile";
 import Search from "../Pages/user/Search";
 import Details from "../Pages/user/Details";
 import Navbar2 from "../components/Layout/Navbar2";
+import Wishlist from "../Pages/user/Wishlist";
 
 function Router() {
   const location = useLocation();
@@ -25,7 +26,7 @@ function Router() {
   let NavbarComponent;
   if (location.pathname.startsWith("/host")) {
     NavbarComponent = HostNavbar;
-  } else if (location.pathname.startsWith("/details")) {
+  } else if (location.pathname.startsWith("/details") || location.pathname.startsWith("/wishlist")) {
     NavbarComponent = Navbar2;
   } else {
     NavbarComponent = Navbar;
@@ -49,6 +50,7 @@ function Router() {
         <Route path="/serched" element={<Search />} />
         <Route path="/user-profile" element={<Profile />} />
         <Route path="/details/:id" element={<Details />} />
+        <Route path="/wishlist" element={<Wishlist/>}/>
       </Routes>
     </div>
   );

@@ -6,25 +6,25 @@ import AOS from "aos";
 import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../Spinner";
 import { Link } from "react-router-dom";
+import { addtowishlist } from "../../Store/slices/Wishlistslice";
 
 function New() {
+    const [filter, setfilter] = useState([]);
     const dispatch = useDispatch();
     const { data, status } = useSelector((state) => state.listing);
+    AOS.init();
 
     useEffect(() => {
         dispatch(getlistings());
     }, [dispatch]);
 
-    const [filter, setfilter] = useState([]);
-    console.log(filter);
+    const addtowish = (listings) => {
+        dispatch(addtowishlist(listings))
+    }
 
     useEffect(() => {
         setfilter(data.filter((value) => value.newitem));
     }, [data]);
-
-
-    AOS.init();
-
 
     if (status === "Loading") {
         return <Spinner />;
@@ -75,7 +75,7 @@ function New() {
 
 
                                 <div className="flex space-x-2">
-                                    <button className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
+                                    <button onClick={() => addtowish(product._id)} className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
                                         <FaHeart size={17} />
                                     </button>
                                 </div>

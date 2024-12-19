@@ -1,28 +1,33 @@
 const Wishlist = require("../../Models/Wishlist");
 const customerror = require("../../Middleware/Costomerror");
 
+
+
+
 const addtowishlist = async (req, res, next) => {
+   
     const {listings } = req.body;
-  
+
     let wishlist = await Wishlist.findOne({ user: req.user._id });
 
     if (!wishlist) {
-       
         const newWishlist = new Wishlist({
             user: req.user._id,
             Listings:[listings], 
         });
         await newWishlist.save();
-        return res.status(201).json(newWishlist);
+        return res.status(201).json(newWishlist)
     }
 
+    wishlist.Listings = wishlist.Listings.filter((item) => item != null);
     
-    if (wishlist.Listings.some((item) => item.toString() === listings.toString())) {
-        return res.status(400).json({ message: "Listing already in wishlist" });
+    const isProductInWishlist = wishlist.Listings?.some(list => list.equals(listings))
+    if (!isProductInWishlist) {
+        wishlist.Listings.push(listings);
+        await wishlist.save();
+        wishlist = await wishlist.populate('Listings');
+        return res.status(200).json(wishlist);
     }
-
-    wishlist.Listings.push(listings);
-    await wishlist.save();
 
     res.status(200).json({ message: "Listing added to wishlist", wishList: wishlist });
 };
@@ -44,7 +49,7 @@ const removewish=async(req,res,next)=>{
 
 const wishitems=async(req,res,next)=>{
    
-    const wishitem= await Wishlist.find({user:req.user._id}).populate('Listings', 'title rating price images');
+    const wishitem= await Wishlist.find({user:req.user._id}).populate('Listings');
     if(!wishitem){
         return next(new customerror("no items in the wishlist"))
     }

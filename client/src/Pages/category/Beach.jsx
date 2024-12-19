@@ -5,24 +5,14 @@ import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../Spinner";
 import axiosinstance from "../../axiosinstance";
 import { Link } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
-import { addtowishlist, allwish } from "../../Store/slices/Wishlistslice";
+import { useDispatch } from "react-redux";
+import { addtowishlist } from "../../Store/slices/Wishlistslice";
 
 
 function Beach() {
     const [Beach, setBeach] = useState([]);
     const [loading, setLoading] = useState(true)
-    console.log(Beach);
     const dispatch=useDispatch()
-
-    const {wishlist}= useSelector(state=>state.wishlist)
-
-    useEffect(()=>{
-        dispatch(allwish)
-    },[])
-
-    console.log("bbbb",wishlist);
-    
 
     useEffect(() => {
         const fech = async () => {
@@ -89,7 +79,6 @@ function Beach() {
                                             </p>
                                         </div>
                                     </Link>
-
 
                                     <div className="flex space-x-2">
                                         <button onClick={() => addtowish(product._id)} className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
