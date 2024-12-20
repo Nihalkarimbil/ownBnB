@@ -13,12 +13,14 @@ import HostNavbar from "../components/Layout/HostNavbar";
 import Hostlisting from "../Pages/host/Hostlisting";
 import Editlisting from "../Pages/host/Editlisting";
 import Addlisting from "../Pages/host/Addlisting";
-
 import Profile from "../Pages/user/Profile";
 import Search from "../Pages/user/Search";
 import Details from "../Pages/user/Details";
 import Navbar2 from "../components/Layout/Navbar2";
 import Wishlist from "../Pages/user/Wishlist";
+import Payment from "../Pages/user/Payment";
+import Paymentnavbar from "../components/Layout/paymentnavbar";
+import BookSucces from "../Pages/user/BookSucces";
 
 function Router() {
   const location = useLocation();
@@ -28,6 +30,8 @@ function Router() {
     NavbarComponent = HostNavbar;
   } else if (location.pathname.startsWith("/details") || location.pathname.startsWith("/wishlist")) {
     NavbarComponent = Navbar2;
+  } else if (location.pathname.startsWith("/payment")){
+    NavbarComponent=Paymentnavbar;
   } else {
     NavbarComponent = Navbar;
   }
@@ -51,6 +55,8 @@ function Router() {
         <Route path="/user-profile" element={<Profile />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/wishlist" element={<Wishlist/>}/>
+        <Route path="/payment" element={<Payment/>}/>
+        <Route path="/payment-success/:sessionid" element={<BookSucces/>}/>
       </Routes>
     </div>
   );

@@ -5,7 +5,8 @@ const userController = require("../controller/userController");
 const Listingcontroller = require("../controller/User/userListcontroller");
 const wishlistcontroll = require("../controller/User/userwishlistcontroll");
 const { userAuthMiddleware } = require("../Middleware/Authentication");
-const userReview= require("../controller/User/UserReviewcontroller")
+const userReview= require("../controller/User/UserReviewcontroller");
+const Bookingcontroll = require("../controller/User/Bookingcontroll");
 
 
 Router
@@ -18,6 +19,7 @@ Router
     .delete("/removewish",userAuthMiddleware,tryCatch(wishlistcontroll.removewish))
     .get("/userwish", userAuthMiddleware, tryCatch(wishlistcontroll.wishitems))
     .post("/addreview",userAuthMiddleware,tryCatch(userReview.addreview))
-    .get("/getreviewby/:id",userAuthMiddleware,tryCatch(userReview.getreviewbyid))
+    .get("/getreviewby/:id",tryCatch(userReview.getreviewbyid))
+    .post("/addbooking",userAuthMiddleware,tryCatch(Bookingcontroll.addbooking))
 
 module.exports = Router;

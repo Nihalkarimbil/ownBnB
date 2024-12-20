@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axiosinstance from '../../axiosinstance';
 import Callender from '../../components/ui/Callender';
 import { Button } from "@material-tailwind/react";
@@ -8,14 +8,25 @@ import { FaHeart } from 'react-icons/fa';
 
 function Details() {
     const { id } = useParams();
+    const navigate = useNavigate()
     const [item, setItem] = useState(null);
     const [checkinDate, setCheckinDate] = useState("DD/MM/YY");
     const [checkoutDate, setCheckoutDate] = useState("DD/MM/YY");
     const [callenderType, setCallenderType] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
     const [review, setreview] = useState([])
-    console.log('rrr', review);
-    console.log(item);
+    const [guestCount, setGuestCount] = useState(1);
+    const [guestDropdownOpen, setGuestDropdownOpen] = useState(false)
+ 
+
+
+    const toggleGuestDropdown = () => setGuestDropdownOpen(!guestDropdownOpen)
+    const openCalendar = (type) => setCallenderType(type);
+    const closeCalendar = () => setCallenderType(null);
+    const incrementGuest = () => setGuestCount(guestCount + 1);
+    const decrementGuest = () => {
+        if (guestCount > 0) setGuestCount(guestCount - 1);
+    }
 
     useEffect(() => {
         const fetch = async () => {
@@ -43,8 +54,6 @@ function Details() {
         fetchreview()
     }, [item])
 
-    const openCalendar = (type) => setCallenderType(type);
-    const closeCalendar = () => setCallenderType(null);
 
     const calculateTotalPrice = () => {
         const checkin = new Date(checkinDate);
@@ -53,10 +62,8 @@ function Details() {
         if (isNaN(checkin) || isNaN(checkout)) {
             return 0;
         }
-
         const timeDiff = checkout - checkin;
         const days = timeDiff / (1000 * 60 * 60 * 24);
-
         const validDays = days > 0 ? days : 0;
         return validDays * (item ? item.price : 0);
     };
@@ -75,6 +82,24 @@ function Details() {
             setTotalPrice(calculateTotalPrice());
         }
     }, [checkinDate, checkoutDate]);
+
+    const handlebooking = async (listingId) => {
+        try {
+            const respons = await axiosinstance.post("/user/addbooking", {
+                listing: listingId,
+                guestCount: guestCount,
+                checkIn: checkinDate,
+                checkOut: checkoutDate,
+                totalPrice: totalPrice
+            })
+            
+            const clientSecret = respons.data.clientsecret
+            navigate("/payment", { state: { clientsecret: clientSecret } })
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
 
     if (!item) {
         return (
@@ -145,7 +170,7 @@ function Details() {
                         <div>
                             <button
                                 onClick={() => openCalendar('checkin')}
-                                className="w-full text-left text-gray-700 border p-3 rounded-lg shadow-sm"
+                                className="w-full text-left text-gray-700 border p-2 rounded-lg shadow-sm"
                             >
                                 <strong>Check-in Date:</strong> {checkinDate}
                             </button>
@@ -153,7 +178,7 @@ function Details() {
                         <div>
                             <button
                                 onClick={() => openCalendar('checkout')}
-                                className="w-full text-left text-gray-700 border p-3 rounded-lg shadow-sm"
+                                className="w-full text-left text-gray-700 border p-2 rounded-lg shadow-sm"
                             >
                                 <strong>Check-out Date:</strong> {checkoutDate}
                             </button>
@@ -163,15 +188,41 @@ function Details() {
                                 <Callender onDateSelect={onDateSelect} />
                             )}
                         </div>
+                        <div>
+                            <button onClick={toggleGuestDropdown}
+                                className="w-full text-left text-gray-700 border p-2 rounded-lg shadow-sm"
+                            >
+                                <strong>guests:</strong> {guestCount}
+                            </button>
+                            {guestDropdownOpen && (
+                                <div className="absolute z-10 bg-white shadow-lg rounded-md p-4 mt-2 w-48">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-700">Guests</span>
+                                        <div className="flex space-x-3 items-center">
+                                            <button
+                                                onClick={decrementGuest}
+                                                className="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300"
+                                            >
+                                                -
+                                            </button>
+                                            <span className="font-semibold">{guestCount}</span>
+                                            <button
+                                                onClick={incrementGuest}
+                                                className="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <hr className="border-gray-300 mt-6 mb-6" />
-                    <Button className="w-full h-12 text-white bg-gradient-to-r from-rose-500 to-rose-500 font-bold hover:shadow-lg">
+                    <Button onClick={() => handlebooking(item._id)} className="w-full h-12 text-white bg-gradient-to-r from-rose-500 to-rose-500 font-bold hover:shadow-lg">
                         Reserve
                     </Button>
-                    <div className="flex justify-between items-center mt-6">
-                        <p className="text-base font-light text-gray-800">Additonal charges</p>
-                        <p className="text-base font-semibold text-gray-800">₹0.00</p>
-                    </div>
+
                     <hr className="border-gray-300 mt-4 mb-4" />
                     <div className="flex justify-between items-center">
                         <p className="text-base font-semibold text-gray-800">Total</p>

@@ -47,7 +47,7 @@ const Wishlistslice= createSlice({
         })
         .addCase(allwish.fulfilled,(state,action)=>{
             state.status="succes"
-            state.wishlist.push(action.payload)
+            state.wishlist = action.payload
         })
         .addCase(allwish.rejected,(state)=>{
             state.status="rejected"
