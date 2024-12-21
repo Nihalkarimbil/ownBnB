@@ -56,7 +56,7 @@ function Router() {
         <Route path="/details/:id" element={<Details />} />
         <Route path="/wishlist" element={<Wishlist/>}/>
         <Route path="/payment" element={<Payment/>}/>
-        <Route path="/payment-success/:sessionid" element={<BookSucces/>}/>
+        <Route path="payment-success/:sessionid" element={<BookSucces/>}/>
       </Routes>
     </div>
   );

@@ -9,6 +9,7 @@ const userReview= require("../controller/User/UserReviewcontroller");
 const Bookingcontroll = require("../controller/User/Bookingcontroll");
 
 
+
 Router
     .get("/allList", tryCatch(Listingcontroller.viewall))
     .post("/signup", tryCatch(userController.userRegistration))
@@ -21,5 +22,7 @@ Router
     .post("/addreview",userAuthMiddleware,tryCatch(userReview.addreview))
     .get("/getreviewby/:id",tryCatch(userReview.getreviewbyid))
     .post("/addbooking",userAuthMiddleware,tryCatch(Bookingcontroll.addbooking))
+    .get("/sessions/:sessionId",userAuthMiddleware,tryCatch(Bookingcontroll.sessiondetails))
+    .get("/getbooking/:sessionId",userAuthMiddleware,tryCatch(Bookingcontroll.getbooking))
 
 module.exports = Router;
