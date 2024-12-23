@@ -96,4 +96,20 @@ const getbooking= async(req,res,next)=>{
     res.status(200).json(Bookingc)
 }
 
-module.exports = { addbooking, sessiondetails,getbooking }
+const getuserbooking=async (req,res,next)=>{
+    
+    const bookings= await Booking.find({guest:req.user._id}).populate("listing")
+    if(!bookings){
+        return next(new customerror("no bookings found for this guest"))
+    }
+    res.status(200).json(bookings)
+}
+const getOnebooking= async(req,res,next)=>{
+    const booking= await Booking.findById(req.params.id).populate("listing")
+    if(!booking){
+        return next(new customerror("no booking found with this ID"))
+    }
+    res.status(200).json(booking)
+}
+
+module.exports = { addbooking, sessiondetails,getbooking,getuserbooking,getOnebooking }

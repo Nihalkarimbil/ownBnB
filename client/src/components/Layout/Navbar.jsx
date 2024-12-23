@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import air from "../../assets/air.png";
@@ -6,6 +6,7 @@ import DialogWithForm from "../ui/Logindpopup";
 import DialogWithreForm from "../ui/Registerpopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../Store/slices/Userslice";
+import { allwish } from "../../Store/slices/Wishlistslice";
 
 import Coroselnav from "./Coroselnav";
 import Searchbar from "./Searchbar";
@@ -14,16 +15,33 @@ import Searchbar from "./Searchbar";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.User)
+  const {wishlist} = useSelector((state) => state.wishlist)
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [redialogOpen, setreDialogOpen] = useState(false);
+  const [Count,setCount]=useState(0)
   const dispatch = useDispatch()
 
+  
+  useEffect(() => {
+    console.log('Wishlist:', wishlist);
+    dispatch(allwish());
+  }, [dispatch]);
+  
+  useEffect(() => {
+    if (wishlist) {
+      const totalCount = wishlist.reduce((acc, item) => acc + (item.Listings?.length || 0), 0);
+      setCount(totalCount);
+    }
+  }, [wishlist, user]);
+  
+
+  
 
   const toggleMenu = () => { setIsOpen(!isOpen) };
   const toggleDropdown = () => { setDropdownOpen(!dropdownOpen) };
-  
+
   const toggleDialog = () => {
     setDialogOpen(!dialogOpen);
     setDropdownOpen(false);
@@ -40,6 +58,7 @@ const Navbar = () => {
 
   
 
+
   return (
 
     <nav className="relative w-screen">
@@ -54,7 +73,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <Searchbar/>
+          <Searchbar />
 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             {user ? (<Link to={"/host-home"} className="font-semibold text-sm ">swich to hosting</Link>) : (null)}
@@ -67,11 +86,15 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-6">
               <div className="text-2xl border border-gray-300 rounded-full p-2 flex space-x-3 hover:shadow-md cursor-pointer">
                 <FaBars size={18} className="text-gray-600" />
-                <FaUserCircle
-                  size={20}
-                  className="text-gray-600"
-                  onClick={toggleDropdown}
-                />
+                <div>
+                  <FaUserCircle
+                    size={20}
+                    className="text-gray-600"
+                    onClick={toggleDropdown}
+                  />{user?(<div className="absolute top-5 ml-3 border rounded-full bg-red-600 w-4 text-xs text-white border-white text-center ">{Count}</div>):(null)}
+                  
+                </div>
+
               </div>
               {dropdownOpen && (
                 user ? (
@@ -87,7 +110,7 @@ const Navbar = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link onClick={toggleDropdown}
+                          <Link onClick={toggleDropdown} to={"/user-allbooking"}
                             className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Bookings
@@ -103,14 +126,14 @@ const Navbar = () => {
                         </li>
                         <div className="border-b-2"></div>
                         <li>
-                          <Link onClick={toggleDropdown}
+                          <Link onClick={toggleDropdown} to={"/host-listing"}
                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Your Home
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/user-profile"}
+                          <Link to={"/user-profile"} onClick={toggleDropdown}
                             className="block px-4  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Account
@@ -176,7 +199,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <Coroselnav/>
+      <Coroselnav />
       {isOpen && (
         <div className="absolute top-1 right-1 w-36 bg-white shadow-lg border rounded-lg border-gray-300 md:hidden">
           <div className="flex flex-col items-center py-4 ">

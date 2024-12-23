@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import air from "../../assets/air.png";
@@ -7,21 +7,25 @@ import DialogWithreForm from "../ui/Registerpopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../Store/slices/Userslice";
 import Searchbar from "./Searchbar";
+import { allwish } from "../../Store/slices/Wishlistslice";
 
 
 
 const Navbar2 = () => {
   const { user } = useSelector((state) => state.User)
+
+  const { wishlist } = useSelector((state) => state.wishlist)
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [Count, setCount] = useState(0)
   const [redialogOpen, setreDialogOpen] = useState(false);
   const dispatch = useDispatch()
 
 
   const toggleMenu = () => { setIsOpen(!isOpen) };
   const toggleDropdown = () => { setDropdownOpen(!dropdownOpen) };
-  
+
   const toggleDialog = () => {
     setDialogOpen(!dialogOpen);
     setDropdownOpen(false);
@@ -36,7 +40,17 @@ const Navbar2 = () => {
     setDropdownOpen(!dropdownOpen)
   }
 
-  
+  useEffect(() => {
+    console.log('Wishlist:', wishlist);
+    dispatch(allwish());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (wishlist) {
+      const totalCount = wishlist.reduce((acc, item) => acc + (item.Listings?.length || 0), 0);
+      setCount(totalCount);
+    }
+  }, [wishlist, user]);
 
   return (
 
@@ -52,7 +66,7 @@ const Navbar2 = () => {
             </Link>
           </div>
 
-          <Searchbar/>
+          <Searchbar />
 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             {user ? (<Link to={"/host-home"} className="font-semibold text-sm ">swich to hosting</Link>) : (null)}
@@ -63,13 +77,18 @@ const Navbar2 = () => {
               {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
             </button>
             <div className="hidden md:flex items-center space-x-6">
+
               <div className="text-2xl border border-gray-300 rounded-full p-2 flex space-x-3 hover:shadow-md cursor-pointer">
                 <FaBars size={18} className="text-gray-600" />
-                <FaUserCircle
-                  size={20}
-                  className="text-gray-600"
-                  onClick={toggleDropdown}
-                />
+                <div>
+                  <FaUserCircle
+                    size={20}
+                    className="text-gray-600"
+                    onClick={toggleDropdown}
+                  />{user ? (<div className="absolute top-5 ml-3 border rounded-full bg-red-600 w-4 text-xs text-white border-white text-center ">{Count}</div>) : (null)}
+
+                </div>
+
               </div>
               {dropdownOpen && (
                 user ? (

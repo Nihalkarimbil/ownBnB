@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 function BookSucces() {
   const { sessionid } = useParams();
-  const [lineitem, setLineitem] = useState([]);
   const [Booking, setBooking] = useState([]);
   const [costomerdt, setcostomer] = useState({});
   const [methord, setmethord] = useState([]);
@@ -46,7 +45,7 @@ function BookSucces() {
       <div className="bg-white shadow-lg rounded-3xl p-8 w-full max-w-4xl">
         <h1 className="text-3xl font-extrabold text-blue-600 mb-6 text-center tracking-wide">Order Confirmation</h1>
 
-        {/* Customer Details */}
+  
         <div className="mb-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b-2 border-blue-200 pb-2">Customer Details</h2>
           <div className="text-gray-700 text-lg flex space-x-10">
@@ -55,7 +54,7 @@ function BookSucces() {
           </div>
         </div>
 
-        {/* Booking Details */}
+  
         <div className="mb-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b-2 border-blue-200 pb-2">Booking Details</h2>
           {Booking.length > 0 ? (
@@ -84,13 +83,12 @@ function BookSucces() {
           )}
         </div>
 
-        {/* Payment Method */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b-2 border-blue-200 pb-2">Payment Method: {methord.join(', ') || 'N/A'}</h2>
           <p className="text-gray-700 text-lg"></p>
         </div>
 
-        {/* Confirm Button */}
+       
         <div className="text-center">
           <button
             onClick={handleConfirm}

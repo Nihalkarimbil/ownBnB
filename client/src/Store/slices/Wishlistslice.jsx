@@ -25,7 +25,8 @@ const Wishlistslice= createSlice({
     name:"wishlist",
     initialState:{
         wishlist:[],
-        status:"none"
+        status:"none",
+        
     },
     reducers:{
         
@@ -48,6 +49,7 @@ const Wishlistslice= createSlice({
         .addCase(allwish.fulfilled,(state,action)=>{
             state.status="succes"
             state.wishlist = action.payload
+        
         })
         .addCase(allwish.rejected,(state)=>{
             state.status="rejected"

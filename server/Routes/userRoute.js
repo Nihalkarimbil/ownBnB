@@ -24,5 +24,7 @@ Router
     .post("/addbooking",userAuthMiddleware,tryCatch(Bookingcontroll.addbooking))
     .get("/sessions/:sessionId",userAuthMiddleware,tryCatch(Bookingcontroll.sessiondetails))
     .get("/getbooking/:sessionId",userAuthMiddleware,tryCatch(Bookingcontroll.getbooking))
+    .get("/getuserbooking",userAuthMiddleware, tryCatch(Bookingcontroll.getuserbooking))
+    .get("/Getbookingby/:id", tryCatch(Bookingcontroll.getOnebooking))
 
 module.exports = Router;

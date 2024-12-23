@@ -21,6 +21,8 @@ import Wishlist from "../Pages/user/Wishlist";
 import Payment from "../Pages/user/Payment";
 import Paymentnavbar from "../components/Layout/paymentnavbar";
 import BookSucces from "../Pages/user/BookSucces";
+import Bookingdtls from "../Pages/user/Bookingdtls";
+import Allbookings from "../Pages/user/Allbookings";
 
 function Router() {
   const location = useLocation();
@@ -28,7 +30,7 @@ function Router() {
   let NavbarComponent;
   if (location.pathname.startsWith("/host")) {
     NavbarComponent = HostNavbar;
-  } else if (location.pathname.startsWith("/details") || location.pathname.startsWith("/wishlist")) {
+  } else if (location.pathname.startsWith("/details") || location.pathname.startsWith("/wishlist")|| location.pathname.startsWith("/user")) {
     NavbarComponent = Navbar2;
   } else if (location.pathname.startsWith("/payment")){
     NavbarComponent=Paymentnavbar;
@@ -57,6 +59,8 @@ function Router() {
         <Route path="/wishlist" element={<Wishlist/>}/>
         <Route path="/payment" element={<Payment/>}/>
         <Route path="payment-success/:sessionid" element={<BookSucces/>}/>
+        <Route path="/user-Booking/:id" element={<Bookingdtls/>} />
+        <Route path="/user-allbooking" element={<Allbookings/>}/>
       </Routes>
     </div>
   );

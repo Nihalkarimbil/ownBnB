@@ -4,7 +4,7 @@ const Costomerror = require("../../Middleware/Costomerror");
 const { joilistingschema } = require("../../utils/validation");
 
 const allListing = async (req, res, next) => {
- 
+
     const allListings = await Listing.find({ host: req.user.id }).populate(
         "host",
         "username email profileimage"
@@ -13,12 +13,12 @@ const allListing = async (req, res, next) => {
     if (!allListings) {
         return next(new Costomerror("no listings find", 404));
     }
-  
+
     res.status(200).json(allListings);
 };
 
 const addlisting = async (req, res, next) => {
- 
+
     const { value, error } = joilistingschema.validate(req.body);
 
     if (error) {
@@ -59,32 +59,34 @@ const addlisting = async (req, res, next) => {
     });
 };
 const editlisting = async (req, res, next) => {
-    try {
-        const { __v, _id, trending, createdat, ...productData } = req.body;
-        const { error } = joilistingschema.validate(productData);
-        if (error) {
-            return next(new Costomerror("Validation failed", 400));
-        }
 
-        const listing = await Listing.findById(req.params.id);
-        if (!listing) {
-            return next(new Costomerror("Product not found with this ID", 404));
-        }
-
-        if (req.files) {
-            const newImages = req.files.map((file) => file.path);
-            if (!Array.isArray(listing.images)) {
-                listing.images = [];
-            }
-            listing.images.push(...newImages);
-        }
-
-        const updatedListing = await listing.save();
-        res.status(200).json(updatedListing);
-    } catch (error) {
-        next(error);
+    const { __v, _id, trending, createdat, ...productData } = req.body;
+    const { error } = joilistingschema.validate(productData);
+    if (error) {
+        return next(new Costomerror("Validation failed: ", 400));
     }
+
+   
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+        return next(new Costomerror("Product not found with this ID", 404));
+    }
+
+  
+    Object.assign(listing, productData);
+
+    if (req.files && Array.isArray(req.files)) {
+        const newImages = req.files.map((file) => file.path);
+        listing.images = Array.isArray(listing.images) ? listing.images.concat(newImages) : newImages;
+    }
+
+
+    const updatedListing = await listing.save();
+  
+    res.status(200).json(updatedListing);
+
 };
+
 
 const deleteListing = async (req, res, next) => {
 
@@ -96,7 +98,7 @@ const deleteListing = async (req, res, next) => {
 };
 
 const viewlistbyid = async (req, res, next) => {
-    
+
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
         return next(new Costomerror("Product with this ID is not found", 404));
