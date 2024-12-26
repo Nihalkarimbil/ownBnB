@@ -7,6 +7,7 @@ const wishlistcontroll = require("../controller/User/userwishlistcontroll");
 const { userAuthMiddleware } = require("../Middleware/Authentication");
 const userReview= require("../controller/User/UserReviewcontroller");
 const Bookingcontroll = require("../controller/User/Bookingcontroll");
+const upload = require("../Middleware/imageupload")
 
 
 
@@ -16,15 +17,25 @@ Router
     .post("/signin", tryCatch(userController.userLogin))
     .get("/listby/:category", tryCatch(Listingcontroller.viewbycategory))
     .get("/getby/:id", tryCatch(Listingcontroller.viewlistbyid))
+
     .post("/addwish",userAuthMiddleware,tryCatch(wishlistcontroll.addtowishlist))
     .delete("/removewish",userAuthMiddleware,tryCatch(wishlistcontroll.removewish))
     .get("/userwish", userAuthMiddleware, tryCatch(wishlistcontroll.wishitems))
+
     .post("/addreview",userAuthMiddleware,tryCatch(userReview.addreview))
     .get("/getreviewby/:id",tryCatch(userReview.getreviewbyid))
+
     .post("/addbooking",userAuthMiddleware,tryCatch(Bookingcontroll.addbooking))
     .get("/sessions/:sessionId",userAuthMiddleware,tryCatch(Bookingcontroll.sessiondetails))
     .get("/getbooking/:sessionId",userAuthMiddleware,tryCatch(Bookingcontroll.getbooking))
     .get("/getuserbooking",userAuthMiddleware, tryCatch(Bookingcontroll.getuserbooking))
-    .get("/Getbookingby/:id", tryCatch(Bookingcontroll.getOnebooking))
+    .get("/Getbookingby/:id",userAuthMiddleware, tryCatch(Bookingcontroll.getOnebooking))
+
+    .put("/updateprofileimg",userAuthMiddleware,upload.single("profileimage"),tryCatch(userController.userProfileupdate))
+    .get("/activeuser",userAuthMiddleware,tryCatch(userController.activeuser))
+    
+    .get("/gethost/:id",tryCatch(userController.hostdtls))
+    .get("/getlistofhost/:id",userAuthMiddleware,tryCatch(Listingcontroller.getListofhost))
+   
 
 module.exports = Router;

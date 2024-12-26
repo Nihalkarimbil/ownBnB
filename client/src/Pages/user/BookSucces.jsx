@@ -92,13 +92,13 @@ function BookSucces() {
         <div className="text-center">
           <button
             onClick={handleConfirm}
-            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-transform duration-300 hover:-translate-y-1"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg transform transition-transform duration-300 mr-6"
           >
             Confirm Order
           </button>
           <button onClick={()=>navigate("/")}
            
-            className="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-transform duration-300 hover:-translate-y-1"
+            className="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg transform transition-transform duration-300 "
           >
             Back to Home
           </button>

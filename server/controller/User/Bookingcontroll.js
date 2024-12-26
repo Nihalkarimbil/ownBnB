@@ -112,4 +112,10 @@ const getOnebooking= async(req,res,next)=>{
     res.status(200).json(booking)
 }
 
-module.exports = { addbooking, sessiondetails,getbooking,getuserbooking,getOnebooking }
+module.exports = { 
+    addbooking, 
+    sessiondetails,
+    getbooking,
+    getuserbooking,
+    getOnebooking 
+}

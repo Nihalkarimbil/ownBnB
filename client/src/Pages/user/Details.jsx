@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axiosinstance from '../../axiosinstance';
 import Callender from '../../components/ui/Callender';
 import { Button } from "@material-tailwind/react";
@@ -132,7 +132,7 @@ function Details() {
 
             <div className="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-8 mt-8">
                 <div className="lg:w-2/3">
-                    <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg shadow-md hover:shadow-lg transition">
+                    <Link to={`/viewhost/${item.host._id}`} className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg shadow-md hover:shadow-lg transition">
                         <img
                             src={item.host.profileimage}
                             alt={item.host.username}
@@ -144,7 +144,7 @@ function Details() {
                             </p>
                             <p className="text-gray-600">{item.host.email}</p>
                         </div>
-                    </div>
+                    </Link>
 
                     <div className="mt-6 text-gray-700 bg-white p-5 rounded-lg shadow-lg">
                         <p className="text-xl font-semibold mb-3">

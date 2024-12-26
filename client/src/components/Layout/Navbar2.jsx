@@ -78,17 +78,24 @@ const Navbar2 = () => {
             </button>
             <div className="hidden md:flex items-center space-x-6">
 
-              <div className="text-2xl border border-gray-300 rounded-full p-2 flex space-x-3 hover:shadow-md cursor-pointer">
+              <div className="text-2xl border border-gray-300 rounded-full p-2 flex space-x-3 hover:shadow-md cursor-pointer relative">
                 <FaBars size={18} className="text-gray-600" />
-                <div>
-                  <FaUserCircle
-                    size={20}
-                    className="text-gray-600"
-                    onClick={toggleDropdown}
-                  />{user ? (<div className="absolute top-5 ml-3 border rounded-full bg-red-600 w-4 text-xs text-white border-white text-center ">{Count}</div>) : (null)}
-
+                <div onClick={toggleDropdown} className="relative">
+                  {user && user.image ? (
+                    <img
+                      src={user.image}
+                      alt="User Avatar"
+                      className="rounded-full w-6 object-cover"
+                    />
+                  ) : (
+                    <FaUserCircle size={20} className="text-gray-600" />
+                  )}
+                  {user && (
+                    <div className="absolute -top-2 -right-2 border rounded-full bg-red-600 w-4 h-4 text-xs text-white border-white text-center flex items-center justify-center">
+                      {Count}
+                    </div>
+                  )}
                 </div>
-
               </div>
               {dropdownOpen && (
                 user ? (
@@ -104,7 +111,7 @@ const Navbar2 = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link onClick={toggleDropdown}
+                          <Link onClick={toggleDropdown} to={"/user-allbooking"}
                             className="block px-4 font-semibold py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Bookings
@@ -127,7 +134,7 @@ const Navbar2 = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/user-profile"}
+                          <Link to={"/user-profile"} onClick={toggleDropdown}
                             className="block px-4  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Account

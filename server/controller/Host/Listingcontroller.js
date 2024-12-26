@@ -17,6 +17,8 @@ const allListing = async (req, res, next) => {
     res.status(200).json(allListings);
 };
 
+
+
 const addlisting = async (req, res, next) => {
 
     const { value, error } = joilistingschema.validate(req.body);
@@ -133,4 +135,5 @@ module.exports = {
     deleteListing,
     viewlistbyid,
     deleteimage,
+    
 };

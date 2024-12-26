@@ -32,5 +32,22 @@ const viewall= async(req,res,next)=>{
     res.status(200).json(alll)
 }
 
+const getListofhost= async(req,res,next)=>{
+    const allListings = await listing.find({ host: req.params.id }).populate(
+        "host",
+        "username email profileimage"
+    );
 
-module.exports={viewbycategory,viewlistbyid,viewall}
+    if (!allListings) {
+        return next(new customerror("no listings find", 404));
+    }
+    res.status(200).json(allListings);
+}
+
+
+module.exports={
+    viewbycategory,
+    viewlistbyid,
+    viewall,
+    getListofhost
+}

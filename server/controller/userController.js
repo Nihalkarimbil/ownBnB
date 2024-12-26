@@ -50,8 +50,40 @@ const userLogin= async(req,res,next)=>{
     })
 }
 
+const userProfileupdate= async(req,res,next)=>{
+    const imageurl = req.file?.path
+    
+    
+    const updateduser= await User.findOneAndUpdate(req.user._id,{profileimage:imageurl},{new:true})
+    if(!updateduser){
+        return next(new costomeror("no user find with this id",404))
+    }
+    
+    
+    res.status(200).json(updateduser)
+}
+const activeuser= async(req,res,next)=>{
+
+    const user= await User.findById(req.user._id)
+    if(!user){
+        return next(new costomeror("no user found"))
+    }
+    res.status(200).json(user)
+}
+
+const hostdtls= async(req,res,next)=>{
+    
+    const host= await User.findById(req.params.id)
+    if(!host){
+        return next (new costomeror("host with this id is not available",404))
+    }
+    res.status(200).json(host)
+}
 
 module.exports={
     userRegistration,
-    userLogin
+    userLogin,
+    userProfileupdate,
+    activeuser,
+    hostdtls
 }

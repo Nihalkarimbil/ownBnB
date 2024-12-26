@@ -3,13 +3,14 @@ const Costomerror= require("../../Middleware/Costomerror")
 
  
 const addreview= async(req,res,next)=>{
-    const {listing,rating,comment,userid}= req.body
+    const {listing,rating,comment}= req.body
+
     if (!listing||!rating){
         return next(new Costomerror("listing ratings are required",400))
     }
 
     const newReview= new Review({
-        user:userid,
+        user:req.user._id,
         listing,
         rating,
         comment
@@ -21,7 +22,11 @@ const addreview= async(req,res,next)=>{
         message:"Review added successfully",
         review:newReview
     })
+
+    
+    
 }
+
 const getreviewbyid= async(req,res,next)=>{
     
     
@@ -33,4 +38,7 @@ const getreviewbyid= async(req,res,next)=>{
     res.status(200).json(review)
 }
 
-module.exports={addreview ,getreviewbyid}
+module.exports={
+    addreview,
+    getreviewbyid
+}

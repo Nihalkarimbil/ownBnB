@@ -25,7 +25,7 @@ function Hostlisting() {
   const handledelete = async (itemid) => {
     try {
       const response = await axiosinstance.delete(`/host/deletelist/${itemid}`);
-   
+
       if (response.status === 200) {
         alert("Listing deleted successfully");
       }
@@ -42,10 +42,13 @@ function Hostlisting() {
         <p className="mb-4 text-lg font-semibold text-gray-600">
           You don’t have any listings yet.
         </p>
-        <Button className="flex items-center rounded-md bg-gradient-to-r from-rose-400 to-rose-500 py-3 px-6 text-white text-sm font-medium transition-shadow shadow-sm hover:shadow-lg">
-          <i className="fas fa-house-medical mr-2"></i>
-          <span>Set up your Own BnB</span>
-        </Button>
+        <Link to={"/host-addlist"}>
+          <Button className="flex items-center rounded-md bg-gradient-to-r from-rose-400 to-rose-500 py-3 px-6 text-white text-sm font-medium transition-shadow shadow-sm hover:shadow-lg">
+            <i className="fas fa-house-medical mr-2"></i>
+            <span>Set up your Own BnB</span>
+          </Button>
+        </Link>
+
       </div>
     );
   }
@@ -82,7 +85,7 @@ function Hostlisting() {
               <button
                 className="text-gray-500 hover:text-red-700 transition"
                 aria-label="Delete"
-                onClick={()=>handledelete(item._id)}
+                onClick={() => handledelete(item._id)}
               >
                 <i className="fas fa-trash"></i>
               </button>
