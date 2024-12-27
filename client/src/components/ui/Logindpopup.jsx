@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userlogin } from "../../Store/slices/Userslice";
 import {
   Button,
@@ -21,41 +21,47 @@ const initialValues = {
 };
 
 function DialogWithForm({ open, onToggle }) {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.User);
 
-  const dispatch=useDispatch()
-  const { touched, handleSubmit, handleChange, errors, values, handleBlur ,resetForm } =
-    useFormik({
-      initialValues,
-      validationSchema: schema,
+  const { touched, handleSubmit, handleChange, errors, values, handleBlur, resetForm } = useFormik({
+    initialValues,
+    validationSchema: schema,
+    onSubmit: (values) => handleSubmitForm(values),
+  });
 
-      onSubmit: (values) => {
-        dispatch(userlogin(values))
-        resetForm();
-        onToggle();
-      },
-    });
-
-    const handlegoogle=(credentialResponse)=>{
-      try {
-        const decoded = jwtDecode(credentialResponse?.credential);
-        const googleUser = {
-          email: decoded.email,
-          password: decoded.name,
-        }
-        dispatch(userlogin(googleUser))
-        onToggle()
-      } catch (error) {
-        console.log(error);
-        
-      }
+  const handleSubmitForm = (values) => {
+    if (error) {
+      alert(error);  
+      console.log("Error:", error); 
+      return;  
+    } else {
+      dispatch(userlogin(values));
+      resetForm();
+      onToggle();
     }
+};
+
+  const handlegoogle = (credentialResponse) => {
+    try {
+      const decoded = jwtDecode(credentialResponse?.credential);
+      const googleUser = {
+        email: decoded.email,
+        password: decoded.name,
+      };
+      dispatch(userlogin(googleUser));
+      onToggle();
+    } catch (error) {
+      console.log("Google Login Failed:", error);
+    }
+  };
 
   return (
     <Dialog
       size="xs"
       open={open}
       handler={onToggle}
-      className="bg-inherit shadow-none mt-24 "
+      className="bg-inherit shadow-none mt-24"
     >
       <Card className="mx-auto w-full max-w-[30rem] p-4 border rounded-xl">
         <form onSubmit={handleSubmit}>
@@ -63,11 +69,7 @@ function DialogWithForm({ open, onToggle }) {
             <Typography variant="h4" color="gray">
               Sign In
             </Typography>
-            <Typography
-              className="font-normal"
-              variant="paragraph"
-              color="gray"
-            >
+            <Typography className="font-normal" variant="paragraph" color="gray">
               Enter your email and password to Sign In.
             </Typography>
             <Typography className="-mb-2 pt-2" variant="h6">
@@ -82,7 +84,9 @@ function DialogWithForm({ open, onToggle }) {
               value={values.email}
               className="p-3 rounded-lg"
             />
-            {touched.email&&errors.email&&(<p className="text-red-500 text-sm">{errors.email}</p>)}
+            {touched.email && errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
             <Typography className="-mb-2" variant="h6">
               Your Password
             </Typography>
@@ -95,25 +99,26 @@ function DialogWithForm({ open, onToggle }) {
               onBlur={handleBlur}
               value={values.password}
             />
-            {touched.password&&errors.password&&(<p className="text-red-500 text-sm">{errors.password}</p>)}
+            {touched.password && errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
             <Button
               variant="outlined"
               type="submit"
-              onClick={()=>console.log("button clicked")}
               className="w-full h-10 mb-2"
+              disabled={loading}
+              aria-live="polite"  
             >
-              Sign In
+              {loading ? "Logging in..." : "Sign In"}
             </Button>
           </CardBody>
         </form>
+        {error && <p className="text-red-500 text-center">{error}</p>}
         <CardFooter className="pt-1">
-          {/*<Typography  variant="h6">
-            -------------------------------or--------------------------------
-          </Typography>*/}
           <GoogleLogin
             onSuccess={handlegoogle}
             onError={() => {
-              console.log("Login Failed");
+              console.log("Google Login Failed");
             }}
           />
         </CardFooter>
@@ -121,4 +126,5 @@ function DialogWithForm({ open, onToggle }) {
     </Dialog>
   );
 }
+
 export default DialogWithForm;

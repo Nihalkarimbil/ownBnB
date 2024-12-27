@@ -7,7 +7,7 @@ const stripe = require("stripe");
 
 const addbooking = async (req, res, next) => {
 
-    const { listing, guestCount, checkIn, checkOut, totalPrice } = req.body;
+    const { host,listing, guestCount, checkIn, checkOut, totalPrice } = req.body;
 
     const list = await Listing.findById(listing);
     if (!list) {
@@ -41,6 +41,7 @@ const addbooking = async (req, res, next) => {
     const Newbooking = new Booking({
         guest: req.user.id,
         listing: listing,
+        host,
         checkIn,
         checkOut,
         sessionId: session.id,
@@ -111,6 +112,7 @@ const getOnebooking= async(req,res,next)=>{
     }
     res.status(200).json(booking)
 }
+
 
 module.exports = { 
     addbooking, 

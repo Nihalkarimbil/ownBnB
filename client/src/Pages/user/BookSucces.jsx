@@ -43,7 +43,7 @@ function BookSucces() {
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
       <div className="bg-white shadow-lg rounded-3xl p-8 w-full max-w-4xl">
-        <h1 className="text-3xl font-extrabold text-blue-600 mb-6 text-center tracking-wide">Order Confirmation</h1>
+        <h1 className="text-3xl font-extrabold text-blue-600 mb-6 text-center tracking-wide">Booking Details</h1>
 
   
         <div className="mb-8">
@@ -90,12 +90,7 @@ function BookSucces() {
 
        
         <div className="text-center">
-          <button
-            onClick={handleConfirm}
-            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg transform transition-transform duration-300 mr-6"
-          >
-            Confirm Order
-          </button>
+          
           <button onClick={()=>navigate("/")}
            
             className="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg transform transition-transform duration-300 "

@@ -10,6 +10,8 @@ function Details() {
     const { id } = useParams();
     const navigate = useNavigate()
     const [item, setItem] = useState(null);
+    
+    
     const [checkinDate, setCheckinDate] = useState("DD/MM/YY");
     const [checkoutDate, setCheckoutDate] = useState("DD/MM/YY");
     const [callenderType, setCallenderType] = useState(null);
@@ -83,10 +85,15 @@ function Details() {
         }
     }, [checkinDate, checkoutDate]);
 
+    const host= item?.host._id
+   
+    
+    
     const handlebooking = async (listingId) => {
         try {
             const respons = await axiosinstance.post("/user/addbooking", {
                 listing: listingId,
+                host:host,
                 guestCount: guestCount,
                 checkIn: checkinDate,
                 checkOut: checkoutDate,

@@ -60,6 +60,8 @@ const addlisting = async (req, res, next) => {
         listing: savedListing,
     });
 };
+
+
 const editlisting = async (req, res, next) => {
 
     const { __v, _id, trending, createdat, ...productData } = req.body;
@@ -127,6 +129,7 @@ const deleteimage = async (req, res, next) => {
     await list.save();
     res.status(200).json("image deleted succesfully");
 };
+
 
 module.exports = {
     addlisting,

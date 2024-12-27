@@ -24,6 +24,7 @@ import BookSucces from "../Pages/user/BookSucces";
 import Bookingdtls from "../Pages/user/Bookingdtls";
 import Allbookings from "../Pages/user/Allbookings";
 import Hostdtls from "../Pages/user/Hostdtls";
+import Reservations from "../Pages/host/Reservations";
 
 function Router() {
   const location = useLocation();
@@ -63,6 +64,7 @@ function Router() {
         <Route path="/user-Booking/:id" element={<Bookingdtls/>} />
         <Route path="/user-allbooking" element={<Allbookings/>}/>
         <Route path="/viewhost/:id" element={<Hostdtls/>}/>
+        <Route path="host-reservation" element={<Reservations/>}/>
       </Routes>
     </div>
   );

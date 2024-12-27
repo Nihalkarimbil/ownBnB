@@ -101,7 +101,7 @@ function Bookingdtls() {
                 <span className="font-bold">Total Price:</span> ${booking.totalPrice || "N/A"}
               </p>
               <p className="text-gray-700">
-                <span className="font-bold">Status:</span> {booking.status || "N/A"}
+                <span className="font-bold">Approve from host:</span> {booking.status || "N/A"}
               </p>
             </div>
           </div>
