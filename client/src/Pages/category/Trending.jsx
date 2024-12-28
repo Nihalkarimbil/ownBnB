@@ -7,8 +7,11 @@ import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../Spinner";
 import { Link } from "react-router-dom";
 import { addtowishlist } from "../../Store/slices/Wishlistslice";
+import DialogWithForm from "../../components/ui/Logindpopup";
 
 function Trending() {
+    const { user } = useSelector((state) => state.User)
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [Trending, setTrending] = useState([]);
     const dispatch = useDispatch();
     const { data, status } = useSelector((state) => state.listing);
@@ -23,9 +26,18 @@ function Trending() {
         setTrending(data?.filter((value) => value?.trending));
     }, []);
 
+    
+    
+    const toggleDialog = () => {
+        setDialogOpen(!dialogOpen);
+    };
     const addtowish = (listings) => {
+        if (!user) {
+            return toggleDialog()
+        }
         dispatch(addtowishlist(listings))
     }
+
 
     if (status === "Loading") {
         return <Spinner />;
@@ -85,6 +97,7 @@ function Trending() {
                     ))}
                 </div>
             </div>
+            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

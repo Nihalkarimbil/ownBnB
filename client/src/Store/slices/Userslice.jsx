@@ -43,8 +43,8 @@ const Userslice = createSlice({
     reducers: {
         logOut: (state) => {
             state.user = null,
-                state.token = null,
-                localStorage.removeItem("activeUser")
+            state.token = null,
+            localStorage.removeItem("activeUser")
             localStorage.removeItem("userToken")
         }, updateUser(state, action) {
             state.user = { ...state.user, ...action.payload };
@@ -55,11 +55,11 @@ const Userslice = createSlice({
         Builder
             .addCase(registeruser.pending, (state) => {
                 state.user = null,
-                    state.loading = true
+                state.loading = true
             })
             .addCase(registeruser.fulfilled, (state, action) => {
                 state.loading = false,
-                    state.user = action.payload.data
+                state.user = action.payload.data
                 state.token = action.payload.token;
                 localStorage.setItem('activeUser', JSON.stringify(action.payload.data));
                 localStorage.setItem('userToken', action.payload.token);
@@ -73,16 +73,19 @@ const Userslice = createSlice({
             })
             .addCase(userlogin.fulfilled, (state, action) => {
                 state.loading = false,
-                    state.user = action.payload.data
+                state.user = action.payload.data
                 state.token = action.payload.token
+                state.user.admin = action.payload.data.admin;
                 localStorage.setItem('activeUser', JSON.stringify(action.payload.data));
                 localStorage.setItem('userToken', action.payload.token);
             })
             .addCase(userlogin.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload; 
-              });
+            })       
+            
         ;
+        
 
     }
 })

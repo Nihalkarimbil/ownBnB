@@ -6,9 +6,12 @@ import Spinner from "../../Spinner";
 import axiosinstance from "../../axiosinstance";
 import { Link } from "react-router-dom";
 import { addtowishlist } from "../../Store/slices/Wishlistslice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import DialogWithForm from "../../components/ui/Logindpopup";
 
 function Mountain() {
+    const { user } = useSelector((state) => state.User)
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [Mountain, setmountain] = useState([]);
     const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
@@ -28,9 +31,18 @@ function Mountain() {
         fech()
     }, []);
 
+
+
+    const toggleDialog = () => {
+        setDialogOpen(!dialogOpen);
+    };
     const addtowish = (listings) => {
+        if(!user){
+            return toggleDialog()
+        }
         dispatch(addtowishlist(listings))
     }
+
 
     AOS.init();
 
@@ -89,7 +101,7 @@ function Mountain() {
                     </div>
                 </div>
             )}
-
+            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

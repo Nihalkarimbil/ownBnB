@@ -6,9 +6,12 @@ import Spinner from "../../Spinner";
 import axiosinstance from "../../axiosinstance";
 import { Link } from "react-router-dom";
 import { addtowishlist } from "../../Store/slices/Wishlistslice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import DialogWithForm from "../../components/ui/Logindpopup";
 
 function Snowfall() {
+    const { user } = useSelector((state) => state.User)
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [Snow, setSnow] = useState([]);
     const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
@@ -29,7 +32,15 @@ function Snowfall() {
         fech()
     }, []);
 
+
+
+    const toggleDialog = () => {
+        setDialogOpen(!dialogOpen);
+    };
     const addtowish = (listings) => {
+        if (!user) {
+            return toggleDialog()
+        }
         dispatch(addtowishlist(listings))
     }
 
@@ -91,7 +102,7 @@ function Snowfall() {
                     </div>
                 </div>
             )}
-
+            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

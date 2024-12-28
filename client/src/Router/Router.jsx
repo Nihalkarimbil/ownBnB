@@ -25,48 +25,86 @@ import Bookingdtls from "../Pages/user/Bookingdtls";
 import Allbookings from "../Pages/user/Allbookings";
 import Hostdtls from "../Pages/user/Hostdtls";
 import Reservations from "../Pages/host/Reservations";
+import ProtectedRoute from "../Protectedroute";
+import { useSelector } from "react-redux";
+import Dashbord from "../Pages/Admin/Dashbord";
+
 
 function Router() {
   const location = useLocation();
+  const user = useSelector((state) => state.User.user);
 
   let NavbarComponent;
   if (location.pathname.startsWith("/host")) {
     NavbarComponent = HostNavbar;
-  } else if (location.pathname.startsWith("/details") || location.pathname.startsWith("/wishlist")|| location.pathname.startsWith("/user")|| location.pathname.startsWith("/viewhost")) {
+  } else if (location.pathname.startsWith("/details") || location.pathname.startsWith("/wishlist") || location.pathname.startsWith("/user") || location.pathname.startsWith("/viewhost")) {
     NavbarComponent = Navbar2;
-  } else if (location.pathname.startsWith("/payment")){
-    NavbarComponent=Paymentnavbar;
+  } else if (location.pathname.startsWith("/payment")) {
+    NavbarComponent = Paymentnavbar;
   } else {
     NavbarComponent = Navbar;
   }
 
   return (
-    <div>
-      <NavbarComponent />
-      <Routes>
-        <Route path="/" element={<New />} />
-        <Route path="/Trending" element={<Trending />} />
-        <Route path="/Beach" element={<Beach />} />
-        <Route path="/Mountains" element={<Mountain />} />
-        <Route path="/Snowfall" element={<Snowfall />} />
-        <Route path="/Pools" element={<Pools />} />
-        <Route path="/Boating" element={<Boating />} />
-        <Route path="/host-home" element={<Home />} />
-        <Route path="/host-listing" element={<Hostlisting />} />
-        <Route path="/host-listedit/:id" element={<Editlisting />} />
-        <Route path="/host-addlist" element={<Addlisting />} />
-        <Route path="/serched" element={<Search />} />
-        <Route path="/user-profile" element={<Profile />} />
-        <Route path="/details/:id" element={<Details />} />
-        <Route path="/wishlist" element={<Wishlist/>}/>
-        <Route path="/payment" element={<Payment/>}/>
-        <Route path="payment-success/:sessionid" element={<BookSucces/>}/>
-        <Route path="/user-Booking/:id" element={<Bookingdtls/>} />
-        <Route path="/user-allbooking" element={<Allbookings/>}/>
-        <Route path="/viewhost/:id" element={<Hostdtls/>}/>
-        <Route path="host-reservation" element={<Reservations/>}/>
-      </Routes>
-    </div>
+    <>
+      {!user?.admin ? (
+        <>
+          <NavbarComponent />
+          <Routes>
+            <Route path="/" element={<New />} />
+            <Route path="/Trending" element={<Trending />} />
+            <Route path="/Beach" element={<Beach />} />
+            <Route path="/Mountains" element={<Mountain />} />
+            <Route path="/Snowfall" element={<Snowfall />} />
+            <Route path="/Pools" element={<Pools />} />
+            <Route path="/Boating" element={<Boating />} />
+            <Route path="/host-listing" element={
+              <ProtectedRoute>
+                <Hostlisting />
+              </ProtectedRoute>} />
+            <Route path="/host-listedit/:id" element={
+              <ProtectedRoute>
+                <Editlisting />
+              </ProtectedRoute>} />
+
+            <Route path="/host-addlist" element={
+              <ProtectedRoute>
+                <Addlisting />
+              </ProtectedRoute>} />
+
+            <Route path="host-reservation" element={
+              <ProtectedRoute>
+                <Reservations />
+              </ProtectedRoute>} />
+
+            <Route path="/host-home" element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>} />
+
+            <Route path="/serched" element={<Search />} />
+            <Route path="/user-profile" element={<Profile />} />
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="payment-success/:sessionid" element={<BookSucces />} />
+            <Route path="/user-Booking/:id" element={<Bookingdtls />} />
+            <Route path="/user-allbooking" element={<Allbookings />} />
+            <Route path="/viewhost/:id" element={<Hostdtls />} />
+
+          </Routes>
+
+        </>
+
+      ):(
+        <>
+          <Routes>
+            <Route path="/" element={<Dashbord/>}/>
+          </Routes>
+        </>
+      )}
+
+    </>
   );
 }
 

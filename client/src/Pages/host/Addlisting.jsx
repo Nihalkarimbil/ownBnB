@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Button } from "@material-tailwind/react";
 import axiosinstance from '../../axiosinstance';
 import {useNavigate} from "react-router-dom"
+import { useSelector } from 'react-redux';
 
 function Addlisting() {
+    const {user}=useSelector((state)=>state.User)
+    console.log(user);
+    
     const [imagePreviews, setImagePreviews] = useState([]);
     const [formData, setFormData] = useState({
+        host: user._id,
         title: '',
         description: '',
         category: '',

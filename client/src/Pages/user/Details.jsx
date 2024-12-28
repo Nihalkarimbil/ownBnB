@@ -5,13 +5,16 @@ import Callender from '../../components/ui/Callender';
 import { Button } from "@material-tailwind/react";
 import { FaStar } from "react-icons/fa";
 import { FaHeart } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import DialogWithForm from '../../components/ui/Logindpopup';
 
 function Details() {
+    const { user } = useSelector((state) => state.User)
     const { id } = useParams();
     const navigate = useNavigate()
     const [item, setItem] = useState(null);
-    
-    
+
+
     const [checkinDate, setCheckinDate] = useState("DD/MM/YY");
     const [checkoutDate, setCheckoutDate] = useState("DD/MM/YY");
     const [callenderType, setCallenderType] = useState(null);
@@ -19,7 +22,7 @@ function Details() {
     const [review, setreview] = useState([])
     const [guestCount, setGuestCount] = useState(1);
     const [guestDropdownOpen, setGuestDropdownOpen] = useState(false)
- 
+    const [dialogOpen, setDialogOpen] = useState(false);
 
 
     const toggleGuestDropdown = () => setGuestDropdownOpen(!guestDropdownOpen)
@@ -29,6 +32,10 @@ function Details() {
     const decrementGuest = () => {
         if (guestCount > 0) setGuestCount(guestCount - 1);
     }
+    const toggleDialog = () => {
+        setDialogOpen(!dialogOpen);
+      
+    };
 
     useEffect(() => {
         const fetch = async () => {
@@ -85,21 +92,26 @@ function Details() {
         }
     }, [checkinDate, checkoutDate]);
 
-    const host= item?.host._id
-   
-    
-    
+    const host = item?.host._id
+
+
+
     const handlebooking = async (listingId) => {
+
+        if (!user) {
+            return toggleDialog()
+        }
         try {
+
             const respons = await axiosinstance.post("/user/addbooking", {
                 listing: listingId,
-                host:host,
+                host: host,
                 guestCount: guestCount,
                 checkIn: checkinDate,
                 checkOut: checkoutDate,
                 totalPrice: totalPrice
             })
-            
+
             const clientSecret = respons.data.clientsecret
             navigate("/payment", { state: { clientsecret: clientSecret } })
         } catch (error) {
@@ -276,7 +288,7 @@ function Details() {
                 )}
             </div>
 
-
+            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

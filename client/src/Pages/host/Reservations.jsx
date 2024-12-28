@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import axiosinstance from "../../axiosinstance";
 import { useSelector } from "react-redux";
 
+
 function Reservations() {
   const { user } = useSelector((state) => state.User);
   const [reserv, setReserve] = useState([]);
+  const [revenew, setRevenew] = useState({})
+ 
 
   useEffect(() => {
     const reservfetch = async () => {
@@ -18,9 +21,52 @@ function Reservations() {
     reservfetch();
   }, [user.id]);
 
+  useEffect(() => {
+    const fetchrevenew = async () => {
+      try {
+        const res = await axiosinstance.get(`/host/getrevenew/${user.id}`)
+        setRevenew(res.data)
+      } catch (error) {
+        console.log(error);
+
+      }
+
+    }
+
+    fetchrevenew()
+  }, [])
+
+  const handlerestatuschange = async (reservationId, newStatus) => {
+    try {
+      const res = await axiosinstance.put("/host/statusupdate", {
+        bookingId: reservationId,
+        newstatus: newStatus,
+      });
+
+      setReserve((prevreserv) =>
+        prevreserv.map((reservation) =>
+          reservation._id === res.data.booking._id
+            ? { ...reservation, status: newStatus }
+            : reservation
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <div className="p-6 h-screen">
       <h1 className="text-3xl font-bold mb-6 text-center">Reservations</h1>
+      {revenew.length === 0 ? ( <div className="mb-6 p-4 border border-gray-300 rounded-md shadow-md bg-gray-50 flex w-fit">
+        
+        <p className="text-lg text-gray-600">
+          <strong>Total Revenue:</strong> ₹{revenew.revenew || 0}
+        </p>
+
+      </div>) : null}
+     
 
       {reserv.length === 0 ? (
         <p className="text-gray-500 text-center">No reservations found.</p>
@@ -78,21 +124,23 @@ function Reservations() {
                     <td className="border border-gray-300 px-4 py-2">
                       <p><strong>Name:</strong> {reservation.guest.username}</p>
                       <p><strong>Email:</strong> {reservation.guest.email}</p>
-                     
+
                     </td>
                     <td
-                      className={`border border-gray-300 px-4 py-2 text-center font-semibold ${
-                        reservation.status === "pending"
-                          ? "text-yellow-600"
+                      className={`border border-gray-300 px-4 py-2 text-center font-semibold ${reservation.status === "pending"
+                        ? "text-yellow-600"
+                        : reservation.status === "cancelled"
+                          ? "text-red-600"
                           : "text-green-600"
-                      }`}
+                        }`}
                     >
-                      <select >
-                        <option >{reservation.status}</option>
-                        <option >approved</option>
-                        <option >Cancell</option>
+                      <select value={reservation.status}
+                        onChange={(e) => handlerestatuschange(reservation._id, e.target.value)}>
+                        <option >approved </option>
+                        <option> Completed</option>
+                        <option >cancelled </option>
                       </select>
-                      
+
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-right">
                       ₹{reservation.totalPrice}

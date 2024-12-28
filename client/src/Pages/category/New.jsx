@@ -7,8 +7,11 @@ import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../Spinner";
 import { Link } from "react-router-dom";
 import { addtowishlist } from "../../Store/slices/Wishlistslice";
+import DialogWithForm from "../../components/ui/Logindpopup";
 
 function New() {
+    const { user } = useSelector((state) => state.User)
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [filter, setfilter] = useState([]);
     const dispatch = useDispatch();
     const { data, status } = useSelector((state) => state.listing);
@@ -18,9 +21,17 @@ function New() {
         dispatch(getlistings());
     }, [dispatch]);
 
+
+    const toggleDialog = () => {
+        setDialogOpen(!dialogOpen);
+    };
     const addtowish = (listings) => {
+        if (!user) {
+            return toggleDialog()
+        }
         dispatch(addtowishlist(listings))
     }
+
 
     useEffect(() => {
         setfilter(data.filter((value) => value.newitem));
@@ -84,6 +95,8 @@ function New() {
                     ))}
                 </div>
             </div>
+
+            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

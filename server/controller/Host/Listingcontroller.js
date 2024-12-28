@@ -22,14 +22,16 @@ const allListing = async (req, res, next) => {
 const addlisting = async (req, res, next) => {
 
     const { value, error } = joilistingschema.validate(req.body);
+    console.log(value);
+    
 
     if (error) {
         return next(new Costomerror(error));
     }
 
-    const { title, description, city, country, price, category } = value;
+    const { host,title, description, city, country, price, category } = value;
 
-    const host = req.user.id;
+
     const validHost = await User.findById(host);
     if (!validHost) {
         return next(new Costomerror("Host not found.", 404));

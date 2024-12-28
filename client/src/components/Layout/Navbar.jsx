@@ -79,11 +79,11 @@ const Navbar = () => {
                   ) : (
                     <FaUserCircle size={20} className="text-gray-600" />
                   )}
-                  {user && (
+                  {user && Count ? (
                     <div className="absolute -top-2 -right-2 border rounded-full bg-red-600 w-4 h-4 text-xs text-white border-white text-center flex items-center justify-center">
                       {Count}
                     </div>
-                  )}
+                  ):(null)}
                 </div>
               </div>
               {dropdownOpen && (

@@ -22,41 +22,62 @@ const userRegistration = async (req, res, next) => {
 }
 
 const userLogin = async (req, res, next) => {
+
     const { value, error } = joiuserschema.validate(req.body);
+
     if (error) {
-        return next(new costomeror(error.details[0].message)); 
+        return next(new costomeror(error.details[0].message));
     }
 
     const { email, password } = value;
-
-
     const user = await User.findOne({ email });
-    if (!user) {
-        return res.status(404).json({ message: "No user found with this email" });
-    }
 
     const validpass = await bcrypt.compare(password, user.password);
     if (!validpass) {
         return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = JWT.sign(
-        { id: user._id, email: user.email, name: user.username },
-        process.env.JWT_SECRET,
-        { expiresIn: "1d" }
-    );
+    if (user.admin===true) {
+        const token = JWT.sign({ id: user._id, email: user.email, 
+            admin: true },
+            process.env.JWT_SECRET, { expiresIn: "1d" }
+        );
 
-    res.status(200).json({
-        message: "Login successful",
-        token,
-        data: {
-            id: user._id,
-            email: user.email,
-            username: user.username,
-            role: user.role,
-            image: user.profileimage,
-        },
-    });
+        return res.status(200).json({
+            message: "Login successful",
+            token,
+            data: {
+                id: user._id,
+                email: user.email,
+                admin:true,
+                username: user.username,
+                image: user.profileimage,
+                token:token
+            },
+        })
+    }else if (user) {
+        const token = JWT.sign(
+            { id: user._id, email: user.email, name: user.username },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+    
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            data: {
+                id: user._id,
+                email: user.email,
+                username: user.username,
+                role: user.role,
+                image: user.profileimage,
+            },
+        });
+    }
+
+    if (!user) {
+        return res.status(404).json({ message: "No user found with this email" });
+    }
 
 };
 
@@ -72,6 +93,8 @@ const userProfileupdate = async (req, res, next) => {
 
     res.status(200).json(updateduser)
 }
+
+
 const activeuser = async (req, res, next) => {
 
     const user = await User.findById(req.user._id)
@@ -89,6 +112,8 @@ const hostdtls = async (req, res, next) => {
     }
     res.status(200).json(host)
 }
+
+
 
 module.exports = {
     userRegistration,

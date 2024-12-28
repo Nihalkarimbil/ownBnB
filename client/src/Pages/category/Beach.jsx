@@ -5,14 +5,17 @@ import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../Spinner";
 import axiosinstance from "../../axiosinstance";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addtowishlist } from "../../Store/slices/Wishlistslice";
+import DialogWithForm from "../../components/ui/Logindpopup";
 
 
 function Beach() {
     const [Beach, setBeach] = useState([]);
     const [loading, setLoading] = useState(true)
-    const dispatch=useDispatch()
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const { user } = useSelector((state) => state.User)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fech = async () => {
@@ -29,9 +32,19 @@ function Beach() {
         fech()
     }, []);
 
-    const addtowish =(listings)=>{
+
+
+
+    const toggleDialog = () => {
+        setDialogOpen(!dialogOpen);
+    };
+    const addtowish = (listings) => {
+        if (!user) {
+            return toggleDialog()
+        }
         dispatch(addtowishlist(listings))
     }
+
 
     AOS.init();
 
@@ -91,7 +104,7 @@ function Beach() {
                     </div>
                 </div>
             )}
-
+            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }
