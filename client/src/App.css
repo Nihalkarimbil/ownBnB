@@ -5,7 +5,12 @@
   font-weight: 5;
   font-style: normal;
 }
-
+#admlogo{
+  color: rgb(8, 163, 142);
+  font-family: "Righteous", sans-serif;
+  font-weight: 2;
+  font-style: normal;
+}
 #scrollbar-none {
   -ms-overflow-style: none; 
   scrollbar-width: none; 

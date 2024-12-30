@@ -1,5 +1,5 @@
 const jwt= require("jsonwebtoken")
-const customError= require("../Middleware/Costomerror")
+const CustomError= require("./CustomError")
 const user = require("../Models/User")
 
 const userAuthMiddleware = async(req, res, next) => {
@@ -16,7 +16,7 @@ const userAuthMiddleware = async(req, res, next) => {
         next();
 
     } catch (error) {
-        return next(new customError("Invalid or expired token", 401));
+        return next(new CustomError("Invalid or expired token", 401));
     }
 };
 
@@ -25,7 +25,7 @@ const hostAuth = (req, res, next) => {
         if (req.user?.role === "host") {
             return next();
         }
-        return next(new customError("You are not a host", 403));
+        return next(new CustomError("You are not a host", 403));
     });
 };
 
@@ -35,7 +35,7 @@ const adminAuth = (req, res, next) => {
         if (req.user?.admin) {
             return next()
         }
-        return next(new customError("You are not authorized", 403));
+        return next(new CustomError("You are not authorized", 403));
     });
 };
 

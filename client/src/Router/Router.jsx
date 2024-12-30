@@ -1,33 +1,36 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import New from "../Pages/category/New";
-import Trending from "../Pages/category/Trending";
-import Beach from "../Pages/category/Beach";
-import Mountain from "../Pages/category/Mountain";
-import Snowfall from "../Pages/category/Snowfall";
-import Pools from "../Pages/category/Pools";
-import Boating from "../Pages/category/Boating";
-import Home from "../Pages/host/Home";
+import New from "../Pages/Users/category/New";
+import Trending from "../Pages/Users/category/Trending";
+import Beach from "../Pages/Users/category/Beach";
+import Mountain from "../Pages/Users/category/Mountain";
+import Snowfall from "../Pages/Users/category/Snowfall";
+import Pools from "../Pages/Users/category/Pools";
+import Boating from "../Pages/Users/category/Boating";
+import Home from "../Pages/Users/host/Home";
 import Navbar from "../components/Layout/Navbar";
 import HostNavbar from "../components/Layout/HostNavbar";
-import Hostlisting from "../Pages/host/Hostlisting";
-import Editlisting from "../Pages/host/Editlisting";
-import Addlisting from "../Pages/host/Addlisting";
-import Profile from "../Pages/user/Profile";
-import Search from "../Pages/user/Search";
-import Details from "../Pages/user/Details";
+import Hostlisting from "../Pages/Users/host/Hostlisting";
+import Editlisting from "../Pages/Users/host/Editlisting";
+import Addlisting from "../Pages/Users/host/Addlisting";
+import Profile from "../Pages/Users/user/Profile";
+import Search from "../Pages/Users/user/Search";
+import Details from "../Pages/Users/user/Details";
 import Navbar2 from "../components/Layout/Navbar2";
-import Wishlist from "../Pages/user/Wishlist";
-import Payment from "../Pages/user/Payment";
+import Wishlist from "../Pages/Users/user/Wishlist";
+import Payment from "../Pages/Users/user/Payment";
 import Paymentnavbar from "../components/Layout/paymentnavbar";
-import BookSucces from "../Pages/user/BookSucces";
-import Bookingdtls from "../Pages/user/Bookingdtls";
-import Allbookings from "../Pages/user/Allbookings";
-import Hostdtls from "../Pages/user/Hostdtls";
-import Reservations from "../Pages/host/Reservations";
+import BookSucces from "../Pages/Users/user/BookSucces";
+import Bookingdtls from "../Pages/Users/user/Bookingdtls";
+import Allbookings from "../Pages/Users/user/Allbookings";
+import Hostdtls from "../Pages/Users/user/Hostdtls";
+import Reservations from "../Pages/Users/host/Reservations";
 import ProtectedRoute from "../Protectedroute";
 import { useSelector } from "react-redux";
 import Dashbord from "../Pages/Admin/Dashbord";
+import Footer from "../components/Layout/Footer";
+import AdmNavbar from "../Pages/Admin/layout/Navbar";
+import  Sidebar  from "../Pages/Admin/layout/Sidebar";
 
 
 function Router() {
@@ -93,11 +96,15 @@ function Router() {
             <Route path="/viewhost/:id" element={<Hostdtls />} />
 
           </Routes>
+          <Footer/>
+          
 
         </>
 
       ):(
         <>
+          <AdmNavbar/>
+          <Sidebar/>
           <Routes>
             <Route path="/" element={<Dashbord/>}/>
           </Routes>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { allwish } from '../../Store/slices/Wishlistslice';
+import { allwish } from '../../../Store/slices/Wishlistslice';
 import { Link } from 'react-router-dom';
 
 function Wishlist() {

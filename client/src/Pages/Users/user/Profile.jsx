@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import BGimg from "../../assets/Bg.png";
+import BGimg from "../../../assets/Bg.png";
 import { useSelector } from "react-redux";
-import { logOut, updateUser } from "../../Store/slices/Userslice";
+import { logOut, updateUser } from "../../../Store/slices/Userslice";
 import { useDispatch } from "react-redux";
 import { Link,  useNavigate } from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { FiEdit } from "react-icons/fi";
-import axiosinstance from "../../axiosinstance";
+import axiosinstance from "../../../axiosinstance";
 
 
 function AirbnbProfile() {

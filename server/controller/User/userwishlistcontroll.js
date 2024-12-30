@@ -1,7 +1,5 @@
 const Wishlist = require("../../Models/Wishlist");
-const customerror = require("../../Middleware/Costomerror");
-
-
+const CustomError = require("../../Middleware/CustomError");
 
 
 const addtowishlist = async (req, res, next) => {
@@ -38,7 +36,7 @@ const removewish=async(req,res,next)=>{
     const wishitem=await Wishlist.findOne({user:userId})
 
     if(!wishitem){
-        return next(new customerror("Wishlist not found",404))
+        return next(new CustomError("Wishlist not found",404))
     }
 
     wishitem.Listings = wishitem.Listings.filter((id) => id.toString() !== listingid);
@@ -51,7 +49,7 @@ const wishitems=async(req,res,next)=>{
    
     const wishitem= await Wishlist.find({user:req.user._id}).populate('Listings');
     if(!wishitem){
-        return next(new customerror("no items in the wishlist"))
+        return next(new CustomError("no items in the wishlist"))
     }
     res.status(200).json(wishitem)
 }

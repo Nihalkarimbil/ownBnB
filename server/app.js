@@ -3,6 +3,7 @@ const Express = require("express");
 const mongoose = require("mongoose");
 const userRoute=require("./Routes/userRoute")
 const hostRoute=require("./Routes/hostRoute")
+const AdminRoute= require("./Routes/adminRoute")
 const errorhandler= require("./Middleware/Errorhandler")
 const app = Express();
 const cors=require("cors")
@@ -21,6 +22,7 @@ app.use(
 
 app.use("/user",userRoute)
 app.use("/host",hostRoute)
+app.use("/admin",AdminRoute)
 
 app.use(errorhandler)
 

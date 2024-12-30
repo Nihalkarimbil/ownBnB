@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axiosinstance from '../../axiosinstance';
+import axiosinstance from '../../../axiosinstance';
 
 function Hostdtls() {
     const { id } = useParams();

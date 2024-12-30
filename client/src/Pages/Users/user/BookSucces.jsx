@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axiosinstance from '../../axiosinstance';
+import axiosinstance from '../../../axiosinstance';
 import { useNavigate } from 'react-router-dom';
 
 function BookSucces() {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axiosinstance from '../../axiosinstance';
+import axiosinstance from '../../../axiosinstance';
 import { Button } from "@material-tailwind/react";
-import Spinner from '../../Spinner';
+import Spinner from '../../../Spinner';
 import { Link } from 'react-router-dom';
 
 function Hostlisting() {

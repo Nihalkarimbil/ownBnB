@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axiosinstance from '../../axiosinstance';
+import axiosinstance from '../../../axiosinstance';
 import { Button } from "@material-tailwind/react"
 
 

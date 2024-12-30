@@ -7,7 +7,7 @@ import {
     Typography,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
-import axiosinstance from '../../axiosinstance';
+import axiosinstance from '../../../axiosinstance';
 
 function Allbookings() {
     const [Booking, setBooking] = useState([]);

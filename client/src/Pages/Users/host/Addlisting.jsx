@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from "@material-tailwind/react";
-import axiosinstance from '../../axiosinstance';
+import axiosinstance from '../../../axiosinstance';
 import {useNavigate} from "react-router-dom"
 import { useSelector } from 'react-redux';
 
@@ -215,7 +215,7 @@ function Addlisting() {
                         type="submit"
                         className="w-96 bg-gradient-to-r from-rose-400 to-rose-500 text-white py-3 rounded-lg font-bold hover:bg-blue-600 transition duration-300 shadow-md"
                     >
-                        Save Listings
+                        Send for approval
                     </Button>
                     <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={()=> navigate("/host-listing")}>back</Button>
                 </div>

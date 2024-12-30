@@ -2,25 +2,26 @@ import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import AOS from "aos";
 import { Carousel } from "@material-tailwind/react";
-import Spinner from "../../Spinner";
-import axiosinstance from "../../axiosinstance";
+import Spinner from "../../../Spinner";
+import axiosinstance from "../../../axiosinstance";
 import { Link } from "react-router-dom";
-import { addtowishlist } from "../../Store/slices/Wishlistslice";
+import { addtowishlist } from "../../../Store/slices/Wishlistslice";
 import { useDispatch, useSelector } from "react-redux";
-import DialogWithForm from "../../components/ui/Logindpopup";
+import DialogWithForm from "../../../components/ui/Logindpopup";
 
-function Mountain() {
+function Snowfall() {
     const { user } = useSelector((state) => state.User)
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [Mountain, setmountain] = useState([]);
+    const [Snow, setSnow] = useState([]);
     const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
+    AOS.init();
 
     useEffect(() => {
         const fech = async () => {
             try {
-                const respons = await axiosinstance.get("/user/listby/Mountains")
-                setmountain(respons.data)
+                const respons = await axiosinstance.get("/user/listby/snowfall")
+                setSnow(respons.data)
             } catch (error) {
                 console.log(error);
             }
@@ -37,21 +38,20 @@ function Mountain() {
         setDialogOpen(!dialogOpen);
     };
     const addtowish = (listings) => {
-        if(!user){
+        if (!user) {
             return toggleDialog()
         }
         dispatch(addtowishlist(listings))
     }
 
 
-    AOS.init();
 
     return (
         <div>
             {loading ? (<Spinner />) : (
                 <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py- lg:max-w-max lg:px-20 w-screen">
                     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                        {Mountain.map((product) => (
+                        {Snow.map((product) => (
                             <div
                                 key={product.id}
                                 className="group relative"
@@ -90,6 +90,7 @@ function Mountain() {
                                         </div>
                                     </Link>
 
+
                                     <div className="flex space-x-2">
                                         <button onClick={() => addtowish(product._id)} className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
                                             <FaHeart size={17} />
@@ -106,4 +107,4 @@ function Mountain() {
     );
 }
 
-export default Mountain;
+export default Snowfall;

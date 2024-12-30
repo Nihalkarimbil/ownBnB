@@ -1,6 +1,6 @@
-const Listing = require("../../Models/Listing");
+const Listing = require ("../../Models/Listing")
 const User = require("../../Models/User");
-const Costomerror = require("../../Middleware/Costomerror");
+const CustomError = require ("../../Middleware/CustomError");
 const { joilistingschema } = require("../../utils/validation");
 
 const allListing = async (req, res, next) => {
@@ -11,7 +11,7 @@ const allListing = async (req, res, next) => {
     );
 
     if (!allListings) {
-        return next(new Costomerror("no listings find", 404));
+        return next(new CustomError("no listings find", 404));
     }
 
     res.status(200).json(allListings);
@@ -26,7 +26,7 @@ const addlisting = async (req, res, next) => {
     
 
     if (error) {
-        return next(new Costomerror(error));
+        return next(new CustomError(error));
     }
 
     const { host,title, description, city, country, price, category } = value;
@@ -34,7 +34,7 @@ const addlisting = async (req, res, next) => {
 
     const validHost = await User.findById(host);
     if (!validHost) {
-        return next(new Costomerror("Host not found.", 404));
+        return next(new CustomError("Host not found.", 404));
     }
 
     if (validHost.role === "guest") {
@@ -69,13 +69,13 @@ const editlisting = async (req, res, next) => {
     const { __v, _id, trending, createdat, ...productData } = req.body;
     const { error } = joilistingschema.validate(productData);
     if (error) {
-        return next(new Costomerror("Validation failed: ", 400));
+        return next(new CustomError("Validation failed: ", 400));
     }
 
    
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
-        return next(new Costomerror("Product not found with this ID", 404));
+        return next(new CustomError("Product not found with this ID", 404));
     }
 
   
@@ -98,7 +98,7 @@ const deleteListing = async (req, res, next) => {
 
     const deletelisting = await Listing.findByIdAndDelete(req.params.id);
     if (!deletelisting) {
-        return next(new Costomerror("Product with this ID is not found", 404));
+        return next(new CustomError("Product with this ID is not found", 404));
     }
     res.status(200).json("listing deleted succesfully");
 };
@@ -107,7 +107,7 @@ const viewlistbyid = async (req, res, next) => {
 
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
-        return next(new Costomerror("Product with this ID is not found", 404));
+        return next(new CustomError("Product with this ID is not found", 404));
     }
 
     res.status(200).json(listing);
@@ -119,11 +119,11 @@ const deleteimage = async (req, res, next) => {
     const list = await Listing.findById(req.params.id);
 
     if (!list) {
-        return next(new Costomerror("no listings find with this id", 404));
+        return next(new CustomError("no listings find with this id", 404));
     }
     const imgindex = list.images.indexOf(imgurl);
     if (imgindex === -1) {
-        return next(new Costomerror("Image not found in the listing", 404));
+        return next(new CustomError("Image not found in the listing", 404));
     }
 
     list.images.splice(imgindex, 1);

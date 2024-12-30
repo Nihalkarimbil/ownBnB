@@ -1,6 +1,6 @@
 const User = require("../Models/User")
 const { joiuserschema } = require("../utils/validation")
-const costomeror = require("../Middleware/Costomerror")
+const CustomError = require("../Middleware/CustomError")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
 
@@ -8,7 +8,7 @@ const userRegistration = async (req, res, next) => {
     const { value, error } = joiuserschema.validate(req.body)
 
     if (error) {
-        return next(new costomeror(error))
+        return next(new CustomError(error))
     }
     const { username, email, password } = value
 
@@ -26,7 +26,7 @@ const userLogin = async (req, res, next) => {
     const { value, error } = joiuserschema.validate(req.body);
 
     if (error) {
-        return next(new costomeror(error.details[0].message));
+        return next(new CustomError(error.details[0].message));
     }
 
     const { email, password } = value;
@@ -87,7 +87,7 @@ const userProfileupdate = async (req, res, next) => {
 
     const updateduser = await User.findOneAndUpdate(req.user._id, { profileimage: imageurl }, { new: true })
     if (!updateduser) {
-        return next(new costomeror("no user find with this id", 404))
+        return next(new CustomError("no user find with this id", 404))
     }
 
 
@@ -99,7 +99,7 @@ const activeuser = async (req, res, next) => {
 
     const user = await User.findById(req.user._id)
     if (!user) {
-        return next(new costomeror("no user found"))
+        return next(new CustomError("no user found"))
     }
     res.status(200).json(user)
 }
@@ -108,7 +108,7 @@ const hostdtls = async (req, res, next) => {
 
     const host = await User.findById(req.params.id)
     if (!host) {
-        return next(new costomeror("host with this id is not available", 404))
+        return next(new CustomError("host with this id is not available", 404))
     }
     res.status(200).json(host)
 }

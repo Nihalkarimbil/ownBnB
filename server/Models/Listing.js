@@ -14,8 +14,11 @@ const Listingschema = new mongoose.Schema({
   category : {type:String ,required:true},
   trending:{type:Boolean,default:false},
   newitem:{type:Boolean,default:true},
+  approved:{type:Boolean,default:false},
   createdat: { type: Date, default: Date.now },
 });
 
 
-module.exports = mongoose.model("Listing", Listingschema);
+const Listing = mongoose.models.Listing || mongoose.model("Listing", Listingschema);
+
+module.exports = Listing;

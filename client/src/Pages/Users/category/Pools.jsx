@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import AOS from "aos";
 import { Carousel } from "@material-tailwind/react";
-import Spinner from "../../Spinner";
-import axiosinstance from "../../axiosinstance";
+import Spinner from "../../../Spinner";
+import axiosinstance from "../../../axiosinstance";
 import { Link } from "react-router-dom";
-import { addtowishlist } from "../../Store/slices/Wishlistslice";
+import { addtowishlist } from "../../../Store/slices/Wishlistslice";
 import { useDispatch, useSelector } from "react-redux";
-import DialogWithForm from "../../components/ui/Logindpopup";
+import DialogWithForm from "../../../components/ui/Logindpopup";
 
 function Pools() {
     const { user } = useSelector((state) => state.User)

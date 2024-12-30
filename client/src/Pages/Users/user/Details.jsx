@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axiosinstance from '../../axiosinstance';
-import Callender from '../../components/ui/Callender';
+import axiosinstance from '../../../axiosinstance';
+import Callender from '../../../components/ui/Callender';
 import { Button } from "@material-tailwind/react";
 import { FaStar } from "react-icons/fa";
 import { FaHeart } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import DialogWithForm from '../../components/ui/Logindpopup';
+import DialogWithForm from '../../../components/ui/Logindpopup';
 
 function Details() {
     const { user } = useSelector((state) => state.User)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getlistings } from '../../Store/slices/Dataslice';
+import { getlistings } from '../../../Store/slices/Dataslice';
 import { FaHeart } from "react-icons/fa";
 import { Carousel } from "@material-tailwind/react";
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';

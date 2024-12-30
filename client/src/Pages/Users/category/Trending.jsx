@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getlistings } from "../../Store/slices/Dataslice";
+import { getlistings } from "../../../Store/slices/Dataslice";
 import { FaHeart } from "react-icons/fa";
 import AOS from "aos";
 import { Carousel } from "@material-tailwind/react";
-import Spinner from "../../Spinner";
+import Spinner from "../../../Spinner";
 import { Link } from "react-router-dom";
-import { addtowishlist } from "../../Store/slices/Wishlistslice";
-import DialogWithForm from "../../components/ui/Logindpopup";
+import { addtowishlist } from "../../../Store/slices/Wishlistslice";
+import DialogWithForm from "../../../components/ui/Logindpopup";
 
-function New() {
+function Trending() {
     const { user } = useSelector((state) => state.User)
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [filter, setfilter] = useState([]);
+    const [Trending, setTrending] = useState([]);
     const dispatch = useDispatch();
     const { data, status } = useSelector((state) => state.listing);
     AOS.init();
+
 
     useEffect(() => {
         dispatch(getlistings());
     }, [dispatch]);
 
+    useEffect(() => {
+        setTrending(data?.filter((value) => value?.trending));
+    }, []);
 
+    
+    
     const toggleDialog = () => {
         setDialogOpen(!dialogOpen);
     };
@@ -33,10 +39,6 @@ function New() {
     }
 
 
-    useEffect(() => {
-        setfilter(data.filter((value) => value.newitem));
-    }, [data]);
-
     if (status === "Loading") {
         return <Spinner />;
     }
@@ -45,9 +47,9 @@ function New() {
         <div>
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py- lg:max-w-max lg:px-20 w-screen">
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {filter.map((product) => (
+                    {Trending.map((product) => (
                         <div
-                            key={product._id}
+                            key={product.id}
                             className="group relative"
                             data-aos="fade-up"
                             data-aos-duration="600"
@@ -95,10 +97,9 @@ function New() {
                     ))}
                 </div>
             </div>
-
             <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }
 
-export default New;
+export default Trending;

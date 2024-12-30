@@ -1,5 +1,5 @@
 const Booking = require("../../Models/Booking");
-const customerror = require("../../Middleware/Costomerror");
+const CustomError = require("../../Middleware/CustomError");
 const Listing = require("../../Models/Listing");
 const stripe = require("stripe");
 
@@ -11,7 +11,7 @@ const addbooking = async (req, res, next) => {
 
     const list = await Listing.findById(listing);
     if (!list) {
-        return next(customerror("Listing not found", 404));
+        return next(CustomError("Listing not found", 404));
     }
 
     const lineItems = [
@@ -92,7 +92,7 @@ const getbooking= async(req,res,next)=>{
     const {sessionId}=req.params
     const Bookingc= await Booking.find({sessionId:sessionId}).populate("listing")
     if(!Bookingc){
-        return next(new customerror("no booking found",400))
+        return next(new CustomError("no booking found",400))
     }
     res.status(200).json(Bookingc)
 }
@@ -101,14 +101,14 @@ const getuserbooking=async (req,res,next)=>{
     
     const bookings= await Booking.find({guest:req.user._id}).populate("listing")
     if(!bookings){
-        return next(new customerror("no bookings found for this guest"))
+        return next(new CustomError("no bookings found for this guest"))
     }
     res.status(200).json(bookings)
 }
 const getOnebooking= async(req,res,next)=>{
     const booking= await Booking.findById(req.params.id).populate("listing")
     if(!booking){
-        return next(new customerror("no booking found with this ID"))
+        return next(new CustomError("no booking found with this ID"))
     }
     res.status(200).json(booking)
 }

@@ -1,6 +1,5 @@
 
 import "./App.css";
-import Footer from "./components/Layout/Footer";
 
 import Router from "./Router/Router";
 
@@ -10,7 +9,7 @@ function App() {
     
       <Router />
       
-      <Footer/>
+      
     </div>
   );
 }
