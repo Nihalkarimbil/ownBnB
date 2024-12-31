@@ -99,12 +99,13 @@ const getbooking= async(req,res,next)=>{
 
 const getuserbooking=async (req,res,next)=>{
     
-    const bookings= await Booking.find({guest:req.user._id}).populate("listing")
+    const bookings= await Booking.find({guest:req.user.id}).populate("listing")
     if(!bookings){
         return next(new CustomError("no bookings found for this guest"))
     }
     res.status(200).json(bookings)
 }
+
 const getOnebooking= async(req,res,next)=>{
     const booking= await Booking.findById(req.params.id).populate("listing")
     if(!booking){

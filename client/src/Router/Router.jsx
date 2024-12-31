@@ -31,6 +31,7 @@ import Dashbord from "../Pages/Admin/Dashbord";
 import Footer from "../components/Layout/Footer";
 import AdmNavbar from "../Pages/Admin/layout/Navbar";
 import  Sidebar  from "../Pages/Admin/layout/Sidebar";
+import Listings from "../Pages/Admin/Listings";
 
 
 function Router() {
@@ -97,8 +98,7 @@ function Router() {
 
           </Routes>
           <Footer/>
-          
-
+        
         </>
 
       ):(
@@ -107,6 +107,7 @@ function Router() {
           <Sidebar/>
           <Routes>
             <Route path="/" element={<Dashbord/>}/>
+            <Route path="/Admin-listing" element={<Listings/>}/>
           </Routes>
         </>
       )}

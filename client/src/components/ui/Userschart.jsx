@@ -1,6 +1,7 @@
 import React from 'react'
 
-function Home() {
+
+function Userschart() {
   return (
     <div>
       
@@ -8,4 +9,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Userschart

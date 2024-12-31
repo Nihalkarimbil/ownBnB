@@ -6,11 +6,11 @@ const addtowishlist = async (req, res, next) => {
    
     const {listings } = req.body;
 
-    let wishlist = await Wishlist.findOne({ user: req.user._id });
+    let wishlist = await Wishlist.findOne({ user: req.user.id });
 
     if (!wishlist) {
         const newWishlist = new Wishlist({
-            user: req.user._id,
+            user: req.user.id,
             Listings:[listings], 
         });
         await newWishlist.save();
@@ -46,8 +46,9 @@ const removewish=async(req,res,next)=>{
 }
 
 const wishitems=async(req,res,next)=>{
+   console.log(req.user.id);
    
-    const wishitem= await Wishlist.find({user:req.user._id}).populate('Listings');
+    const wishitem= await Wishlist.find({user:req.user.id}).populate('Listings');
     if(!wishitem){
         return next(new CustomError("no items in the wishlist"))
     }

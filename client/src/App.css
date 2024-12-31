@@ -15,3 +15,8 @@
   -ms-overflow-style: none; 
   scrollbar-width: none; 
 }
+#admdashbord{
+  font-family: "Archivo Black", serif;
+  font-weight: 400;
+  font-style: normal;
+}

@@ -10,7 +10,7 @@ const addreview= async(req,res,next)=>{
     }
 
     const newReview= new Review({
-        user:req.user._id,
+        user:req.user.id,
         listing,
         rating,
         comment

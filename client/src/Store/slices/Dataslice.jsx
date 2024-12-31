@@ -3,8 +3,10 @@ import axiosinstance from "../../axiosinstance";
 
 const initialState = {
     data: [],
+    Adminlist:[],
     status: "none",
 };
+
 const Dataslice = createSlice({
     name: "listing",
     initialState,
@@ -19,7 +21,17 @@ const Dataslice = createSlice({
         })
         .addCase(getlistings.rejected, (state) => {
             state.status = "Error";
-        });
+        })
+        .addCase(getAdminlist.fulfilled,(state,action)=>{
+            state.Adminlist=action.payload
+            state.status=null
+        })
+        .addCase(getAdminlist.pending,(state)=>{
+            state.status="Loading"
+        })
+        .addCase(getAdminlist.rejected,(state)=>{
+            state.status="Error"
+        })
     },
 });
 
@@ -33,3 +45,15 @@ export const getlistings = createAsyncThunk("listings/get", async () => {
         console.log(error);
     }
 });
+
+export const getAdminlist= createAsyncThunk("/adminlist",async()=>{
+    try {
+        const res= await axiosinstance.get("/admin/allListings")
+        console.log(res.data);
+        
+        return res.data
+    } catch (error) {
+        console.log(error);
+        
+    }
+})

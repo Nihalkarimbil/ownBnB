@@ -3,6 +3,7 @@ const { joiuserschema } = require("../utils/validation")
 const CustomError = require("../Middleware/CustomError")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
+const { removeAllListeners } = require("../Models/Booking")
 
 const userRegistration = async (req, res, next) => {
     const { value, error } = joiuserschema.validate(req.body)
@@ -38,8 +39,7 @@ const userLogin = async (req, res, next) => {
     }
 
     if (user.admin===true) {
-        const token = JWT.sign({ id: user._id, email: user.email, 
-            admin: true },
+        const token = JWT.sign({ id: user._id,admin: true },
             process.env.JWT_SECRET, { expiresIn: "1d" }
         );
 
@@ -57,7 +57,7 @@ const userLogin = async (req, res, next) => {
         })
     }else if (user) {
         const token = JWT.sign(
-            { id: user._id, email: user.email, name: user.username },
+            { id: user._id, email: user.email, name: user.username ,role:user.role},
             process.env.JWT_SECRET,
             { expiresIn: "1d" }
         );
