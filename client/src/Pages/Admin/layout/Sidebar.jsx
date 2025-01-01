@@ -28,8 +28,6 @@ function Sidebar() {
         setOpen(open === value ? 0 : value);
     };
 
-
-
     return (
         <>
 
@@ -40,7 +38,7 @@ function Sidebar() {
                     </Typography>
                 </div>
                 <List>
-                   
+
                     <Accordion
                         open={open === 1}
                         icon={
@@ -76,12 +74,15 @@ function Sidebar() {
                                         Active Listings
                                     </ListItem>
                                 </Link>
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Pending Approvals
-                                </ListItem>
+                                <Link to={"/Admin-pendinglist"}>
+                                    <ListItem >
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Pending Approvals
+                                    </ListItem>
+                                </Link>
+
                                 <ListItem >
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />

@@ -30,8 +30,10 @@ import { useSelector } from "react-redux";
 import Dashbord from "../Pages/Admin/Dashbord";
 import Footer from "../components/Layout/Footer";
 import AdmNavbar from "../Pages/Admin/layout/Navbar";
-import  Sidebar  from "../Pages/Admin/layout/Sidebar";
+import Sidebar from "../Pages/Admin/layout/Sidebar";
 import Listings from "../Pages/Admin/Listings";
+import Pendinglists from "../Pages/Admin/Pendinglists";
+import AdmlistDetails from "../Pages/Admin/AdmlistDetails";
 
 
 function Router() {
@@ -97,17 +99,17 @@ function Router() {
             <Route path="/viewhost/:id" element={<Hostdtls />} />
 
           </Routes>
-          <Footer/>
-        
+          <Footer />
         </>
-
-      ):(
+      ) : (
         <>
-          <AdmNavbar/>
-          <Sidebar/>
+          <AdmNavbar />
+          <Sidebar />
           <Routes>
-            <Route path="/" element={<Dashbord/>}/>
-            <Route path="/Admin-listing" element={<Listings/>}/>
+            <Route path="/" element={<Dashbord />} />
+            <Route path="/Admin-listing" element={<Listings />} />
+            <Route path="/Admin-pendinglist" element={<Pendinglists />} />
+            <Route path="/item-details/:id" element={<AdmlistDetails/>}/>
           </Routes>
         </>
       )}

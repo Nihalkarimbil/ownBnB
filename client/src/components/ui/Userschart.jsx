@@ -3,7 +3,7 @@ import React from 'react'
 
 function Userschart() {
   return (
-    <div>
+    <div className='w-'>
       
     </div>
   )
