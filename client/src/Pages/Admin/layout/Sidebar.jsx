@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Card,
     Typography,
-    Drawer,
     List,
     ListItem,
     ListItemPrefix,
     Accordion,
     AccordionHeader,
     AccordionBody,
-    IconButton,
 } from "@material-tailwind/react";
 import {
     HomeIcon,
@@ -18,15 +16,30 @@ import {
     Cog6ToothIcon,
     PowerIcon,
 } from "@heroicons/react/24/solid";
-import { ChevronRightIcon, ChevronDownIcon, XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Sidebar() {
-    const [open, setOpen] = useState(0);
 
+
+    const [open, setOpen] = useState(0);
+    const navigate = useNavigate();
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
     };
+
+
+
+    const handlelogout = () => {
+        try {
+            localStorage.removeItem("activeUser");
+            localStorage.removeItem("userToken");
+            navigate('/')
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <>
@@ -82,13 +95,16 @@ function Sidebar() {
                                         Pending Approvals
                                     </ListItem>
                                 </Link>
+                                <Link to={"/Create-listing"}>
+                                    <ListItem >
 
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Create New
-                                </ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Create New
+                                    </ListItem>
+                                </Link>
+
                             </List>
                         </AccordionBody>
                     </Accordion>
@@ -113,18 +129,24 @@ function Sidebar() {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    All Users
-                                </ListItem>
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Blocked Users
-                                </ListItem>
+                                <Link to={"/Admin-User"}>
+                                    <ListItem >
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        All Users
+                                    </ListItem>
+
+                                </Link>
+                                <Link to={"/Blockedusers"}>
+                                    <ListItem >
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Blocked Users
+                                    </ListItem>
+                                </Link>
+
 
                             </List>
                         </AccordionBody>
@@ -149,24 +171,23 @@ function Sidebar() {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List>
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    All Reservations
-                                </ListItem>
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Pending Reservations
-                                </ListItem>
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Create Reservation
-                                </ListItem>
+                                <Link to={"/Admin-Reservation"}>
+                                    <ListItem >
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        All Reservations
+                                    </ListItem>
+                                </Link>
+                                <Link to={"/pendingreserv"}>
+                                    <ListItem >
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Pending Reservations
+                                    </ListItem>
+                                </Link>
+
                             </List>
                         </AccordionBody>
                     </Accordion>
@@ -191,19 +212,18 @@ function Sidebar() {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem >
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    All Hosts
-                                </ListItem>
-
+                                <Link to={"/Admin-hosts"}>
+                                    <ListItem >
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        All Hosts
+                                    </ListItem>
+                                </Link>
                             </List>
                         </AccordionBody>
                     </Accordion>
-
-
-                    <ListItem>
+                    <ListItem onClick={() => handlelogout()}>
                         <ListItemPrefix>
                             <PowerIcon className="h-5 w-5" />
                         </ListItemPrefix>

@@ -4,6 +4,7 @@ import { getAdminlist, gethosts, userfetch } from '../../Store/slices/Dataslice'
 import ListingChart from '../../components/ui/Listingchart';
 import axiosinstance from '../../axiosinstance';
 import Revenewchart from '../../components/ui/Revenewchart';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const { listings, Users, Hosts } = useSelector((state) => state.listing);
@@ -73,18 +74,25 @@ function Dashboard() {
       <div className="mt-20 ml-72">
 
         <div className="flex gap-4 h-52 hover:cursor-pointer pt-5">
-          <div className="bg-gray-100 text-gray-700 p-4 pt-9 rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
-            Listings
-            <div className='pt-4'>{listcount}</div>
-          </div>
-          <div className="bg-gray-100 text-gray-700 p-4 pt-9 rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
-            Users
-            <div className='pt-4'>{usercount}</div>
-          </div>
-          <div className="bg-gray-100 text-gray-700 p-4 pt-9 rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
-            Hosts
-            <div className='pt-4'>{hostcount}</div>
-          </div>
+          <Link to={"/Admin-listing"}>
+            <div className="bg-gray-100 text-gray-700 p-4 pt-9 rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
+              Listings
+              <div className='pt-4'>{listcount}</div>
+            </div>
+          </Link>
+          <Link to={"/Admin-User"}>
+            <div className="bg-gray-100 text-gray-700 p-4 pt-9 rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
+              Users
+              <div className='pt-4'>{usercount}</div>
+            </div>
+          </Link>
+          <Link to={"/Admin-hosts"}>
+            <div className="bg-gray-100 text-gray-700 p-4 pt-9 rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
+              Hosts
+              <div className='pt-4'>{hostcount}</div>
+            </div>
+          </Link>
+
           <div className="bg-gray-100 text-gray-700 p-4 pt-9  rounded w-72 text-center text-3xl h-40 shadow-md hover:shadow-lg" id="admdashbord">
             Revenue
             <div className='pt-4'>{revenewdata}</div>

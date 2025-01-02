@@ -4,6 +4,7 @@ import { Column } from 'primereact/column';
 import { Rating } from 'primereact/rating';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdminlist } from '../../Store/slices/Dataslice';
+import { Link } from 'react-router-dom';
 
 export default function Listings() {
   const { listings } = useSelector((state) => state.listing);
@@ -18,7 +19,7 @@ export default function Listings() {
 
   useEffect(()=>{
     setActive(listings.filter((item)=>item.approved===true))
-  },[])
+  },[dispatch,listings])
 
   const formatCurrency = (value) => {
     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -45,7 +46,9 @@ export default function Listings() {
 
 
   const titleBodyTemplate = (product) => {
-    return <span className="text-blue-600 font-semibold">{product.title || 'No Title'}</span>;
+    return (<Link to={`/item-details/${product._id}`} className="text-blue-600 font-semibold">
+      {product.title || 'No Title'}
+    </Link>)
   };
 
  

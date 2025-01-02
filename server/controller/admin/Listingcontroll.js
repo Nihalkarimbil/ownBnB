@@ -10,8 +10,6 @@ const allListings = async (req, res, next) => {
     res.status(200).json(Listings)
 }
 
-
-
 const approveListing = async (req, res, next) => {
     const list = await Listing.findById(req.params.id)
     if (!list) {

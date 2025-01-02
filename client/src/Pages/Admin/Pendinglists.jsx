@@ -20,7 +20,7 @@ function Pendinglists() {
 
     useEffect(() => {
         setPending(listings.filter((item) => item.approved === false))
-    }, [])
+    }, [dispatch, listings])
 
     const formatCurrency = (value) => {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });

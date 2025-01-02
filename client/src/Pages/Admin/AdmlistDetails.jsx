@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import axiosinstance from '../../axiosinstance';
 import { FaHeart, FaStar } from 'react-icons/fa';
 
 function AdmlistDetails() {
   const { id } = useParams();
-  console.log(id);
 
   const [item, setItem] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(item);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchlist = async () => {
       try {
         const response = await axiosinstance.get(`/admin/getlistby/${id}`);
         setItem(response.data);
-        setLoading(false);  // Set loading to false when data is fetched
+        setLoading(false);
       } catch (error) {
         setError('Failed to fetch data');
         setLoading(false);
@@ -27,22 +26,37 @@ function AdmlistDetails() {
     fetchlist();
   }, [id]);
 
-  // Show loading spinner or message if data is being fetched
   if (loading) {
-    return <div>Loading...</div>; // Add a spinner or skeleton loader here
+    return <div>Loading...</div>;
   }
 
-  // Show error message if data fetch fails
+
   if (error) {
     return <div>{error}</div>;
   }
+
+  const handleapprove = async () => {
+    try {
+      const res= axiosinstance.put(`/admin/aprovelist/${id}`);
+      alert('approved')
+      navigate('/Admin-pendinglist')
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+  }
+
 
   return (
     <div className='mt-20 ml-72'>
       <div className="p-7">
         <div className="flex items-center justify-between text-3xl font-extrabold text-gray-800 mb-6">
           <h1 className="text-gray-800">{item.title}</h1>
-
+          {!item.approved?(<button onClick={()=>handleapprove()} className="p-2 w- rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
+            <h1 className='text-lg'>approve</h1>
+          </button>):null}
+          
         </div>
         <div className="bg-gray-100 p-6 border border-gray-200 rounded-2xl shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -59,7 +73,7 @@ function AdmlistDetails() {
         </div>
 
         <div className="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-8 mt-8">
-          {/* User Profile Section */}
+
           <div className="lg:w-1/3 flex-shrink-0 h-full">
             <Link className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg shadow-md hover:shadow-lg transition h-80">
               <img
@@ -76,7 +90,7 @@ function AdmlistDetails() {
             </Link>
           </div>
 
-          {/* Description Section */}
+
           <div className="lg:w-2/3 bg-white p-5 rounded-lg shadow-lg">
             <p className="text-xl font-semibold mb-3">
               <strong>Category:</strong> {item.category}

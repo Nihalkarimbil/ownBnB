@@ -17,6 +17,11 @@ Router
     .get("/getallusers", adminAuth, tryCatch(Usercontroll.getUsers))
     .get("/revenew", adminAuth, tryCatch(revenew.getrevenew))
     .get("/getlistby/:id",adminAuth,tryCatch(AdminListing.getByid))
+    .get("/getblockedusers",adminAuth,tryCatch(Usercontroll.getBlockedUsers))
+    .get("/getuserby/:id",adminAuth,tryCatch(Usercontroll.getuserByid))
+    .put("/updateuser/:id",adminAuth,tryCatch(Usercontroll.updateuser))
+    .get("/getuserbooking/:id",adminAuth,tryCatch(Usercontroll.getuserbooking))
+    .get("/gethostlist/:id",adminAuth,tryCatch(Hostcontroll.gethostlist))
 
 module.exports = Router
 

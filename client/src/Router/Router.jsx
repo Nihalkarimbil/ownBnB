@@ -34,6 +34,16 @@ import Sidebar from "../Pages/Admin/layout/Sidebar";
 import Listings from "../Pages/Admin/Listings";
 import Pendinglists from "../Pages/Admin/Pendinglists";
 import AdmlistDetails from "../Pages/Admin/AdmlistDetails";
+import Users from "../Pages/Admin/Users";
+import AdmUserdtls from "../Pages/Admin/AdmUserdtls";
+import BlockedUsers from "../Pages/Admin/BlockedUsers";
+import CreateList from "../Pages/Admin/Createlist";
+import Hosts from "../Pages/Admin/Hosts";
+import AdmHostdetails from "../Pages/Admin/Hostdetails";
+import Hostdetails from "../Pages/Admin/Hostdetails";
+import Reservation from "../Pages/Admin/Reservation";
+import Reservdtls from "../Pages/Admin/Reservdtls";
+import PendigRserv from "../Pages/Admin/PendigRserv";
 
 
 function Router() {
@@ -110,6 +120,15 @@ function Router() {
             <Route path="/Admin-listing" element={<Listings />} />
             <Route path="/Admin-pendinglist" element={<Pendinglists />} />
             <Route path="/item-details/:id" element={<AdmlistDetails/>}/>
+            <Route path="/Admin-User" element={<Users/>} />
+            <Route path="/Admin-userby/:id" element={<AdmUserdtls/>}/>
+            <Route path="/Blockedusers" element={<BlockedUsers/>}/>
+            <Route path="/Create-listing" element={<CreateList />} />
+            <Route path="/Admin-hosts" element={<Hosts/>}/>
+            <Route path="/Admin-hostby/:id" element={<Hostdetails/>}/>
+            <Route path="/Admin-Reservation" element={<Reservation/>}/>
+            <Route path="/Admin-Reservationby/:id" element={<Reservdtls/>}/>
+            <Route path="/pendingreserv" element={<PendigRserv/>}/>
           </Routes>
         </>
       )}
