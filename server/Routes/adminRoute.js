@@ -4,6 +4,7 @@ const AdminListing = require("../controller/admin/Listingcontroll")
 const Hostcontroll = require("../controller/admin/hostControll")
 const Usercontroll = require("../controller/admin/Usercontroller")
 const revenew = require("../controller/admin/Revenewcontroll")
+const Reservation = require("../controller/admin/Reservation")
 const { adminAuth } = require("../Middleware/Authentication")
 const tryCatch = require("../Middleware/tryCatch")
 
@@ -22,6 +23,9 @@ Router
     .put("/updateuser/:id",adminAuth,tryCatch(Usercontroll.updateuser))
     .get("/getuserbooking/:id",adminAuth,tryCatch(Usercontroll.getuserbooking))
     .get("/gethostlist/:id",adminAuth,tryCatch(Hostcontroll.gethostlist))
+    .get("/admgetReserv",adminAuth,tryCatch(Reservation.getCompleted))
+    .get("/admpendingres",adminAuth,tryCatch(Reservation.getpending))
+    .get("/getonebooking/:id" ,adminAuth,tryCatch(Reservation.getbookingbyid))
 
 module.exports = Router
 

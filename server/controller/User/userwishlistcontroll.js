@@ -46,7 +46,7 @@ const removewish=async(req,res,next)=>{
 }
 
 const wishitems=async(req,res,next)=>{
-   console.log(req.user.id);
+   
    
     const wishitem= await Wishlist.find({user:req.user.id}).populate('Listings');
     if(!wishitem){

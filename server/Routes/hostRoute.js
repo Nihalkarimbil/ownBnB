@@ -18,5 +18,4 @@ Router
     .put("/statusupdate",hostAuth,tryCatch(reservation.updatestatus))
     .get("/getrevenew/:id",tryCatch(reservation.getRevenew))
 
-    
 module.exports=Router

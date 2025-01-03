@@ -39,7 +39,6 @@ const getlistbycategory = async (req, res, next) => {
 
 }
 
-
 const getByid= async (req, res, next) => {
 
     const list= await Listing.findById(req.params.id).populate("host", "username email profileimage")
@@ -48,6 +47,7 @@ const getByid= async (req, res, next) => {
     }
     res.status(200).json(list)
 }
+
 
 
 

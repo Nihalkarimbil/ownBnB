@@ -22,9 +22,7 @@ const allListing = async (req, res, next) => {
 const addlisting = async (req, res, next) => {
 
     const { value, error } = joilistingschema.validate(req.body);
-    console.log(value);
-    
-
+   
     if (error) {
         return next(new CustomError(error));
     }

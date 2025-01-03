@@ -33,7 +33,7 @@ function Hosts() {
     return (
         <div className="container px-4 py-8 mt-16 ml-72 max-w-6xl">
             <div className="bg-white shadow-lg rounded-lg p-6">
-                <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center"id='admdashbord'>Hosts</h1>
+                <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center"id='admdashbord'>Hosts</h1>
                 <DataTable
                     value={Hosts}
                     footer={footer}

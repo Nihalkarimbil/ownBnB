@@ -23,8 +23,6 @@ const addreview= async(req,res,next)=>{
         review:newReview
     })
 
-    
-    
 }
 
 const getreviewbyid= async(req,res,next)=>{

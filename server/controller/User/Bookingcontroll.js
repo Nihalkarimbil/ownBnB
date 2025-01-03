@@ -76,7 +76,7 @@ const sessiondetails = async (req, res, next) => {
         quantity: item.quantity,
 
     }));
-    console.log(lineItems.name);
+    
 
     res.status(200).json({
         success: true,

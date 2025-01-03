@@ -3,7 +3,7 @@ const { joiuserschema } = require("../utils/validation")
 const CustomError = require("../Middleware/CustomError")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
-const { removeAllListeners } = require("../Models/Booking")
+
 
 const userRegistration = async (req, res, next) => {
     const { value, error } = joiuserschema.validate(req.body)

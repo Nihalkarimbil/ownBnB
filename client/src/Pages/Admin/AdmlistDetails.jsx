@@ -75,7 +75,7 @@ function AdmlistDetails() {
         <div className="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-8 mt-8">
 
           <div className="lg:w-1/3 flex-shrink-0 h-full">
-            <Link className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg shadow-md hover:shadow-lg transition h-80">
+            <Link to={`/Admin-hostby/${item.host?._id}`}  className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg shadow-md hover:shadow-lg transition h-80">
               <img
                 src={item.host?.profileimage}
                 alt={item.host?.username}

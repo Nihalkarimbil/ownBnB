@@ -18,7 +18,6 @@ const viewlistbyid = async (req, res, next) => {
 
     const listings = await Listing.findById(req.params.id).populate("host", "username email profileimage")
 
-
     if (!listings) {
         return next(new CustomError('Product with this ID is not found', 404))
     }

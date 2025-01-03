@@ -46,11 +46,12 @@ function Dashboard() {
     { month: 'May', revenue: 1890 },
     { month: 'Jun', revenue: 2390 },
     { month: 'Jul', revenue: 3490 },
-    { month: 'Aug', revenue: 4000 },
+    { month: 'Aug', revenue: 3000 },
     { month: 'Sep', revenue: 1890 },
     { month: 'Oct', revenue: 2780 },
     { month: 'Nov', revenue: 3200 },
     { month: 'Dec', revenue: revenewdata },
+    
   ];
 
   useEffect(() => {
