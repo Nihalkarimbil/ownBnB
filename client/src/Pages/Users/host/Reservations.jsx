@@ -137,6 +137,7 @@ function Reservations() {
                       <select value={reservation.status}
                         onChange={(e) => handlerestatuschange(reservation._id, e.target.value)}>
                         <option >approved </option>
+                        <option>ongoing</option>
                         <option> Completed</option>
                         <option >cancelled </option>
                       </select>

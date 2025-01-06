@@ -5,16 +5,13 @@ import axiosinstance from "../../../axiosinstance";
 function Bookingdtls() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
-
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [coment,setComment]=useState("")
-
   const [rating,setRating]=useState("")
-
-  
   const [reviewpop, setReviewpop] = useState(false)
+
+  const toglepop = () => { setReviewpop(!reviewpop) }
 
   useEffect(() => {
     const fetchBooking = async () => {
@@ -46,20 +43,14 @@ function Bookingdtls() {
         rating:rating,
         comment:coment
       }
-
-      const res = await axiosinstance.post("/user/addreview",reviewdata)
-      console.log(res);
+      await axiosinstance.post("/user/addreview",reviewdata)
       setReviewpop(false)
       
     } catch (error) {
       console.log(error);
-      
     }
   }
 
-  
-
-  const toglepop = () => { setReviewpop(!reviewpop) }
 
   if (loading) {
     return <p className="text-center text-blue-500">Loading booking details...</p>;
@@ -174,8 +165,6 @@ function Bookingdtls() {
               </div>
             </div>
           )}
-
-
         </div>
 
       </div>

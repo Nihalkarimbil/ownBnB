@@ -2,44 +2,44 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
-  faUmbrellaBeach,
-  faWater,
   faHotel,
   faSnowflake,
   faCampground,
-  faShip,
   faPalette,
-  faStar,
   faFire,
-  faHouse,
   faTowerObservation,
   faCity,
   faGolfBallTee,
   faCaravan,
-  faMountain,
   faBed,
 } from "@fortawesome/free-solid-svg-icons";
+import { MdFiberNew } from "react-icons/md";
+import { TbBeach } from "react-icons/tb";
+import { PiMountainsFill } from "react-icons/pi";
+import { MdPool } from "react-icons/md";
+import { FaSailboat } from "react-icons/fa6";
+import { GiHut } from "react-icons/gi";
 
 function Coroselnav() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const items = [
-    { icon: <FontAwesomeIcon icon={faStar} />, name: "New", path: "/" },
+    { icon: <MdFiberNew size={24} />, name: "New", path: "/" },
     { icon: <FontAwesomeIcon icon={faFire} />, name: "Trending", path: "/Trending" },
-    { icon: <FontAwesomeIcon icon={faUmbrellaBeach} />, name: "Beach", path: "/Beach" },
-    { icon: <FontAwesomeIcon icon={faMountain} />, name: "Mountains", path: "/Mountains" },
+    { icon: <TbBeach size={24} />, name: "Beach", path: "/Beach" },
+    { icon: <PiMountainsFill size={24} />, name: "Mountains", path: "/Mountains" },
     { icon: <FontAwesomeIcon icon={faSnowflake} />, name: "Snowfall", path: "/Snowfall" },
-    { icon: <FontAwesomeIcon icon={faWater} />, name: "Pools", path: "/Pools" },
-    { icon: <FontAwesomeIcon icon={faShip} />, name: "Boating", path: "/Boating" },
+    { icon: <MdPool size={24} />, name: "Pools", path: "/Pools" },
+    { icon: <FaSailboat size={24} />, name: "Boating", path: "/Boating" },
     { icon: <FontAwesomeIcon icon={faHotel} />, name: "Hotels", path: "/Hotels" },
     { icon: <FontAwesomeIcon icon={faBed} />, name: "Rooms", path: "/Rooms" },
-    { icon: <FontAwesomeIcon icon={faCaravan} />, name: "Camping", path: "/Camping" },
     { icon: <FontAwesomeIcon icon={faCampground} />, name: "Campset", path: "/Campset" },
-    { icon: <FontAwesomeIcon icon={faHouse} />, name: "Huts", path: "/Huts" },
+    { icon: <GiHut size={24} />, name: "Huts", path: "/Huts" },
     { icon: <FontAwesomeIcon icon={faTowerObservation} />, name: "Towers", path: "/Towers" },
     { icon: <FontAwesomeIcon icon={faCity} />, name: "Cities", path: "/Cities" },
     { icon: <FontAwesomeIcon icon={faGolfBallTee} />, name: "Golfplay", path: "/Golfplay" },
     { icon: <FontAwesomeIcon icon={faPalette} />, name: "Creative", path: "/Creative" },
+    { icon: <FontAwesomeIcon icon={faCaravan} />, name: "Camping", path: "/Camping" },
   ];
 
   return (

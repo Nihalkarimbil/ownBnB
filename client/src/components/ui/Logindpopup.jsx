@@ -20,7 +20,7 @@ const initialValues = {
   password: "",
 };
 
-function DialogWithForm({ open, onToggle }) {
+function LoginPopup({ open, onToggle }) {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.User);
 
@@ -127,4 +127,4 @@ function DialogWithForm({ open, onToggle }) {
   );
 }
 
-export default DialogWithForm;
+export default LoginPopup;

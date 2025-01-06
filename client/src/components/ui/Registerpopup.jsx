@@ -17,7 +17,7 @@ const initialValues = {
   password: "",
 };
 
-function DialogWithReForm({ open, onToggle }) {
+function Registerpopup({ open, onToggle }) {
   const Dispatch = useDispatch()
   const {
     touched,
@@ -147,4 +147,4 @@ function DialogWithReForm({ open, onToggle }) {
   );
 }
 
-export default DialogWithReForm
+export default Registerpopup

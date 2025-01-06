@@ -63,12 +63,10 @@ const addlisting = async (req, res, next) => {
 
 
 const editlisting = async (req, res, next) => {
-
+    console.log(req.files);
+    
     const { __v, _id, trending, createdat, ...productData } = req.body;
-    const { error } = joilistingschema.validate(productData);
-    if (error) {
-        return next(new CustomError("Validation failed: ", 400));
-    }
+    
 
    
     const listing = await Listing.findById(req.params.id);
@@ -86,6 +84,8 @@ const editlisting = async (req, res, next) => {
 
 
     const updatedListing = await listing.save();
+    console.log(updatedListing);
+    
   
     res.status(200).json(updatedListing);
 

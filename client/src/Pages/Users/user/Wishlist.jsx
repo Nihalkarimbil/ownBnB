@@ -13,7 +13,7 @@ function Wishlist() {
 
     return (
         <div>
-            {wishlist.length !== 0 ? (
+            {wishlist?.length !== 0 ? (
                 
                 wishlist.map((value, index) => (
                     <div key={index}>

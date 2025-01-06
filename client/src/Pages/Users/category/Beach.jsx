@@ -7,7 +7,7 @@ import axiosinstance from "../../../axiosinstance";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addtowishlist } from "../../../Store/slices/Wishlistslice";
-import DialogWithForm from "../../../components/ui/Logindpopup";
+import LoginPopup from "../../../components/ui/Logindpopup";
 
 
 function Beach() {
@@ -31,8 +31,6 @@ function Beach() {
         }
         fech()
     }, []);
-
-
 
 
     const toggleDialog = () => {
@@ -88,7 +86,7 @@ function Beach() {
                                                 {product.host?.username}
                                             </h3>
                                             <p className="mt-1 text-lg font-medium text-gray-900">
-                                                ${product.price}
+                                                ₹{product.price}
                                             </p>
                                         </div>
                                     </Link>
@@ -104,7 +102,7 @@ function Beach() {
                     </div>
                 </div>
             )}
-            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
+            <LoginPopup open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

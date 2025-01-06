@@ -7,7 +7,7 @@ import { Carousel } from "@material-tailwind/react";
 import Spinner from "../../../Spinner";
 import { Link } from "react-router-dom";
 import { addtowishlist } from "../../../Store/slices/Wishlistslice";
-import DialogWithForm from "../../../components/ui/Logindpopup";
+import LoginPopup from "../../../components/ui/Logindpopup";
 
 function Trending() {
     const { user } = useSelector((state) => state.User)
@@ -26,8 +26,8 @@ function Trending() {
         setTrending(data?.filter((value) => value?.trending));
     }, []);
 
-    
-    
+
+
     const toggleDialog = () => {
         setDialogOpen(!dialogOpen);
     };
@@ -81,7 +81,7 @@ function Trending() {
                                             {product.host?.username}
                                         </h3>
                                         <p className="mt-1 text-lg font-medium text-gray-900">
-                                            ${product.price}
+                                            ₹{product.price}
                                         </p>
                                     </div>
                                 </Link>
@@ -97,7 +97,7 @@ function Trending() {
                     ))}
                 </div>
             </div>
-            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
+            <LoginPopup open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

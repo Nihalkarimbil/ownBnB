@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosinstance from "../../axiosinstance";
 
-
-
 export const registeruser = createAsyncThunk("/user/register", async (userdata) => {
     try {
         const respons = await axiosinstance.post("user/signup", userdata)
@@ -27,9 +25,6 @@ export const userlogin = createAsyncThunk("/user/login", async (userData, { reje
 
 
 const activeUser = JSON.parse(localStorage.getItem('activeUser'))
-console.log(activeUser);
-
-
 
 const Userslice = createSlice({
     name: "user",
@@ -83,9 +78,7 @@ const Userslice = createSlice({
                 state.loading = false;
                 state.error = action.payload; 
             })       
-            
         ;
-        
 
     }
 })

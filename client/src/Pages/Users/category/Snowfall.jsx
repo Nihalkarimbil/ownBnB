@@ -7,7 +7,7 @@ import axiosinstance from "../../../axiosinstance";
 import { Link } from "react-router-dom";
 import { addtowishlist } from "../../../Store/slices/Wishlistslice";
 import { useDispatch, useSelector } from "react-redux";
-import DialogWithForm from "../../../components/ui/Logindpopup";
+import LoginPopup from "../../../components/ui/Logindpopup";
 
 function Snowfall() {
     const { user } = useSelector((state) => state.User)
@@ -85,7 +85,7 @@ function Snowfall() {
                                                 {product.host?.username}
                                             </h3>
                                             <p className="mt-1 text-lg font-medium text-gray-900">
-                                                ${product.price}
+                                                ₹{product.price}
                                             </p>
                                         </div>
                                     </Link>
@@ -102,7 +102,7 @@ function Snowfall() {
                     </div>
                 </div>
             )}
-            <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
+            <LoginPopup open={dialogOpen} onToggle={toggleDialog} />
         </div>
     );
 }

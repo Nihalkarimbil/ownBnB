@@ -6,8 +6,6 @@ function Hostdtls() {
     const { id } = useParams();
     const [host, setHost] = useState({});
     const [lists, setLists] = useState([])
-    console.log(lists);
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 

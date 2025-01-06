@@ -9,7 +9,6 @@ const stripe = loadStripe("pk_test_51Q7YVcRxy6hGX3ZUkqhdD2NSbcJyZJ5JxvqNAybvOpSN
 function Payment() {
     const location=useLocation()
     const { clientsecret } = location.state||{}
-
     const options = { clientSecret: clientsecret }
   
     return (

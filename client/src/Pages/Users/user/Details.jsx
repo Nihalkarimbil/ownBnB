@@ -131,7 +131,7 @@ function Details() {
     return (
         <div className="p-6 lg:mx-48">
             <div className="flex items-center justify-between text-3xl font-extrabold text-gray-800 mb-6">
-                <h1 className="text-gray-800">{item.title}</h1>
+                <h1 className="text-gray-500">{item.title}</h1>
                 <button className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
                     <FaHeart size={17} />
                 </button>

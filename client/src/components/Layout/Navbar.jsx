@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaUserCircle, FaBars, FaRegHeart } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import air from "../../assets/air.png";
-import DialogWithForm from "../ui/Logindpopup";
-import DialogWithreForm from "../ui/Registerpopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../Store/slices/Userslice";
 import { allwish } from "../../Store/slices/Wishlistslice";
 import Coroselnav from "./Coroselnav";
 import Searchbar from "./Searchbar";
+import { BsHouse } from "react-icons/bs";
+import { FaAirbnb } from "react-icons/fa";
+import LoginPopup from "../ui/Logindpopup";
+import Registerpopup from "../ui/Registerpopup";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.User);
@@ -20,6 +22,7 @@ const Navbar = () => {
   const [Count, setCount] = useState(0);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate()
   useEffect(() => {
     console.log('Wishlist:', wishlist);
     dispatch(allwish());
@@ -32,7 +35,6 @@ const Navbar = () => {
     }
   }, [wishlist, user]);
 
-  const toggleMenu = () => { setIsOpen(!isOpen); };
   const toggleDropdown = () => { setDropdownOpen(!dropdownOpen); };
 
   const toggleDialog = () => {
@@ -50,22 +52,39 @@ const Navbar = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      setIsOpen(isMobile);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <nav className="relative w-screen">
       <div className="bg-white border-b border-gray-200 dark:bg-gray-900 w-screen">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-          <div className="flex items-center space-x-3 rtl:space-x-reverse hover:cursor-pointer">
+          {!isOpen ? (<div className="flex items-center space-x-3 rtl:space-x-reverse hover:cursor-pointer">
             <img src={air} className="h-9" alt="Logo" />
             <Link to={"/"} className="self-center md:text-3xl font-semibold whitespace-nowrap" id="logo">ownbnb</Link>
-          </div>
+          </div>) : null}
 
+          {isOpen && (
+            <Link to={"/"}>
+              <img src={air} className="h-9" alt="Logo" />
+            </Link>
+          )}
           <Searchbar />
 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
-            {user && <Link to={"/host-home"} className="font-semibold text-sm">Switch to Hosting</Link>}
-            <button className="text-gray-700 dark:text-white md:hidden" onClick={toggleMenu}>
-              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
+            {!isOpen && user && <Link to={"/host-home"} className="font-semibold text-sm">Switch to Hosting</Link>}
+
             <div className="hidden md:flex items-center space-x-6">
               <div className="text-2xl border border-gray-300 rounded-full p-2 flex space-x-3 hover:shadow-md cursor-pointer relative">
                 <FaBars size={18} className="text-gray-600" />
@@ -83,7 +102,7 @@ const Navbar = () => {
                     <div className="absolute -top-2 -right-2 border rounded-full bg-red-600 w-4 h-4 text-xs text-white border-white text-center flex items-center justify-center">
                       {Count}
                     </div>
-                  ):(null)}
+                  ) : (null)}
                 </div>
               </div>
               {dropdownOpen && (
@@ -159,20 +178,52 @@ const Navbar = () => {
 
       <Coroselnav />
       {isOpen && (
-        <div className="absolute top-1 right-1 w-36 bg-white shadow-lg border rounded-lg border-gray-300 md:hidden">
-          <div className="flex flex-col items-center py-4">
-            <button className="w-full text-center text-md font-semibold border-b-2 text-gray-700" onClick={toggleDialog}>
-              Login
-            </button>
-            <button className="w-full text-center text-md font-semibold text-gray-700" onClick={tooggleDialog}>
-              Sign Up
-            </button>
+        <div className="w-full fixed bottom-0 z-50 bg-white shadow-lg border-t border-gray-300 md:hidden">
+          <div className="flex justify-around py-4">
+            <Link to={"/"} className="flex flex-col items-center">
+              <BsHouse size={24} />
+              <span className="text-sm">Home</span>
+            </Link>
+            <Link to={user ? "/user-profile" : "#"} className="flex flex-col items-center">
+              {user ? (
+                <img
+                  src={user.image}
+                  alt="User Avatar"
+                  className="rounded-full w-6 h-6 object-cover"
+                />
+              ) : (
+                <FaUserCircle size={24} className="text-gray-600" />
+              )}
+              <span className="text-sm">{!user ? (<button onClick={toggleDialog}>Login</button>) : user?.username}</span>
+
+            </Link>
+            <div className="flex flex-col items-center relative">
+              <FaAirbnb size={24} className="text-gray-600" />
+              <span
+                className="text-sm cursor-pointer"
+                onClick={!user ? toggleDialog : () => navigate("/user-allbooking")}
+              >
+                Trips
+              </span>
+            </div>
+            <div className="flex flex-col items-center relative">
+              <FaRegHeart size={24} className="text-gray-600" />
+              
+              <span
+                className="text-sm cursor-pointer"
+                onClick={!user ? toggleDialog : () => navigate("/wishlist")}
+              >
+                Wishlist
+              </span>
+            </div>
+
           </div>
         </div>
       )}
 
-      <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
-      <DialogWithreForm open={redialogOpen} onToggle={tooggleDialog} />
+
+      <LoginPopup open={dialogOpen} onToggle={toggleDialog} />
+      <Registerpopup open={redialogOpen} onToggle={tooggleDialog} />
     </nav>
   );
 };

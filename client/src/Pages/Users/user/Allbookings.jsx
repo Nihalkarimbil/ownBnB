@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import axiosinstance from '../../../axiosinstance';
 
 function Allbookings() {
+    
     const [Booking, setBooking] = useState([]);
     useEffect(() => {
         const getbooking = async () => {
@@ -23,6 +24,7 @@ function Allbookings() {
         }
         getbooking()
     }, [])
+
     return (
         <div>
             <div className="mt-10 mx-14 pb-7">

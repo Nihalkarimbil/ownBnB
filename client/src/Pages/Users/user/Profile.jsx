@@ -17,9 +17,8 @@ import axiosinstance from "../../../axiosinstance";
 
 
 function AirbnbProfile() {
-  const { user } = useSelector((state) => state.User)
   
- 
+  const { user } = useSelector((state) => state.User)
   const [Booking, setBooking] = useState([]);
   const [img,setimg]= useState("")
   const dispatch = useDispatch();

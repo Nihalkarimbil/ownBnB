@@ -8,6 +8,7 @@ function BookSucces() {
   const [Booking, setBooking] = useState([]);
   const [costomerdt, setcostomer] = useState({});
   const [methord, setmethord] = useState([]);
+  const navigate=useNavigate()
 
   useEffect(() => {
     const sessionfetch = async () => {
@@ -34,11 +35,7 @@ function BookSucces() {
     fetchbooking();
   }, [sessionid]);
 
-  const handleConfirm = () => {
-    console.log('Order confirmed!');
-  };
 
-  const navigate=useNavigate()
   
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
