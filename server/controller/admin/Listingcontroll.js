@@ -1,4 +1,4 @@
-const Listing = require('../../models/Listing');
+const Listing = require("../../Models/Listing");
 const CustomError = require("../../Middleware/CustomError")
 
 const allListings = async (req, res, next) => {

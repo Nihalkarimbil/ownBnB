@@ -4,13 +4,6 @@ const CustomError = require("../Middleware/CustomError")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
 
-const generateAccessToken = (payload) => {
-    return JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
-};
-
-const generateRefreshToken = (payload) => {
-    return JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
-};
 
 const userRegistration = async (req, res, next) => {
 
@@ -31,12 +24,9 @@ const userRegistration = async (req, res, next) => {
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
     );
-    console.log(token);
+    
     const decoded = JWT.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
-    
-
-    
+   
     res.status(200).json({ status: 'succes', message: 'Registerd succesfully',
         token,
         data: {
