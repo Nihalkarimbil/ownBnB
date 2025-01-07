@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FaUserCircle, FaBars, FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaUserCircle, FaBars, FaRegHeart, FaAirbnb } from "react-icons/fa";
+import { Link,useNavigate } from "react-router-dom";
 import air from "../../assets/air.png";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../Store/slices/Userslice";
@@ -20,9 +20,9 @@ const Navbar2 = () => {
   const [Count, setCount] = useState(0)
   const [redialogOpen, setreDialogOpen] = useState(false);
   const dispatch = useDispatch()
+  const navigate=useNavigate()
 
 
- 
   const toggleDropdown = () => { setDropdownOpen(!dropdownOpen) };
 
   const toggleDialog = () => {
@@ -73,7 +73,7 @@ const Navbar2 = () => {
             <img src={air} className="h-9" alt="Logo" />
             <Link to={"/"} className="self-center md:text-3xl font-semibold whitespace-nowrap" id="logo">ownbnb</Link>
           </div>) : null}
-          {isOpen&& (
+          {isOpen && (
             <Link to={"/"}>
               <img src={air} className="h-9" alt="Logo" />
             </Link>
@@ -209,7 +209,7 @@ const Navbar2 = () => {
       </div>
 
       {isOpen && (
-        <div className="w-full fixed bottom-0 z-50 bg-white shadow-lg border-t border-gray-300 md:hidden">
+        <div className="w-full fixed bottom-0 z-50 bg-white shadow-lg border-t  md:hidden">
           <div className="flex justify-around py-4">
             <Link to={"/"} className="flex flex-col items-center">
               <BsHouse size={24} />
@@ -229,8 +229,17 @@ const Navbar2 = () => {
 
             </Link>
             <div className="flex flex-col items-center relative">
+              <FaAirbnb size={24} className="text-gray-600" />
+              <span
+                className="text-sm cursor-pointer"
+                onClick={!user ? toggleDialog : () => navigate("/user-allbooking")}
+              >
+                Trips
+              </span>
+            </div>
+            <div className="flex flex-col items-center relative">
               <FaRegHeart size={24} className="text-gray-600" />
-             
+
               <span
                 className="text-sm cursor-pointer"
                 onClick={!user ? toggleDialog : () => navigate("/wishlist")}

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from "@material-tailwind/react";
 import axiosinstance from '../../../axiosinstance';
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux';
+import { ImFolderUpload } from 'react-icons/im';
 
 function Addlisting() {
-    const {user}=useSelector((state)=>state.User)
+    const { user } = useSelector((state) => state.User)
     console.log(user);
-    
+
     const [imagePreviews, setImagePreviews] = useState([]);
     const [formData, setFormData] = useState({
         host: user._id,
@@ -22,8 +23,8 @@ function Addlisting() {
         newitem: false,
         images: []
     });
-    const navigate=useNavigate()
-    
+    const navigate = useNavigate()
+
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -54,9 +55,9 @@ function Addlisting() {
                 formDataToSend.append(key, formData[key]);
             }
         });
-    
+
         try {
-             await axiosinstance.post('/host/addlisting', formDataToSend, {
+            await axiosinstance.post('/host/addlisting', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -186,15 +187,22 @@ function Addlisting() {
                     </div>
                 </div>
 
-                <label className="block mb-2 font-semibold text-blue-700">Images</label>
-                <input
-                    type="file"
-                    name="images"
-                    multiple
-                    onChange={handleFileChange}
-                    className="w-full mb-4 p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                />
-
+                <div className="relative w-60 h-32 pt-4 mb-4 bg-gradient-to-r from-slate-400 to-gray-600 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <input
+                        type="file"
+                        name="images"
+                        multiple
+                        onChange={handleFileChange}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <label
+                        className=" w-16 h-16 mx-auto bg-white text-slate-700 rounded-full flex items-center justify-center shadow-md hover:bg-gray-100 hover:text-slate-900 transition-all duration-300 cursor-pointer"
+                        title="Click to upload"
+                    >
+                        <ImFolderUpload size={28} />
+                    </label>
+                    <h1 className="text-center text-white mt-2 font-semibold">Upload</h1>
+                </div>
                 <div className="mt-4">
                     <h3 className="font-semibold text-blue-700 mb-2">Image Previews</h3>
                     <div className="flex flex-wrap gap-4">
@@ -217,10 +225,10 @@ function Addlisting() {
                     >
                         Send for approval
                     </Button>
-                    <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={()=> navigate("/host-listing")}>back</Button>
+                    <Button className='ml-9 bg-gradient-to-r from-green-400 to-green-600' onClick={() => navigate("/host-listing")}>back</Button>
                 </div>
 
-                
+
             </form>
         </div>
     );

@@ -7,3 +7,4 @@ const wishlistschema=new mongoose.Schema({
 })
 
 module.exports=mongoose.model("Wishlist",wishlistschema)
+

@@ -8,6 +8,7 @@ import { FaHeart } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import DialogWithForm from '../../../components/ui/Logindpopup';
 
+
 function Details() {
     const { user } = useSelector((state) => state.User)
     const { id } = useParams();
@@ -23,7 +24,7 @@ function Details() {
     const [guestCount, setGuestCount] = useState(1);
     const [guestDropdownOpen, setGuestDropdownOpen] = useState(false)
     const [dialogOpen, setDialogOpen] = useState(false);
-
+    const [wishopen,setwishOpen]=useState(false)
 
     const toggleGuestDropdown = () => setGuestDropdownOpen(!guestDropdownOpen)
     const openCalendar = (type) => setCallenderType(type);
@@ -36,6 +37,10 @@ function Details() {
         setDialogOpen(!dialogOpen);
       
     };
+
+    const wishopens= ()=>{
+        setwishOpen(!wishopen)
+    }
 
     useEffect(() => {
         const fetch = async () => {
@@ -132,7 +137,7 @@ function Details() {
         <div className="p-6 lg:mx-48">
             <div className="flex items-center justify-between text-3xl font-extrabold text-gray-800 mb-6">
                 <h1 className="text-gray-500">{item.title}</h1>
-                <button className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
+                <button  className="p-2 rounded-full bg-gray-100 hover:bg-red-300 text-gray-600 hover:text-red-800 transition-colors duration-300 ease-in-out">
                     <FaHeart size={17} />
                 </button>
             </div>
@@ -289,6 +294,7 @@ function Details() {
             </div>
 
             <DialogWithForm open={dialogOpen} onToggle={toggleDialog} />
+            
         </div>
     );
 }

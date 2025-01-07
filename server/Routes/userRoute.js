@@ -35,7 +35,7 @@ Router
     .get("/activeuser",userAuthMiddleware,tryCatch(userController.activeuser))
     
     .get("/gethost/:id",tryCatch(userController.hostdtls))
-    .get("/getlistofhost/:id",userAuthMiddleware,tryCatch(Listingcontroller.getListofhost))
+    .get("/getlistofhost/:id",tryCatch(Listingcontroller.getListofhost))
    
 
 module.exports = Router;

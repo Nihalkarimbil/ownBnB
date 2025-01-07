@@ -4,8 +4,16 @@ const CustomError = require("../Middleware/CustomError")
 const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
 
+const generateAccessToken = (payload) => {
+    return JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+};
+
+const generateRefreshToken = (payload) => {
+    return JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+};
 
 const userRegistration = async (req, res, next) => {
+
     const { value, error } = joiuserschema.validate(req.body)
 
     if (error) {
@@ -16,10 +24,29 @@ const userRegistration = async (req, res, next) => {
     const hashpassword = await bcrypt.hash(password, 5)
     const newUser = new User({ username, email, password: hashpassword })
     await newUser.save()
+    console.log(newUser);
+    
+    const token = JWT.sign(
+        { id: newUser._id, email: newUser.email, name: newUser.username ,role:newUser.role},
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+    );
+    console.log(token);
+    const decoded = JWT.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
+    
 
-    const token = JWT.sign({ email: email, name: username, }, process.env.JWT_SECRET, { expiresIn: "1d" })
-
-    res.status(200).json({ status: 'succes', message: 'Registerd succesfully', data: newUser, token })
+    
+    res.status(200).json({ status: 'succes', message: 'Registerd succesfully',
+        token,
+        data: {
+            id: newUser._id,
+            email: newUser.email,
+            username: newUser.username,
+            role: newUser.role,
+            image: newUser.profileimage,
+        }
+    })
 }
 
 const userLogin = async (req, res, next) => {
@@ -97,7 +124,7 @@ const userProfileupdate = async (req, res, next) => {
 
 const activeuser = async (req, res, next) => {
 
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user.id)
     if (!user) {
         return next(new CustomError("no user found"))
     }

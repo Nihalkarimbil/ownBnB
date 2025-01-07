@@ -12,10 +12,8 @@ const userAuthMiddleware = async (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
     
-
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
 
         if (!decoded) {
             return next(new CustomError("user not found", 404))
@@ -23,7 +21,6 @@ const userAuthMiddleware = async (req, res, next) => {
 
         req.user = decoded;
         
-
         next();
     } catch (error) {
         return next(new CustomError("Invalid or expired token", 401));

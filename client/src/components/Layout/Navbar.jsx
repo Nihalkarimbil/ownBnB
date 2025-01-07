@@ -178,7 +178,7 @@ const Navbar = () => {
 
       <Coroselnav />
       {isOpen && (
-        <div className="w-full fixed bottom-0 z-50 bg-white shadow-lg border-t border-gray-300 md:hidden">
+        <div className="w-full fixed bottom-0 z-50 bg-white shadow-lg border-t  md:hidden">
           <div className="flex justify-around py-4">
             <Link to={"/"} className="flex flex-col items-center">
               <BsHouse size={24} />

@@ -106,8 +106,8 @@ function Hostdtls() {
                 {lists.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {lists.map((property) => (
-                            <Link to={`/details/${property._id}`}>
-                                <div key={property.id} className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-all duration-300 ease-in-out">
+                            <Link to={`/details/${property._id}`} key={property._id}>
+                                <div  className="bg-white rounded-lg shadow-md overflow-hidden transform hover:shadow-sm">
                                     <img
                                         src={(property.images && property.images[0]) || '/default-property.jpg'}
                                         alt={property.title || 'Property'}
@@ -115,8 +115,8 @@ function Hostdtls() {
                                     />
                                     <div className="p-6">
                                         <h3 className="text-lg font-semibold text-gray-900">{property.title || 'Unknown Title'}</h3>
-                                        <p className="text-gray-600 mt-2">{property.location || 'Unknown Location'}</p>
-                                        <p className="text-gray-500 text-sm mt-1">{property.price || 'Price Unavailable'}</p>
+                                        <p className="text-gray-600 mt-2">{property.city || 'Unknown Location'}</p>
+                                        <p className="text-gray-500 text-sm mt-1">₹{property.price || 'Price Unavailable'}</p>
                                     </div>
                                 </div>
                             </Link>
