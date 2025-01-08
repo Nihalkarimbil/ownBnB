@@ -25,7 +25,7 @@ function Allbookings() {
 
     return (
         <div>
-            <div className="mt-10 mx-14  h-[700px]">
+            <div className="mt-10 mx-14  h-full pb-5">
                 <Typography variant="h5" className="font-bold mb- text-center">
                     Booking History
                 </Typography>
@@ -41,7 +41,7 @@ function Allbookings() {
                         </div>
                     ) : (
 
-                        <div className="grid grid-cols-6 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {Booking.map((value, index) => (
                                 <Card
                                     key={index}
@@ -52,7 +52,7 @@ function Allbookings() {
                                         <img
                                             src={value.listing.images[0]}
                                             alt="Property"
-                                            className="rounded-t-2xl h-40 w-ful object-cover"
+                                            className="rounded-t-2xl h-40 w-full object-cover"
                                         />
                                     )}
                                     <CardBody>
@@ -76,7 +76,6 @@ function Allbookings() {
                                     </CardBody>
                                 </Card>
                             ))}
-
                         </div>
 
                     )}
