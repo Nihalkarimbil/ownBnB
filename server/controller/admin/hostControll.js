@@ -1,6 +1,6 @@
 const user = require("../../Models/User");
 const CustomError= require ("../../Middleware/CustomError")
-const Listing = require('../../models/Listing');
+const Listing = require('../../Models/Listing');
 
 
 const getHosts= async(req,res,next)=>{
