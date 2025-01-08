@@ -35,7 +35,7 @@ function New() {
 
     useEffect(() => {
         setfilter(data.filter((value) => value.newitem));
-    }, [data]);
+    }, []);
 
     if (status === "Loading") {
         return <Spinner />;
