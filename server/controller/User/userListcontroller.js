@@ -47,10 +47,19 @@ const getListofhost = async (req, res, next) => {
     res.status(200).json(allListings);
 }
 
+const newitem = async(req,res,next)=>{
+    const newitem= await Listing.find({newitem:true}).populate("host", "username email profileimage")
+    if(!newitem){
+        return next(new CustomError("new items not fount"))
+    }
+
+    res.status(200).json(newitem)
+}
 
 module.exports = {
     viewbycategory,
     viewlistbyid,
     viewall,
-    getListofhost
+    getListofhost,
+    newitem
 }

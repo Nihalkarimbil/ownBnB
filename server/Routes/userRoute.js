@@ -12,6 +12,7 @@ const upload = require("../Middleware/imageupload")
 
 Router
     .get("/allList", tryCatch(Listingcontroller.viewall))
+    .get("/newitem",tryCatch(Listingcontroller.newitem))
     .post("/signup", tryCatch(userController.userRegistration))
     .post("/signin", tryCatch(userController.userLogin))
     .get("/listby/:category", tryCatch(Listingcontroller.viewbycategory))
