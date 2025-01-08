@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosinstance = axios.create({
-  baseURL: "http://localhost:5000", 
+  baseURL: "https://ownbnb.onrender.com", 
 });
 
 axiosinstance.interceptors.request.use(

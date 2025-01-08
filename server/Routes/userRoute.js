@@ -10,7 +10,6 @@ const Bookingcontroll = require("../controller/User/Bookingcontroll");
 const upload = require("../Middleware/imageupload")
 
 
-
 Router
     .get("/allList", tryCatch(Listingcontroller.viewall))
     .post("/signup", tryCatch(userController.userRegistration))

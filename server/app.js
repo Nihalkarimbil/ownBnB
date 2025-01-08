@@ -12,7 +12,7 @@ app.use(Express.json())
 
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    origin: "https://own-bnb.vercel.app", 
     credentials: true, 
     allowedHeaders: ["Content-Type", "Authorization"], 
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
