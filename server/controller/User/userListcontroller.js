@@ -56,10 +56,20 @@ const newitem = async(req,res,next)=>{
     res.status(200).json(newitem)
 }
 
+const trending = async(req,res,next)=>{
+    const trendingitem= await Listing.find({trending:true}).populate("host", "username email profileimage")
+    if(!trendingitem){
+        return next(new CustomError("new items not fount"))
+    }
+
+    res.status(200).json(trendingitem)
+}
+
 module.exports = {
     viewbycategory,
     viewlistbyid,
     viewall,
     getListofhost,
-    newitem
+    newitem,
+    trending
 }

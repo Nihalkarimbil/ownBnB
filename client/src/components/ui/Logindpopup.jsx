@@ -114,7 +114,7 @@ function LoginPopup({ open, onToggle }) {
           </CardBody>
         </form>
         {error && <p className="text-red-500 text-center">{error}</p>}
-        <CardFooter className="pt-1">
+        <CardFooter className="pt-1 w-full">
           <GoogleLogin
             onSuccess={handlegoogle}
             onError={() => {
