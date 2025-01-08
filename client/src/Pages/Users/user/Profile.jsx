@@ -132,45 +132,49 @@ function AirbnbProfile() {
         <Typography variant="h5" className="font-bold mb-4 text-center sm:text-left">
           Booking History
         </Typography>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div >
           {Booking.length === 0 ? (
             <p className="text-gray-500 text-center">No reservations found.</p>
           ) : (
             <>
-              {Booking.map((value, index) => (
-                <Card
-                  key={index}
-                  shadow={false}
-                  className="border border-gray-300 rounded-2xl"
-                >
-                  {value.listing.images.length > 0 && (
-                    <img
-                      src={value.listing.images[0]}
-                      alt="Property"
-                      className="rounded-t-2xl h-40 w-full object-cover"
-                    />
-                  )}
-                  <CardBody>
-                    <Typography variant="h6" className="font-semibold">
-                      {value.listing.title}
-                    </Typography>
-                    <Typography variant="small" className="text-gray-500">
-                      {new Date(value.createdAt).toLocaleDateString()}
-                    </Typography>
-                    <Typography variant="small" className="text-gray-500">
-                      Guests: {value.guestCount}
-                    </Typography>
-                    <Link to={`/user-Booking/${value._id}`}>
-                      <Button
-                        variant="filled"
-                        className="mt-4 bg-rose-500 text-white w-full"
-                      >
-                        View Details
-                      </Button>
-                    </Link>
-                  </CardBody>
-                </Card>
-              ))}
+              <div className="grid grid-cols-6 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Booking.map((value, index) => (
+                  <Card
+                    key={index}
+                    shadow={false}
+                    className="border border-gray-300 rounded-2xl"
+                  >
+                    {value.listing.images.length > 0 && (
+                      <img
+                        src={value.listing.images[0]}
+                        alt="Property"
+                        className="rounded-t-2xl h-40 w-ful object-cover"
+                      />
+                    )}
+                    <CardBody>
+                      <Typography variant="h6" className="font-semibold">
+                        {value.listing.title}
+                      </Typography>
+                      <Typography variant="small" className="text-gray-500">
+                        {new Date(value.createdAt).toLocaleDateString()}
+                      </Typography>
+                      <Typography variant="small" className="text-gray-500">
+                        Guests: {value.guestCount}
+                      </Typography>
+                      <Link to={`/user-Booking/${value._id}`}>
+                        <Button
+                          variant="filled"
+                          className="mt-4 bg-rose-500 text-white w-full"
+                        >
+                          View Details
+                        </Button>
+                      </Link>
+                    </CardBody>
+                  </Card>
+                ))}
+
+              </div>
+
             </>
           )}
 
