@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addtowishlist } from "../../../Store/slices/Wishlistslice";
 import LoginPopup from "../../../components/ui/Logindpopup";
-
+import SkeletonLoader from "../../../Sceltonloader";
 
 function Beach() {
     const [Beach, setBeach] = useState([]);
@@ -48,7 +48,7 @@ function Beach() {
 
     return (
         <div>
-            {loading ? (<Spinner />) : (
+            {loading ? (<SkeletonLoader/>) : (
                 <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py- lg:max-w-max lg:px-20 w-screen">
                     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         {Beach.map((product) => (
