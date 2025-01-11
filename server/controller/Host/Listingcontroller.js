@@ -66,8 +66,6 @@ const editlisting = async (req, res, next) => {
     console.log(req.files);
     
     const { __v, _id, trending, createdat, ...productData } = req.body;
-    
-
    
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
@@ -84,8 +82,6 @@ const editlisting = async (req, res, next) => {
 
 
     const updatedListing = await listing.save();
-    console.log(updatedListing);
-    
   
     res.status(200).json(updatedListing);
 

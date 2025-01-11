@@ -91,7 +91,6 @@ export const userfetch= createAsyncThunk("/getusers",async()=>{
 export const gethosts= createAsyncThunk("/gethosts",async()=>{
     try {
         const res= await axiosinstance.get("/admin/getHosts")
-        console.log(res.data);
         return res.data
         
     } catch (error) {

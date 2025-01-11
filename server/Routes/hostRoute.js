@@ -6,7 +6,6 @@ const upload= require("../Middleware/imageupload")
 const {hostAuth} =require("../Middleware/Authentication")
 const reservation = require("../controller/Host/Reservation")
 
-
 Router
     .get("/allListing", hostAuth, tryCatch(listingcontroller.allListing))
     .post("/addlisting",upload.array("images",5),tryCatch(listingcontroller.addlisting))
