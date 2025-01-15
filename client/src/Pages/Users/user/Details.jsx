@@ -14,8 +14,6 @@ function Details() {
     const { id } = useParams();
     const navigate = useNavigate()
     const [item, setItem] = useState(null);
-
-
     const [checkinDate, setCheckinDate] = useState("DD/MM/YY");
     const [checkoutDate, setCheckoutDate] = useState("DD/MM/YY");
     const [callenderType, setCallenderType] = useState(null);

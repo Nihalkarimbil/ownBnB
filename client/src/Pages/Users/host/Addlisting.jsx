@@ -7,7 +7,7 @@ import { ImFolderUpload } from 'react-icons/im';
 
 function Addlisting() {
     const { user } = useSelector((state) => state.User)
-    console.log(user);
+    
 
     const [imagePreviews, setImagePreviews] = useState([]);
     const [formData, setFormData] = useState({

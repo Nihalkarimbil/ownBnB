@@ -3,6 +3,7 @@ import axiosinstance from '../../../axiosinstance';
 import { Button } from "@material-tailwind/react";
 import Spinner from '../../../Spinner';
 import { Link } from 'react-router-dom';
+import SkeletonLoader from '../../../Sceltonloader';
 
 function Hostlisting() {
   const [List, setList] = useState([]);
@@ -55,7 +56,7 @@ function Hostlisting() {
 
 
   if (loading) {
-    return <Spinner />
+    return <SkeletonLoader/>
   }
 
   return (
