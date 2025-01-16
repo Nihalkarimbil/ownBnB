@@ -13,10 +13,13 @@ import SkeletonLoader from "../../../Sceltonloader";
 
 function Boating() {
     const { user } = useSelector((state) => state.User)
+    console.log(user);
+    
     const [dialogOpen, setDialogOpen] = useState(false);
     const [Boating, setBoating] = useState([]);
     const [loading, setLoading] = useState(true)
-
+    console.log(Boating);
+    
     const dispatch = useDispatch()
 
 
