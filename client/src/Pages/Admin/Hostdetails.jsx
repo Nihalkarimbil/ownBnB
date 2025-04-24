@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import {useNavigate, useParams } from 'react-router-dom'
 import axiosinstance from '../../axiosinstance'
 import {
@@ -9,13 +9,13 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { Carousel } from "@material-tailwind/react";
-import { FaEnvelope, FaUserShield, FaIdBadge, FaUser } from "react-icons/fa";
+import { FaEnvelope,  FaIdBadge, FaUser } from "react-icons/fa";
 
 function Hostdetails() {
     const { id } = useParams()
     const [host, setHost] = useState({})
     const [list, setList] = useState([])
-    console.log(list);
+  
     const navigate = useNavigate()
 
     useEffect(() => {

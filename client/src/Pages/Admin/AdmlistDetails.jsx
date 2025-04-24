@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link, useParams,useNavigate } from 'react-router-dom';
 import axiosinstance from '../../axiosinstance';
-import { FaHeart, FaStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 
 function AdmlistDetails() {
   const { id } = useParams();
@@ -38,6 +38,7 @@ function AdmlistDetails() {
   const handleapprove = async () => {
     try {
       const res= axiosinstance.put(`/admin/aprovelist/${id}`);
+      console.log(res)
       alert('approved')
       navigate('/Admin-pendinglist')
     } catch (error) {
