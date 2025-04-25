@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import BGimg from "../../../assets/Bg.png";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut, updateUser } from "../../../Store/slices/Userslice";
@@ -79,6 +79,7 @@ function AirbnbProfile() {
             className="w-full h-[260px] object-cover rounded-t-2xl"
           />
         </CardHeader>
+        <Link to={"/host-home"} className="flex justify-end mx-4 font-bold lg:hidden">swich to hosting</Link>
         <div className="absolute -bottom-12 left-4 sm:left-8 z-50 mb-64 md:mb-36">
           <Avatar
             src={img}
@@ -95,7 +96,7 @@ function AirbnbProfile() {
             />
             <span className="cursor-pointer text-blue-500 flex items-center gap-1">
               <FiEdit className="text-lg" />
-              Change Profile Image
+              Change Image
             </span>
           </label>
         </div>
@@ -113,9 +114,11 @@ function AirbnbProfile() {
               </Typography>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
+              
               <Button variant="outlined" className="border-gray-300 w-full sm:w-auto">
                 Edit Profile
               </Button>
+              
               <Button
                 onClick={handleLogout}
                 variant="filled"
