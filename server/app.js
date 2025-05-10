@@ -12,13 +12,14 @@ app.use(Express.json())
 
 app.use(
   cors({
-    origin: "https://own-bnb.vercel.app",
+    //origin: "https://own-bnb.vercel.app",
     origin: "http://localhost:5173", 
     credentials: true, 
     allowedHeaders: ["Content-Type", "Authorization"], 
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
+
 
 
 app.use("/user",userRoute)

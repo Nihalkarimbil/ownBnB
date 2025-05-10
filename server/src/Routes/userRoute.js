@@ -23,6 +23,8 @@ Router
     .delete("/removewish",userAuthMiddleware,tryCatch(wishlistcontroll.removewish))
     .get("/userwish", userAuthMiddleware, tryCatch(wishlistcontroll.wishitems))
 
+    
+
     .post("/addreview",userAuthMiddleware,tryCatch(userReview.addreview))
     .get("/getreviewby/:id",tryCatch(userReview.getreviewbyid))
 
